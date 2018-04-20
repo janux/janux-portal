@@ -1,0 +1,35 @@
+@import "semantic-grid/stylesheets/less/grid.less"; // from bower
+
+@break1: 380px;
+@break2: 768px;
+@break3: 992px;
+@break4: 1200px;
+
+.xs-device(@rules) {
+  @media screen and (max-width: @break1) { @rules(); }
+}
+
+.small-and-down(@rules) {
+  @media screen and (max-width: 767px) { @rules(); }
+}
+
+.small-device(@rules) {
+  @media screen and (min-width: 381px) and (max-width: 767px) { @rules(); }
+}
+
+.smallest-device(@rules) {
+  @media screen and (min-width: 150px) and (max-width: 380px) { @rules(); }
+}
+
+.medium-device(@rules) {
+  @media screen and (min-width: 768px) and (max-width: 991px) { @rules(); }
+}
+
+.large-device(@rules) {
+  @media screen and (min-width: 992px) and (max-width: 1199px) { @rules(); }
+}
+
+.xl-device(@rules) {
+  @media screen and (min-width: @break4) { @rules(); }
+}
+

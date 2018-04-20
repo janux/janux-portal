@@ -1,0 +1,214 @@
+//
+// Navigation components
+//
+
+// nav {
+
+//   ul {
+// 	float: left;
+// 	display: block;
+// 	width: 100%;
+// 	background-color: @grey1;
+// 	text-align: center;
+// 	list-style: none;
+// 	.rem(padding-top, 3);
+// 	.rem(padding-bottom, 3);
+// 	margin: 0;
+// 	-webkit-margin-before: 0;
+// 	-webkit-margin-after: 0;
+// 	-webkit-padding-start: 0;
+//   }
+
+//   li {
+// 	display: inline-block;
+// 	margin: 0;
+// 	margin-left: 5%;
+//   }
+
+//   .first {
+// 	margin-left: 0;
+//   }
+
+// }
+
+// Button to display the navigation bar aside
+
+.md-button.md-icon-button.navbar-toggle-btn{
+
+
+  display: none;
+
+
+  .xs-device({.show});
+  .small-device({.show});
+}
+
+// Aside Menu style (dropdown)
+.modal-open {
+  -webkit-transition:all .2s, -webkit-transform .2s;
+  transition:all .2s ease-out, -webkit-transform .2s;
+}
+
+.ng-aside .modal-content {
+  min-width: 320px;
+  margin:0;
+  background-color: @dropdown-bg;
+
+  .dropdown{
+	position: relative;
+	color: @dropdown-color;
+	left: 15%;
+	font-size: 1.8rem;
+	font-weight: bold;
+	margin: 10% 0;
+	display: block;
+  	cursor: pointer;
+
+	.dropdown-text{
+	  margin-left: 5%;
+	}
+  }
+}
+
+// Status Toolbar
+.status-toolbar {
+	display: -webkit-flex;
+	display: flex;
+	color: @status-toolbar-color;
+	width: 100%;
+	.rem(height, @toolbar-height);
+	background: @status-toolbar-bg;
+	border-bottom: 1px solid @status-toolbar-border;
+
+	.links-column {
+		width: 37%;
+		padding: 20px 20px;
+		font-weight: bold;
+		a {
+			color: @status-toolbar-color;
+			text-decoration: none;
+			font-weight: normal;
+			padding: 0 10px;
+		}
+		a.active {
+			font-weight: bold;
+		}
+		.option-break {
+			font-size:25px; line-height:0;
+		}
+
+		.small-device({
+			.rem(font-size, 14);
+		});
+		.xs-device({
+			.rem(font-size, 12);
+		});
+	}
+
+	.search-column {
+		width: 63%;
+		text-align: right;
+		padding-right: 20px;
+		display:none;
+		.rem(font-size, 12);
+		label {
+			font-weight: normal;
+			padding: 5px;
+		}
+		.form-group {
+			padding-bottom:10px;
+		}
+		.checkbox, .search, .form-group  {
+			padding-left: 8px;
+		}
+		.medium-device({ .show });
+		.large-device({ .show});
+	}
+}
+
+// Sidebar Menu
+
+.sidebar{
+
+  .enable-sidebar{
+  	border-right: 1px solid @sidebar-border;
+	background-color: @sidebar-bg;
+	width: @sidebar-width;
+	height: 100%;
+	transition: all 0.5s ease;
+	margin:0;
+  	.dropdown-text{
+	  display:none;
+	}
+  	.hide-on-sidebar{
+		display:none;
+	}
+  }
+
+  //.small-device({ .enable-sidebar });
+  .medium-device({ .enable-sidebar });
+  .large-device({ .enable-sidebar });
+  .xl-device({ .enable-sidebar });
+}
+
+.mb-sidebar-nav {
+  display: none;
+
+  .enable-sidebar-nav{
+	display: inherit;
+	position: relative;
+	//top: 50%;
+	//transform: translateY(-50%);
+	text-align: center;
+	.glyphicon{
+	  font-size: 2.2rem;
+	  color:@sidebar-color;
+	}
+	.active{
+	  .glyphicon{
+		color: @sidebar-active-color;
+	  }
+		background: @green1;
+	}
+	.sidebar-box{
+	  	padding: 25px 0;
+		img { cursor: pointer; }
+	}
+  }
+
+  //.small-device({ .enable-sidebar-nav });
+  .medium-device({ .enable-sidebar-nav });
+  .large-device({ .enable-sidebar-nav });
+  .xl-device({ .enable-sidebar-nav });
+}
+
+.mb-sidebar-nav i {
+  display: block;
+  cursor: pointer;
+}
+
+
+// Standard bar attached to the bottom
+.bottom-bar {
+	color: @grey1;
+	background: @white;
+	width: ~"calc(100% - 235px)";
+	float: right;
+	margin-top: 20px;
+	//margin-left: 65px;
+	margin-bottom: 30px;
+	position: fixed;
+	bottom: 0;
+	left: 235px;
+	padding: 10px;
+	text-align: right;
+
+	//.medium-device({ width: ~"calc(100% - 80px)"; left: 80px });
+	.small-device ({ width: 100%; left: 0 });
+	.smallest-device({ width: 100%; left: 0 });
+
+	.small-and-down({
+		margin-left: 0;
+		width: 100%;
+	});
+}

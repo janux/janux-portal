@@ -1,0 +1,108 @@
+.login-form {
+	background: @login-bg url('/img/janux_logo_outline.png') no-repeat;
+	background-position: center left;
+	position:fixed; 
+	width:100%;
+	.small-and-down({
+		background: @login-bg;
+	});
+
+	height: 100%;
+}
+
+.login-body {
+	.rem(font-size, 12);
+	border: 1px solid @white;
+	color: @login-color;
+	width: 250px;
+	padding: 0px 25px;
+	// Vertical center
+	position: relative;
+	top: 50%;
+	transform: perspective(1px) translateY(-50%);
+	// Horizontal
+	margin-left: 60%;
+
+	.mobile{
+		margin-left: 10%;
+		width: 80%;
+	}
+
+	.small-device({ .mobile });
+	.xs-device({ .mobile });
+
+	p, li {
+		line-height: 125%;
+		.rem(margin-bottom, 3);
+	}
+
+	.brand {
+		text-align: center;
+		line-height: 30px;
+		font-weight: bold;
+		font-family: 'Base9-SmallCaps';
+		.rem(font-size, 30);
+		.janux {
+			.rem(letter-spacing, 5);
+		}
+		.people {
+			.rem(letter-spacing, 2);
+		}
+	}
+
+	.line {
+		.rem(width, 100);
+		margin: 5px auto 15px;
+		border-top: 2px solid @green3;
+	}
+
+	input {
+		color: @black;
+		background: @white;
+		height: 20px;
+		border:none;
+	}
+	label{
+		line-height: 30px;
+	}
+	.info-text{
+		text-align: center;
+		ul{
+			text-align: left;
+		}
+	}
+
+	.logo {
+		display: block;
+		margin: 20px auto;
+		margin: 2rem auto;
+	}
+
+	.login-lbl {
+		float: left;
+		width: 100%;
+		margin: 0px 0;
+	}
+
+	.login-field {
+		float: right;
+		width: 65%;
+		margin: 5px 0;
+	}
+
+	.forgot-pass {
+		display: inline-block;
+		color:  @login-color;
+		.rem(font-size, 11);
+	}
+
+	.btn-login-cnt {
+		text-align: center;
+		padding: 15px;
+	}
+
+	.copy {
+		margin: 10px 0;
+		.rem(font-size, 9);
+	}
+}

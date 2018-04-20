@@ -1,0 +1,21 @@
+//
+// Buttons
+//
+
+.btn-login {
+	.button-variant(@btn-login-color; @btn-login-bg; @btn-login-border);
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius:10px;
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+.btn-ok {
+	.button-variant(@btn-ok-color; @btn-ok-bg; @btn-ok-border);
+}
+
+.btn-cancel {
+	.button-variant(@btn-cancel-color; @btn-cancel-bg; @btn-cancel-border);
+}

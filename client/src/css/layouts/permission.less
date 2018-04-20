@@ -1,0 +1,213 @@
+.auth-context-group {
+	.group-element {
+		table {
+			width: 100%;
+
+			td.name {
+				width: 30%;
+			}
+
+			td.options {
+				width: 70%;
+			}
+		}
+	}
+}
+
+.auth-context {
+	.element {
+		table {
+			width: 100%;
+
+			td.name {
+				width: 20%;
+			}
+
+			td.bits {
+				width: 70%;
+			}
+
+			td.options {
+				width: 10%;
+			}
+		}
+	}
+
+	.entypo {
+		color:@dnd-icon;
+	}
+}
+
+.context-form {
+	width: 50%;
+	.small-device({ width: 70%; });
+	.xs-device({ width: 100%;});
+}
+
+// List of authorization contexts
+
+.context-list {
+	.small-device({ .context-resp-table });
+	.xs-device({ .context-resp-table });
+}
+
+.context-list-labels {
+	td:nth-of-type(1):before { content: "Name"; }
+	td:nth-of-type(2):before { content: "Bits"; }
+	td:nth-of-type(3):before { content: "Options"; }
+}
+
+.context-resp-table {
+	.responsive-table;
+	.context-list-labels;
+
+	td {
+		width: auto !important;
+	}
+}
+
+// List of roles
+.role {
+	.element {
+		table {
+			width: 100%;
+
+			td.name {
+				width: 70%;
+			}
+
+			td.options {
+				width: 10%;
+			}
+
+			td.allmighty, td.enabled {
+				width: 10%;
+				text-align: right;
+			}
+
+		}
+	}
+}
+.role-list-header {
+	.small-and-down({
+		.hide;
+	});
+
+	display: -webkit-flex;
+	display: flex;
+	background: @grey5;
+	margin: 1px 15px;
+	font-weight: bold;
+	padding: 5px;
+	text-align: left;
+
+	.name {  width: 30%; padding-left: 45px;  }
+	.role-aggregated {  width: 40%;  }
+	.allmighty { width: 15%; }
+	.enabled { width:15%; }
+}
+
+.roles-list {
+	width: 100%;
+	.small-and-down({ .roles-resp-table });
+
+	span.role-title {
+		font-weight: bold;
+	}
+
+	td.options {
+		text-align: right;
+		img {
+			padding-left: 5px;
+		}
+	}
+
+	.glyphicon-check {
+		color: @green4;
+	}
+}
+
+.roles-list-labels {
+	td:nth-of-type(1):before { content: "Name/Desc"; }
+	td:nth-of-type(2):before { content: "Is Allmighty"; }
+	td:nth-of-type(3):before { content: "Enabled"; }
+	td:nth-of-type(4):before { content: "Options"; }
+}
+
+.roles-resp-table {
+	.responsive-table;
+	.roles-list-labels;
+
+	td {
+		width: auto !important;
+	}
+}
+
+.role-page {
+	.role-data {
+		width: 60%;
+		.small-and-down({
+			width: 100%;
+		});
+
+		.role-option{
+			padding: 5px;
+			display: -webkit-flex;
+			display: flex;
+			font-weight: bold;
+
+			.text {
+				width: 30%;
+			}
+
+			.control {
+				width: 70%;
+			}
+		}
+	}
+
+	.role-permissions {
+		.group-element {
+			font-weight: bold;
+			background: @dnd-group-bg;
+			border: 1px solid @dnd-border-color;
+			padding: 5px 10px 5px 10px;
+			color: @dnd-color;
+		}
+		.context-check-list {
+			border-collapse:separate;
+			border-spacing: 0 10px;
+			width: 100%;
+			margin-left: 10px;
+
+			.bit {
+				float:left;
+				.bit-check {
+					margin: 5px 10px 5px 5px;
+				}
+			}
+			.name {
+				font-weight: bold;
+			}
+
+			tr {
+				background: @dnd-bg 10px center;
+				border: 1px solid @dnd-border-color;
+				color: @dnd-color;
+			}
+			td {
+				padding: 5px 10px;
+				border-top: 1px solid @dnd-border-color;
+				border-bottom: 1px solid @dnd-border-color;
+			}
+
+			td:first-child {
+				border-left: 1px solid @dnd-border-color;
+			}
+
+			td:last-child {
+				border-right: 1px solid @dnd-border-color;
+			}
+		}
+	}
+}
