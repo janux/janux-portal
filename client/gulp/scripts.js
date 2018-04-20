@@ -5,7 +5,6 @@
 
 var	path     = require('path'),
 	buffer     = require('vinyl-buffer'),
-	browserify = require('browserify'),
 	source     = require('vinyl-source-stream'),
 	webpack 	= require('webpack'),
 	webpackStream = require('webpack-stream'),

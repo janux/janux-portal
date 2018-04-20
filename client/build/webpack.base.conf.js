@@ -42,6 +42,11 @@ module.exports = {
     rules: [
       ...(config.dev.useEslint ? [createLintingRule()] : []),
       {
+        test: /\.html$/,
+        loader: 'vue-template-loader',
+        exclude: /index.html/
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig

@@ -1,8 +1,8 @@
-Janux Auth Seed
---------------
+Janux Vue.js Seed
+-----------------
 
 To run for development:
-	$ bower install
+  $ bower install
   $ npm install
   $ gulp watch    // runs a connect server + watch
 ```

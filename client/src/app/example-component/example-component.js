@@ -6,7 +6,7 @@ import withRender from './template.html';
 export default withRender({
 	data () {
 		return {
-			text: 'I\'m an alligator'
+			text: 'Janux Vue.js proof-of-concept'
 		};
 	},
 	methods: {

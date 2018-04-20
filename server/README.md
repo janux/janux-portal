@@ -1,4 +1,4 @@
-# Janux Authorization Angular Seed - server-side
+# Janux Vue.js Seed - server-side
 
 * Install by running:
 
