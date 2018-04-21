@@ -1,7 +1,7 @@
 /* eslint-disable */
 'use strict';
 
-import withRender from './template.html';
+import withRender from './example-component.html';
 
 export default withRender({
 	data () {
