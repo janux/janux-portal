@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>Common content</p>
     <router-view/>
   </div>
 </template>

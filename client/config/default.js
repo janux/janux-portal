@@ -145,19 +145,11 @@ cfg.fileset.lessSrc = path.join(cfg.dir.src, cfg.dir.css,'**','*.less');
 cfg.fileset.cssLibs = [
 	// path.join(cfg.dir.bower,'normalize.css', 'normalize.css'),
 	// path.join(cfg.dir.bower,'bootstrap','dist','css','bootstrap.css'),
-	path.join(cfg.dir.bower,'angular-aside','dist','css','angular-aside.min.css'),
-	path.join(cfg.dir.bower,'ag-grid','dist','styles','ag-grid.css'),
-	path.join(cfg.dir.bower,'ag-grid','dist','styles','theme-fresh.css'),
-	path.join(cfg.dir.bower,'ag-grid','dist','styles','ag-theme-material.css'),
-	path.join(cfg.dir.bower,'angular-material','angular-material.min.css'),
-	path.join(cfg.dir.bower,'ng-material-datetimepicker','css','material-datetimepicker.css')
 ];
 
 // any javascript libs that need to be copied to dist/js
 cfg.fileset.jsLibs = [
-	path.join(cfg.dir.bower, 'jquery', 'dist', 'jquery.js'),
-	path.join(cfg.dir.bower, 'angular', 'angular.js'),
-	path.join(cfg.dir.bower, 'angular-ui-router', 'release', 'angular-ui-router.js')
+	path.join(cfg.dir.bower, 'jquery', 'dist', 'jquery.js')
 ];
 
 // The test specs; override this locally to run a single test suite
