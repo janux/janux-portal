@@ -1,7 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import Router from 'vue-router';
-import ExampleComponent from '../example-component/example-component';
+import ExampleComponent from 'app/example-component/example-component';
 
 Vue.use(Router);
 
