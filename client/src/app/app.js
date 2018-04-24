@@ -7,6 +7,9 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import { ExampleDirective } from './common/directives';
+import VueMaterial from 'vue-material';
+
+Vue.use(VueMaterial)
 
 Vue.config.productionTip = false;
 
@@ -16,5 +19,5 @@ new Vue({
 	router,
 	components: { App },
 	template: '<App/>',
-	directives: {ExampleDirective}	// optional?
+	directives: { ExampleDirective }	// optional?
 });

@@ -41,7 +41,7 @@ module.exports = function(gulp) {
 		// TODO: add two entries for 'app' and 'common' folders rather than going
 		// through all the folders under 'src'
 		gulp.watch([ 
-			path.join(cfg.dir.src, '**','*.js')
+			path.join(cfg.dir.src, '**','*.js'),path.join(cfg.dir.src, '**','*.vue')
 		], ['lint','webpack']);
 
 		// Watch assets

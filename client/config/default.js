@@ -7,6 +7,7 @@ var cfg = {
 	dir: {
 		src:     'src',
 		bower:   'bower',
+		npm:   	 'node_modules',
 		css:     'css',
 		dist:    'dist',
 		img:     'img',
@@ -145,6 +146,7 @@ cfg.fileset.lessSrc = path.join(cfg.dir.src, cfg.dir.css,'**','*.less');
 cfg.fileset.cssLibs = [
 	// path.join(cfg.dir.bower,'normalize.css', 'normalize.css'),
 	// path.join(cfg.dir.bower,'bootstrap','dist','css','bootstrap.css'),
+	path.join(cfg.dir.npm,'vue-material','dist','vue-material.css')
 ];
 
 // any javascript libs that need to be copied to dist/js
