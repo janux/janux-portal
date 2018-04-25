@@ -12,6 +12,6 @@
 
 <script>
 export default {
-	name: 'footer'
-};
+	name: 'jnx-footer'
+}
 </script>

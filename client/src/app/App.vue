@@ -8,27 +8,39 @@
 	div#app
 		v-login-toolbar(:title="title")
 		v-nav-bar
-		router-view
+		.page-content-wrapper(v-bind:class="{ 'page-content-left' : navBarExpanded }")
+			router-view
 		v-jnx-footer
 
 </template>
 
 <script>
-	import loginToolbar from 'Common/login-toolbar'
-	import footer from 'Common/footer'
-	import navBar from 'Common/nav-bar'
+import jnxLoginToolbar from 'Common/login-toolbar'
+import jnxFooter from 'Common/footer'
+import jnxNavBar from 'Common/nav-bar'
 
-	export default {
-		name: 'App',
-		components: {
-			'v-login-toolbar': loginToolbar,
-			'v-jnx-footer': footer,
-			'v-nav-bar': navBar
-		},
-		data() {
-			return {
-				title: 'People & Organizations'
-			};
+export default {
+	name: 'App',
+	components: {
+		'v-login-toolbar': jnxLoginToolbar,
+		'v-jnx-footer': jnxFooter,
+		'v-nav-bar': jnxNavBar
+	},
+	data () {
+		return {
+			title: 'People & Organizations',
+			navBarExpanded: true
 		}
+	},
+	methods: {
+		toogleNavBar: function () {
+			console.log('event fired!!')
+		}
+	},
+	mounted () {
+		this.$root.$on('toogleNavBar', data => {
+			this.navBarExpanded = data
+		})
 	}
+}
 </script>

@@ -8,6 +8,6 @@
 		"semantic-grid":     "*",
         "js-md5": 			 "md5#^0.4.1",
 		"moment": 			 "2.19.1",
-		"font-awesome":		 "4.7.0",
+		"font-awesome":		 "4.7.0"
 	}
 }

@@ -6,7 +6,7 @@
 <template lang="pug">
 	.sidebar
 		.sidebar-nav
-			.sidebar-wrapper.noneStyle(ng-mouseleave="subMenu = false; subMenuData = false")
+			.sidebar-wrapper(@mouseleave="subMenu = false; subMenuData = false" v-bind:class="{ noneStyle: noneStyle }")
 				ul.sidebar-nav
 					li
 						a(href="#" v-on:click="toggleStyle")
@@ -25,10 +25,10 @@
 									.accordion-inner(v-if="subMenu && !noneStyle")
 										ul
 											li
-												a(ui-sref-active="active" ui-sref='users')
+												a(href="#")
 													| Users
 											li
-												a(ui-sref-active="active" ui-sref='staff')
+												a(href="#")
 													| Staff
 											li
 												a(href="#")
@@ -37,10 +37,10 @@
 									.accordion-inner
 										ul
 											li
-												a.submenu-left(ui-sref-active="active" ui-sref='users')
+												a.submenu-left(href="#")
 													| Users
 											li
-												a.submenu-left(ui-sref-active="active" ui-sref='staff')
+												a.submenu-left(href="#")
 													| Staff
 											li
 												a.submenu-left(href="#")
@@ -50,23 +50,28 @@
 <script>
 export default {
 	name: 'nav-bar',
-	data() {
+	data () {
 		return {
 			bodyCon: false,
 			noneStyle: true,
-		};
+			subMenu: false,
+			subMenuData: false,
+			peopleOrgsFlag: false
+		}
 	},
 
 	methods: {
-		peopleOrgsToggleSubmenu: function(event){
-			this.peopleOrgsFlag = !this.peopleOrgsFlag;
+		peopleOrgsToggleSubmenu: function () {
+			this.peopleOrgsFlag = !this.peopleOrgsFlag
 		},
-		toggleStyle: function (event) {
-			//If they are true, they will become false
-			//and false will become true
-			this.bodyCon = !this.bodyCon;
-			this.noneStyle = !this.noneStyle;
+		toggleStyle: function () {
+			// If they are true, they will become false
+			// and false will become true
+			this.bodyCon = !this.bodyCon
+			this.noneStyle = !this.noneStyle
+
+			this.$root.$emit('toogleNavBar', this.noneStyle)
 		}
 	}
-};
+}
 </script>

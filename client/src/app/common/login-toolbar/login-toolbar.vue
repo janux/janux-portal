@@ -5,32 +5,34 @@
 
 <template lang="pug">
 	md-toolbar.sd-page-header(md-elevation='1')
-		.md-toolbar-row
-			.sd-page-logo.sd-page-logo-collapsed
-				a(href='../')
-					img.sd-logo-default(src='/img/janux_logo.png', alt='Janux')
+		//.md-toolbar-row
+		.sd-page-logo.sd-page-logo-collapsed
+			a(href='../')
+				img.sd-logo-default(src='/img/janux_logo.png', alt='Janux')
 
-			.sd-page-breadcrum
-				| {{ title }}
+		.sd-page-breadcrum
+			| {{ title }}
 
-			.sd-top-menu
-				md-button
-					span.sd-name Ronda Peterson
-				md-button.md-icon-button(aria-label='Logout', ng-sshow='isAuthenticated()', ng-click='logout()')
-					md-icon.fa.fa-sign-out.fa-lg
-			md-button.md-icon-button.navbar-toggle-btn(aria-label='Menu', ng-click='openMenu()')
-				md-icon.fa.fa-bars.fa-lg
+		.sd-top-menu
+			md-button
+				span.sd-name Ronda Peterson
+			md-button.md-icon-button(aria-label='Logout')
+				md-icon
+					span.fa.fa-sign-out.fa-sm
+		md-button.md-icon-button.navbar-toggle-btn(aria-label='Menu', ng-click='openMenu()')
+			md-icon
+				span.fa.fa-bars.fa-lg
 
 </template>
 
 <script>
 export default {
 	name: 'login-toolbar',
-//	data () {
-//		return {
-//			subTitle: 'Subtitles ***'
-//		};
-//	},
+	//	data () {
+	//		return {
+	//			subTitle: 'Subtitles ***'
+	//		};
+	//	},
 	props: ['title']
-};
+}
 </script>
