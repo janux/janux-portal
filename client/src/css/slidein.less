@@ -1,0 +1,51 @@
+.slidein {
+	position: absolute;
+	top:0;
+	left:0;
+	width: 240px;
+	height: 100vh;
+	padding: 0;
+	background-color: @grey6;
+	transform: translateX(-100%);
+	transition: transform 0.3s ease-in;
+	z-index: 5000;
+
+	&.isOpen {
+		transform: translateX(0);
+	}
+}
+
+.slidein-menu {
+	font-weight: 600;
+	color: @black;
+	padding:0;
+}
+
+.slidein-menu-item,
+.slidein-menu-item--small {
+	cursor: pointer;
+
+	&:hover {
+		text-decoration: underline;
+	}
+
+	& + & {
+		margin-top: 20px;
+	}
+}
+
+.slidein-menu-item {
+	font-size: 36px;
+
+	& + .slidein-menu-item--small {
+		margin-top: 30px;
+	}
+}
+
+.slidein-menu-item--small {
+	font-size: 18px;
+	font-weight: normal;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: #ecf0f1;
+}

@@ -19,13 +19,15 @@
 			md-button.md-icon-button(aria-label='Logout')
 				md-icon
 					span.fa.fa-sign-out.fa-sm
-		md-button.md-icon-button.navbar-toggle-btn(aria-label='Menu', ng-click='openMenu()')
+		md-button.md-icon-button.navbar-toggle-btn(aria-label='Menu', v-on:click='openMenu')
 			md-icon
 				span.fa.fa-bars.fa-lg
 
 </template>
 
 <script>
+import { EventBus } from 'Common/event-bus'
+
 export default {
 	name: 'login-toolbar',
 	//	data () {
@@ -33,6 +35,12 @@ export default {
 	//			subTitle: 'Subtitles ***'
 	//		};
 	//	},
-	props: ['title']
+	props: ['title'],
+	methods: {
+		openMenu: function () {
+			EventBus.$emit('toogleSlidein', 'any')
+			console.log('Toogle mobile menu')
+		}
+	}
 }
 </script>

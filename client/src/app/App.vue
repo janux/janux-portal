@@ -6,26 +6,21 @@
 <template lang="pug">
 
 	div#app
-		v-login-toolbar(:title="title")
-		v-nav-bar
+		v-jnx-toolbar(:title="title")
+		v-jnx-nav-bar
 		.page-content-wrapper(v-bind:class="{ 'page-content-left' : navBarExpanded }")
 			router-view
 		v-jnx-footer
+		v-jnx-slide-in
 
 </template>
 
 <script>
-import jnxLoginToolbar from 'Common/login-toolbar'
-import jnxFooter from 'Common/footer'
-import jnxNavBar from 'Common/nav-bar'
+import components from 'Common/components'
 
 export default {
 	name: 'App',
-	components: {
-		'v-login-toolbar': jnxLoginToolbar,
-		'v-jnx-footer': jnxFooter,
-		'v-nav-bar': jnxNavBar
-	},
+	components: {},
 	data () {
 		return {
 			title: 'People & Organizations',
@@ -33,9 +28,9 @@ export default {
 		}
 	},
 	methods: {
-		toogleNavBar: function () {
-			console.log('event fired!!')
-		}
+	//		toogleNavBar: function () {
+	//			console.log('event fired!!')
+	//		}
 	},
 	mounted () {
 		this.$root.$on('toogleNavBar', data => {
