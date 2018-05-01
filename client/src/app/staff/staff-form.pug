@@ -1,0 +1,89 @@
+.container-flex-form
+	.staff-form-left
+		.section-form
+			p.form-section
+				| {{ section | translate}}
+			fieldset.fieldset-flex
+				.fieldset-flex
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.person.name' | translate}}
+							input(ng-model='data.name.first')
+
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.person.middleName' | translate}}
+							input(ng-model='data.name.middle')
+
+			fieldset.fieldset-flex
+				.fieldset-flex
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.person.lastName' | translate}}
+							input(ng-model='data.name.last')
+
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.person.maternalName' | translate}}
+							input(ng-model='data.name.maternal')
+		.section-form
+			p.form-section
+				| {{ section | translate}}
+			md-divider.divider-line-glarus(ng-show="lastAddress==0")
+
+			fieldset(data-ng-repeat="address in data.contactMethods.addresses track by $index")
+				.fieldset-flex
+					.an-material.nopadding.half
+						md-input-container.full
+							//label {{ 'party.type' | translate}}
+							//input(ng-model="address.type" id="address1")
+							label {{ 'party.type' | translate}}
+							md-select(aria-label='type' ng-model='address.type')
+								md-option(ng-value='aType', ng-repeat='aType in addressTypes') {{ 'party.contactType.'+aType | translate }}
+
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.country' | translate}}
+							input(ng-model="address.country")
+					div
+						md-checkbox.md-primary(aria-label="Fiscal" ng-model="address.fiscal")
+							| {{ 'party.fiscal' | translate}}
+					div
+						button.btn-trash(ng-click="removeAddress($index)")
+							i.fa.fa-trash
+
+				.container-flex-form
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.street1' | translate}}
+							input(ng-model='address.line1')
+				.container-flex-form
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.street2' | translate}}
+							input(ng-model='address.line2')
+
+				.fieldset-flex
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.city' | translate}}
+							input(ng-model="address.cityText")
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.state' | translate}}
+							input(ng-model="address.stateText")
+					.an-material.nopadding
+						md-input-container.full
+							label {{ 'party.zip' | translate}}
+							input(ng-model='address.postalCode')
+
+			.btn-row-form
+				md-divider.divider-line-glarus
+				button.btn-plus(ng-click="addNewAddress()")
+					i.fa.fa-plus-square
+	//	person-name(data="staff" section="user.contact")
+	//	addresses(data="staff" section="staff.addressesTitle")
+	//.staff-form-right
+	//	person-job(data="staff", section="staff.jobTitle")
+	//	phones(data="staff", section="staff.phonesTitle")
+	//	emails(data="staff", section="staff.mailsTitle")

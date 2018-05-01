@@ -22,6 +22,7 @@ html {
 	height: 100%;
 	position: fixed;
 	left: 0;
+	top:70px;
 	width: @sidebar-width;
 	z-index: 200;
 	overflow-y: hidden;
@@ -52,7 +53,7 @@ html {
 			border-bottom: @sidebar-border;
 			padding: 16px 0 21px;
 			text-decoration: none;
-			color: @white;
+			color: @white !important;
 			font-size: 0px;
 			line-height: 23px;
 			transition: all 0.2s ease 0s;
@@ -163,6 +164,7 @@ html {
 .page-content-wrapper {
     width: 100%;
     position: absolute;
+	top:70px;
     padding: 0px 0px 15px @sidebar-width;
     .small-device({ padding: 0px;});
 	.smallest-device({ padding: 0px; });
@@ -226,15 +228,6 @@ input[type='text'], input[type='password'] {
     	border: 1px solid #cccccc;
     	text-align: left;
     }
-}
-
-.action-button{
-	padding-left: 5px;
-	color: @green1;
-	&:hover{
-		color: @green2;
-		cursor: pointer;
-	}
 }
 
 .container-fluid-flex{

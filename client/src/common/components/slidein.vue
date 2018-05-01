@@ -16,15 +16,15 @@
 								.btn-text &nbsp;&nbsp;People & Organizations
 							ul
 								li
-									a.active(href="#" v-on:click='ok')
+									a(href="#" v-on:click='ok')
 										span.fa.fa-angle-right
 										| &nbsp;&nbsp; Users
-								li
-									a.active(href="#" v-on:click='ok')
+								li(v-on:click='ok')
+									router-link(:to="{name:'staffList'}" active-class="active")
 										span.fa.fa-angle-right
 										| &nbsp;&nbsp; Staff
 								li
-									a
+									a(href="#" v-on:click='ok')
 										span.fa.fa-angle-right
 										| &nbsp;&nbsp; Clients
 

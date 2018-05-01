@@ -19,3 +19,23 @@
 .btn-cancel {
 	.button-variant(@btn-cancel-color; @btn-cancel-bg; @btn-cancel-border);
 }
+
+.action-button a{
+	padding-left: 5px;
+	color: @sage !important;
+	&:hover{
+		color: @green2;
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+.md-theme-default a:not(.md-button){
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+.md-button-content {
+	color: @white;
+}

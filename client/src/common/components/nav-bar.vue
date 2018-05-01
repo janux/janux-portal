@@ -28,7 +28,7 @@
 												a(href="#")
 													| Users
 											li
-												a(href="#")
+												router-link(:to="{name:'staffList'}" active-class="active")
 													| Staff
 											li
 												a(href="#")
@@ -40,7 +40,7 @@
 												a.submenu-left(href="#")
 													| Users
 											li
-												a.submenu-left(href="#")
+												router-link.submenu-left(to="/staff" active-class="active")
 													| Staff
 											li
 												a.submenu-left(href="#")

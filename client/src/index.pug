@@ -6,9 +6,11 @@ html
 		meta(name='viewport', content='width=device-width, initial-scale=1')
 
 		base(href='/')
-		link(rel='stylesheet', href=cfg.server.static+'/'+cfg.dir.css+'/main.css?'+cfg.build.timestamp)
 		link(rel="stylesheet", href='//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons')
 		link(rel="stylesheet", href=cfg.server.static+'/'+cfg.dir.css+'/vue-material.css')
+		link(rel="stylesheet", href=cfg.server.static+'/'+cfg.dir.css+'/default.css')
+		link(rel='stylesheet', href=cfg.server.static + '/' + cfg.dir.css + '/main.css?' + cfg.build.timestamp)
+
 	body
 		div(id="app")
 		script(src=cfg.server.static + '/' + cfg.file.app + '?' + cfg.build.timestamp)
