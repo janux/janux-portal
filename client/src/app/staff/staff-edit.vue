@@ -184,7 +184,6 @@
 											button.btn-trash(@click="removePhone(index)")
 												i.fa.fa-trash
 
-
 								.btn-row-form
 									md-divider.divider-line-glarus
 									button.btn-plus(@click="addNewPhone")
@@ -223,66 +222,66 @@
 </template>
 
 <script>
-	import {PhoneNumber, EmailAddress, PostalAddress} from 'janux-people'
-	import partyService from 'Common/services/party-service'
+import {PhoneNumber, EmailAddress, PostalAddress} from 'janux-people'
+import partyService from 'Common/services/party-service'
+import _ from 'lodash'
 
-	export default {
-		name: 'staff-edit',
-		props: ['id'],
-		data(){
-			return{
-				staff:{},
-				dataReady: false,
-				phoneTypes: ['HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
-				mailTypes: ['PERSONAL', 'WORK', 'OTHER'],
-				addressTypes: ['HOME', 'WORK', 'OTHER']
-			}
-		},
-		created: function ()
-		{
-			partyService.findOne(this.id)
-				.then(resp => {
-					if(_.isNil(resp.staff)){
-						resp.staff = {
-							jobTitle: '', jobDepartment:''
-						}
+export default {
+	name: 'staff-edit',
+	props: ['id'],
+	data () {
+		return {
+			staff: {},
+			dataReady: false,
+			phoneTypes: ['HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
+			mailTypes: ['PERSONAL', 'WORK', 'OTHER'],
+			addressTypes: ['HOME', 'WORK', 'OTHER']
+		}
+	},
+	created: function () {
+		partyService.findOne(this.id)
+			.then(resp => {
+				if (_.isNil(resp.staff)) {
+					resp.staff = {
+						jobTitle: '', jobDepartment: ''
 					}
+				}
 
-					this.staff = resp
-					this.dataReady = true
-					console.log('Staff', this.id, this.staff)
-				})
+				this.staff = resp
+				this.dataReady = true
+				console.log('Staff', this.id, this.staff)
+			})
+	},
+	methods: {
+		removeAddress (index) {
+			this.staff.contactMethods.addresses.splice(index, 1)
 		},
-		methods: {
-			removeAddress(index){
-				this.staff.contactMethods.addresses.splice(index,1)
-			},
-			addNewAddress(){
-				this.staff.setContactMethod('work', new PostalAddress())
-			},
-			removePhone(index){
-				this.staff.contactMethods.phones.splice(index,1)
-			},
-			addNewPhone(){
-				this.staff.setContactMethod('work', new PhoneNumber());
-			},
-			removeEmail(index){
-				this.staff.contactMethods.emails.splice(index,1)
-			},
-			addNewEmail(){
-				this.staff.setContactMethod('work', new EmailAddress())
-			},
-			save(){
-				console.log('Staff about to insert', this.staff)
-				partyService.update(this.staff).then( (resp) => {
-					console.log('Staff has been inserted!', resp)
-					this.$root.$router.go(-1)
-				});
-			},
-			cancel(){
-				// Return by one record
+		addNewAddress () {
+			this.staff.setContactMethod('work', new PostalAddress())
+		},
+		removePhone (index) {
+			this.staff.contactMethods.phones.splice(index, 1)
+		},
+		addNewPhone () {
+			this.staff.setContactMethod('work', new PhoneNumber())
+		},
+		removeEmail (index) {
+			this.staff.contactMethods.emails.splice(index, 1)
+		},
+		addNewEmail () {
+			this.staff.setContactMethod('work', new EmailAddress())
+		},
+		save () {
+			console.log('Staff about to insert', this.staff)
+			partyService.update(this.staff).then((resp) => {
+				console.log('Staff has been inserted!', resp)
 				this.$root.$router.go(-1)
-			}
+			})
+		},
+		cancel () {
+			// Return by one record
+			this.$root.$router.go(-1)
 		}
 	}
+}
 </script>

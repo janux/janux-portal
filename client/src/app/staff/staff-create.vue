@@ -184,7 +184,6 @@
 											button.btn-trash(@click="removePhone(index)")
 												i.fa.fa-trash
 
-
 								.btn-row-form
 									md-divider.divider-line-glarus
 									button.btn-plus(@click="addNewPhone")
@@ -229,9 +228,9 @@ import partyService from 'Common/services/party-service'
 export default {
 	name: 'staff-edit',
 	props: ['id'],
-	data(){
-		return{
-			staff:{},
+	data () {
+		return {
+			staff: {},
 			phoneTypes: ['HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
 			mailTypes: ['PERSONAL', 'WORK', 'OTHER'],
 			addressTypes: ['HOME', 'WORK', 'OTHER']
@@ -241,8 +240,7 @@ export default {
 		this.initStaffObject()
 	},
 	methods: {
-		initStaffObject(){
-
+		initStaffObject () {
 			let staffObj = new Person()
 			staffObj.setContactMethod('work', new PhoneNumber())
 			staffObj.setContactMethod('work', new EmailAddress())
@@ -250,36 +248,36 @@ export default {
 
 			// Fullfill missing staff job object
 			staffObj.staff = {
-				jobTitle: '', jobDepartment:''
+				jobTitle: '', jobDepartment: ''
 			}
 			this.staff = staffObj
 		},
-		removeAddress(index){
-			this.staff.contactMethods.addresses.splice(index,1)
+		removeAddress (index) {
+			this.staff.contactMethods.addresses.splice(index, 1)
 		},
-		addNewAddress(){
+		addNewAddress () {
 			this.staff.setContactMethod('work', new PostalAddress())
 		},
-		removePhone(index){
-			this.staff.contactMethods.phones.splice(index,1)
+		removePhone (index) {
+			this.staff.contactMethods.phones.splice(index, 1)
 		},
-		addNewPhone(){
-			this.staff.setContactMethod('work', new PhoneNumber());
+		addNewPhone () {
+			this.staff.setContactMethod('work', new PhoneNumber())
 		},
-		removeEmail(index){
-			this.staff.contactMethods.emails.splice(index,1)
+		removeEmail (index) {
+			this.staff.contactMethods.emails.splice(index, 1)
 		},
-		addNewEmail(){
+		addNewEmail () {
 			this.staff.setContactMethod('work', new EmailAddress())
 		},
-		save(){
-			console.log('user created', this.staff);
-			partyService.insert(this.staff).then( (resp) => {
+		save () {
+			console.log('user created', this.staff)
+			partyService.insert(this.staff).then((resp) => {
 				console.log('Staff has been saved!', resp)
 				this.$root.$router.go(-1)
 			})
 		},
-		cancel(){
+		cancel () {
 			// Return by one record
 			this.$root.$router.go(-1)
 		}

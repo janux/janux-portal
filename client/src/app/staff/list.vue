@@ -42,7 +42,6 @@
 							td(style="text-align:center")
 								md-checkbox.md-primary(aria-label="Trash" v-model='staff.Selected' style="margin-top:8px; margin-left:10px; background:none;")
 
-
 </template>
 
 <script>
@@ -50,23 +49,22 @@ import partyService from 'Common/services/party-service'
 
 export default {
 	name: 'staff-list',
-	data(){
-		return{
+	data () {
+		return {
 			staffList: []
 		}
 	},
-	created: function()
-	{
+	created: function () {
 		this.fetchStaff()
 	},
 	methods: {
-		fetchStaff (){
+		fetchStaff () {
 			return partyService.findPeople()
 				.then(staff => {
 					this.staffList = staff
 				})
 		},
-		openDelete (){
+		openDelete () {
 			console.log('Deleting staff')
 		}
 	}

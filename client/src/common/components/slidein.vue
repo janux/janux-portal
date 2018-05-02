@@ -57,7 +57,7 @@ export default {
 			} else {
 				this.open()
 			}
-		},
+		}
 	},
 	mounted () {
 		EventBus.$on('toogleSlidein', data => {

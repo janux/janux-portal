@@ -4,8 +4,6 @@
  * Project janux-vuejs-seed
  * Created by hielo on 2018-04-18
  */
-
-import Vue from 'vue'
 import http from 'Common/jsonrpc'
 import {Person, Organization} from 'janux-people'
 import _ from 'lodash'
@@ -42,22 +40,20 @@ function fromJSON (object) {
 	return contact
 }
 
-
 /**
  * Convert a PartyAbstract instance to a JSON object.
  * @param object
  */
-function toJSON(object) {
-
-	var cloned = _.cloneDeep(object);
-	var id = cloned.id;
-	var typeName = cloned.typeName;
-	var contact = cloned.toJSON();
-	contact.id = id;
-	contact.typeName = typeName;
-	contact.dateCreated = object.dateCreated;
-	contact.lastUpdate = object.lastUpdate;
-	return contact;
+function toJSON (object) {
+	var cloned = _.cloneDeep(object)
+	var id = cloned.id
+	var typeName = cloned.typeName
+	var contact = cloned.toJSON()
+	contact.id = id
+	contact.typeName = typeName
+	contact.dateCreated = object.dateCreated
+	contact.lastUpdate = object.lastUpdate
+	return contact
 }
 
 export default {
@@ -98,7 +94,7 @@ export default {
 	 * @param timeEntry
 	 */
 	insert: function (party) {
-		console.log('Call to insert with ' , JSON.stringify(party))
+		console.log('Call to insert with ', JSON.stringify(party))
 		var objectToSend = toJSON(party)
 
 		return http.jsonrpc(
