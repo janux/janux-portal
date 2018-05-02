@@ -4,9 +4,9 @@
  * Project janux-vuejs-seed
  * Created by hielo on 2018-04-18
  */
-import http from 'Common/jsonrpc'
 import {Person, Organization} from 'janux-people'
 import _ from 'lodash'
+import Vue from 'vue'
 
 /**
  * Convert a json object to a PartyAbstract instance.
@@ -61,7 +61,7 @@ export default {
 	 * Find all people.
 	 */
 	findPeople () {
-		return http.jsonrpc(
+		return Vue.http.jsonrpc(
 			'/rpc/2.0/partyService',
 			'findPeople',
 			[]
@@ -79,7 +79,7 @@ export default {
 	 * @param id
 	 */
 	findOne: function (id) {
-		return http.jsonrpc(
+		return Vue.http.jsonrpc(
 			'/rpc/2.0/partyService',
 			'findOne',
 			[id]
@@ -97,7 +97,7 @@ export default {
 		console.log('Call to insert with ', JSON.stringify(party))
 		var objectToSend = toJSON(party)
 
-		return http.jsonrpc(
+		return Vue.http.jsonrpc(
 			'/rpc/2.0/partyService',
 			'insert',
 			[objectToSend]
@@ -114,7 +114,7 @@ export default {
 	 */
 	update: function (party) {
 		var objectToSend = toJSON(party)
-		return http.jsonrpc(
+		return Vue.http.jsonrpc(
 			'/rpc/2.0/partyService',
 			'update',
 			[objectToSend]
