@@ -16,8 +16,6 @@
 </template>
 
 <script>
-import components from 'Common/components'
-
 export default {
 	name: 'App',
 	components: {},
@@ -27,11 +25,7 @@ export default {
 			navBarExpanded: true
 		}
 	},
-	methods: {
-	//		toogleNavBar: function () {
-	//			console.log('event fired!!')
-	//		}
-	},
+	methods: {},
 	mounted () {
 		this.$root.$on('toogleNavBar', data => {
 			this.navBarExpanded = data

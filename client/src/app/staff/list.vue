@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import partyService from 'Common/services/party-service'
+import Vue from 'vue'
 
 export default {
 	name: 'staff-list',
@@ -59,7 +59,7 @@ export default {
 	},
 	methods: {
 		fetchStaff () {
-			return partyService.findPeople()
+			return Vue.jnx.partyService.findPeople()
 				.then(staff => {
 					this.staffList = staff
 				})

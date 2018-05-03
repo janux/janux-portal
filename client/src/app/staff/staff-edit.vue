@@ -223,8 +223,8 @@
 
 <script>
 import {PhoneNumber, EmailAddress, PostalAddress} from 'janux-people'
-import partyService from 'Common/services/party-service'
 import _ from 'lodash'
+import Vue from 'vue'
 
 export default {
 	name: 'staff-edit',
@@ -239,7 +239,7 @@ export default {
 		}
 	},
 	created: function () {
-		partyService.findOne(this.id)
+		Vue.jnx.partyService.findOne(this.id)
 			.then(resp => {
 				if (_.isNil(resp.staff)) {
 					resp.staff = {
@@ -273,7 +273,7 @@ export default {
 		},
 		save () {
 			console.log('Staff about to insert', this.staff)
-			partyService.update(this.staff).then((resp) => {
+			Vue.jnx.partyService.update(this.staff).then((resp) => {
 				console.log('Staff has been inserted!', resp)
 				this.$root.$router.go(-1)
 			})

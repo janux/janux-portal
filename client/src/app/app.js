@@ -11,13 +11,17 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 // import { ExampleDirective } from 'Common/directives'
-import JsonRPC from 'Common/plugins/jsonrpc-plugin'
-import VueResource from 'vue-resource'
-import VueMaterial from 'vue-material'
+import common from 'Common'
+import vueResource from 'vue-resource'
+import vueMaterial from 'vue-material'
+import jnxServices from 'Common/services'
+import jnxComponents from 'Common/components'
 
-Vue.use(VueMaterial)
-Vue.use(VueResource)
-Vue.use(JsonRPC)
+Vue.use(vueMaterial)
+Vue.use(vueResource)
+Vue.use(common)
+Vue.use(jnxServices)
+Vue.use(jnxComponents)
 
 Vue.config.productionTip = false
 

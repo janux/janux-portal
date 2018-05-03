@@ -2,18 +2,23 @@
 
 /**
  * Project janux-vuejs-seed
- * Created by hielo on 2018-04-18
+ * Created by hielo on 2018-05-02
  *
  * This is an example of a Vue.js plugin, this plugin add 'jsonrpc' method to Vue.http
  */
 
-import {jsonrpc} from 'Common/jsonrpc'
+import {jsonrpc} from './jsonrpc'
+import {ExampleDirective} from './directives'
 
 function plugin (Vue) {
 	if (plugin.installed) {
 		return
 	}
 
+	// Common directives
+	Vue.directive('example-directive', ExampleDirective)
+
+	// Adding jsonrpc method to http service
 	if (typeof Vue.http !== 'undefined') {
 		Vue.http.jsonrpc = jsonrpc(Vue.http)
 	} else {

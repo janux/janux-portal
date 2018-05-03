@@ -6,7 +6,6 @@
  */
 import {Person, Organization} from 'janux-people'
 import _ from 'lodash'
-import Vue from 'vue'
 
 /**
  * Convert a json object to a PartyAbstract instance.
@@ -56,72 +55,74 @@ function toJSON (object) {
 	return contact
 }
 
-export default {
-	/**
-	 * Find all people.
-	 */
-	findPeople () {
-		return Vue.http.jsonrpc(
-			'/rpc/2.0/partyService',
-			'findPeople',
-			[]
-		).then((resp) => {
-			console.log('/rpc/2.0/partyService - findPeople:', resp.result)
-			let contacts = resp.result
-			contacts = _.map(contacts, function (o) {
-				return fromJSON(o)
+export function partyService (http) {
+	return {
+		/**
+		 * Find all people.
+		 */
+		findPeople: function () {
+			return http.jsonrpc(
+				'/rpc/2.0/partyService',
+				'findPeople',
+				[]
+			).then((resp) => {
+				console.log('/rpc/2.0/partyService - findPeople:', resp.result)
+				let contacts = resp.result
+				contacts = _.map(contacts, function (o) {
+					return fromJSON(o)
+				})
+				return contacts
 			})
-			return contacts
-		})
-	},
-	/**
-	 * Find one contact by id.
-	 * @param id
-	 */
-	findOne: function (id) {
-		return Vue.http.jsonrpc(
-			'/rpc/2.0/partyService',
-			'findOne',
-			[id]
-		).then((resp) => {
-			let contact = resp.result
-			contact = fromJSON(contact)
-			return contact
-		})
-	},
-	/**
-	 * Insert a party.
-	 * @param timeEntry
-	 */
-	insert: function (party) {
-		console.log('Call to insert with ', JSON.stringify(party))
-		var objectToSend = toJSON(party)
+		},
+		/**
+		 * Find one contact by id.
+		 * @param id
+		 */
+		findOne: function (id) {
+			return http.jsonrpc(
+				'/rpc/2.0/partyService',
+				'findOne',
+				[id]
+			).then((resp) => {
+				let contact = resp.result
+				contact = fromJSON(contact)
+				return contact
+			})
+		},
+		/**
+		 * Insert a party.
+		 * @param timeEntry
+		 */
+		insert: function (party) {
+			console.log('Call to insert with ', JSON.stringify(party))
+			var objectToSend = toJSON(party)
 
-		return Vue.http.jsonrpc(
-			'/rpc/2.0/partyService',
-			'insert',
-			[objectToSend]
-		).then(function (resp) {
-			var contact = resp.result
-			contact = fromJSON(contact)
-			return contact
-		})
-	},
+			return http.jsonrpc(
+				'/rpc/2.0/partyService',
+				'insert',
+				[objectToSend]
+			).then(function (resp) {
+				var contact = resp.result
+				contact = fromJSON(contact)
+				return contact
+			})
+		},
 
-	/**
-	 * Update a party.
-	 * @param party
-	 */
-	update: function (party) {
-		var objectToSend = toJSON(party)
-		return Vue.http.jsonrpc(
-			'/rpc/2.0/partyService',
-			'update',
-			[objectToSend]
-		).then(function (resp) {
-			var contact = resp.result
-			contact = fromJSON(contact)
-			return contact
-		})
+		/**
+		 * Update a party.
+		 * @param party
+		 */
+		update: function (party) {
+			var objectToSend = toJSON(party)
+			return http.jsonrpc(
+				'/rpc/2.0/partyService',
+				'update',
+				[objectToSend]
+			).then(function (resp) {
+				var contact = resp.result
+				contact = fromJSON(contact)
+				return contact
+			})
+		}
 	}
 }

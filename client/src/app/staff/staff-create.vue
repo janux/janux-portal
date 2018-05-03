@@ -223,7 +223,7 @@
 
 <script>
 import {Person, PhoneNumber, EmailAddress, PostalAddress} from 'janux-people'
-import partyService from 'Common/services/party-service'
+import Vue from 'vue'
 
 export default {
 	name: 'staff-edit',
@@ -272,7 +272,7 @@ export default {
 		},
 		save () {
 			console.log('user created', this.staff)
-			partyService.insert(this.staff).then((resp) => {
+			Vue.jnx.partyService.insert(this.staff).then((resp) => {
 				console.log('Staff has been saved!', resp)
 				this.$root.$router.go(-1)
 			})
