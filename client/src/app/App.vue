@@ -16,20 +16,25 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 	name: 'App',
 	components: {},
 	data () {
 		return {
-			title: 'People & Organizations',
-			navBarExpanded: true
+			title: 'People & Organizations'
+			// navBarExpanded: true
 		}
 	},
 	methods: {},
 	mounted () {
-		this.$root.$on('toogleNavBar', data => {
-			this.navBarExpanded = data
-		})
-	}
+		// this.$root.$on('toogleNavBar', data => {
+		//	  this.navBarExpanded = data
+		// })
+	},
+	computed: mapState({
+		navBarExpanded: state => state.navBarExpanded
+	})
 }
 </script>

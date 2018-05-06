@@ -48,6 +48,9 @@
 </template>
 
 <script>
+import store from 'App/store'
+import * as mutationTypes from 'App/store/mutation-types'
+
 export default {
 	name: 'nav-bar',
 	data () {
@@ -70,7 +73,11 @@ export default {
 			this.bodyCon = !this.bodyCon
 			this.noneStyle = !this.noneStyle
 
-			this.$root.$emit('toogleNavBar', this.noneStyle)
+			// this.$root.$emit('toogleNavBar', this.noneStyle)
+			store.dispatch({
+				type: mutationTypes.ToggleNavBar,
+				value: this.noneStyle
+			})
 		}
 	}
 }

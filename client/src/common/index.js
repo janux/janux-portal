@@ -4,7 +4,6 @@
  * Project janux-vuejs-seed
  * Created by hielo on 2018-05-02
  *
- * This is an example of a Vue.js plugin, this plugin add 'jsonrpc' method to Vue.http
  */
 
 import {jsonrpc} from './jsonrpc'

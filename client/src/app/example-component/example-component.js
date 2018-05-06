@@ -7,11 +7,11 @@ export default withRender({
 	data () {
 		return {
 			text: 'Janux Vue.js proof-of-concept'
-		};
+		}
 	},
 	methods: {
 		baz () {
 			console.log('Clicked!');
 		}
 	}
-});
+})

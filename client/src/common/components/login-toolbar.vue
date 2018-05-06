@@ -6,7 +6,7 @@
 <template lang="pug">
 	md-toolbar.sd-page-header(md-elevation='1')
 		//.md-toolbar-row
-		.sd-page-logo.sd-page-logo-collapsed
+		.sd-page-logo(v-bind:class="{ 'sd-page-logo-collapsed': navBarExpanded }")
 			a(href='../')
 				img.sd-logo-default(src='/img/janux_logo.png', alt='Janux')
 
@@ -27,6 +27,7 @@
 
 <script>
 import { EventBus } from 'Common/event-bus'
+import { mapState } from 'vuex'
 
 export default {
 	name: 'login-toolbar',
@@ -41,6 +42,9 @@ export default {
 			EventBus.$emit('toogleSlidein', 'any')
 			console.log('Toogle mobile menu')
 		}
-	}
+	},
+	computed: mapState({
+		navBarExpanded: state => state.navBarExpanded
+	})
 }
 </script>
