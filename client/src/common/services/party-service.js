@@ -89,6 +89,7 @@ export function partyService (http) {
 				return contact
 			})
 		},
+
 		/**
 		 * Insert a party.
 		 * @param timeEntry

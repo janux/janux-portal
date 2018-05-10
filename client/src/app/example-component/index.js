@@ -9,8 +9,8 @@ import exampleComponent from './example-component'
 
 const routes = [
 	{
-		path: '/',
-		name: 'FistComponent',
+		path: '/example-component',
+		name: 'ExampleComponent',
 		component: exampleComponent
 	}
 ]

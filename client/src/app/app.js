@@ -14,7 +14,7 @@ import vueMaterial from 'vue-material'
 
 import App from './App'
 import appRouter from './router'
-import store from './store'
+import store from 'Common/store'
 import common from 'Common'
 import jnxServices from 'Common/services'
 import jnxComponents from 'Common/components'
@@ -33,5 +33,9 @@ new Vue({
 	store,
 	router: appRouter,
 	components: { App },
-	template: '<App/>'
+	template: '<App/>',
+	beforeCreate () {
+		// On page reload, check to see whether the user logged in previously
+		Vue.jnx.security.requestCurrentUser()
+	}
 })

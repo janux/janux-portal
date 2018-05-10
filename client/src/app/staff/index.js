@@ -13,18 +13,21 @@ const routes = [
 	{
 		path: '/staff',
 		name: 'staffList',
-		component: StaffList
+		component: StaffList,
+		meta: { authRequired: true }
 	},
 	{
 		path: '/staff/create',
 		name: 'staffCreate',
-		component: StaffCreate
+		component: StaffCreate,
+		meta: { authRequired: true }
 	},
 	{
 		path: '/staff/edit:id',
 		name: 'staffEdit',
 		component: StaffEdit,
-		props: true
+		props: true,
+		meta: { authRequired: true }
 	}
 ]
 
