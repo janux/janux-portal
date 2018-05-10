@@ -18,13 +18,14 @@ import store from 'Common/store'
 import common from 'Common'
 import jnxServices from 'Common/services'
 import jnxComponents from 'Common/components'
+import {EventBus} from 'Common/event-bus'
 
 Vue.use(Router)
 Vue.use(vueMaterial)
 Vue.use(vueResource)
-Vue.use(common)
 Vue.use(jnxServices)
 Vue.use(jnxComponents)
+Vue.use(common)
 
 Vue.config.productionTip = false
 
@@ -37,5 +38,14 @@ new Vue({
 	beforeCreate () {
 		// On page reload, check to see whether the user logged in previously
 		Vue.jnx.security.requestCurrentUser()
+	},
+	mounted () {
+		EventBus.$on('jsonrpc', data => {
+			if (data === 'INVALID_TOKEN') {
+				//There was a json rpc post and the server reject the token we send ( for whatever reason).
+				Vue.jnx.security.clearLoginData()
+				this.$router.push({name: 'login', params: { goodbye: 'FORCED_LOGOUT', redirect: '' }})
+			}
+		})
 	}
 })

@@ -67,10 +67,8 @@ export function security (http) {
 		//
 		// The object to be passed as a header for authenticated requests
 		//
-		getAuthHeader: function () {
-			return {
-				'Authorization': 'Bearer ' + localStorage.getItem('token')
-			}
+		authHeader: function () {
+			return 'Bearer ' + localStorage.getItem('token')
 		},
 
 		//
