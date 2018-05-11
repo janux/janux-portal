@@ -234,7 +234,7 @@ export default {
 	props: ['id'],
 	data () {
 		return {
-			sectionTitle: 'People & Organizations',
+			sectionTitle: this.$t('staff.title'),
 			staff: {},
 			phoneTypes: ['HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],
 			mailTypes: ['PERSONAL', 'WORK', 'OTHER'],

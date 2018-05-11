@@ -14,10 +14,7 @@
 		"organizations": "Organizations",
 		"username": "User:",
 	  	"search":	"Search",
-	  	"staff": "Staff"
-	},
-	"dashboard": {
-		"title":"Dashboard"
+		"add": 		"Add"
 	},
 	"login": {
 		"msg": {
@@ -32,8 +29,10 @@
 			"serverError":        "Server is unavailable or returned an error",
 			"serverErrorOutput":  "Server Error: {{parm1}}"
 		},
+		"credentials": "Use one of the following user/password credentials to login:",
 		"forgotPass": "Forgot Password",
-		"copy": "2017 Janux Media LTD. Copyright."
+		"login": "Log In",
+		"copy": "2018 Janux Media LTD. Copyright."
 	},
 	"user": {
 		"title": "People & Organizations",
@@ -83,6 +82,7 @@
 		"authContextGroup": "Authorization Context Group"
 	},
 	"staff": {
+		"staff": "Staff",
 		"generalTab": "General data",
 		"title": "People & Organizations",
 	  	"editStaff": "Edit staff",

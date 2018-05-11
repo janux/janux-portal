@@ -11,7 +11,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import vueResource from 'vue-resource'
 import vueMaterial from 'vue-material'
-
+import i18n from 'Locale/lang'
 import App from './App'
 import appRouter from './router'
 import store from 'Common/store'
@@ -29,9 +29,10 @@ Vue.use(common)
 
 Vue.config.productionTip = false
 
-new Vue({
+export const app = new Vue({
 	el: '#app',
 	store,
+	i18n,
 	router: appRouter,
 	components: { App },
 	template: '<App/>',
@@ -42,10 +43,12 @@ new Vue({
 	mounted () {
 		EventBus.$on('jsonrpc', data => {
 			if (data === 'INVALID_TOKEN') {
-				//There was a json rpc post and the server reject the token we send ( for whatever reason).
+				// There was a json rpc post and the server reject the token we send ( for whatever reason).
 				Vue.jnx.security.clearLoginData()
 				this.$router.push({name: 'login', params: { goodbye: 'FORCED_LOGOUT', redirect: '' }})
 			}
 		})
 	}
 })
+
+window.vue = app

@@ -38,7 +38,7 @@ function plugin (Vue) {
 			// Catch invalid token response
 			next((response) => {
 				if (response.status === 401 && response.bodyText === 'invalid token...') {
-					console.log("Broadcasting invalid token")
+					console.log('Broadcasting invalid token')
 					EventBus.$emit('jsonrpc', 'INVALID_TOKEN')
 				}
 			})

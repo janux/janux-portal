@@ -235,7 +235,7 @@ export default {
 	props: ['id'],
 	data () {
 		return {
-			sectionTitle: 'People & Organizations',
+			sectionTitle: this.$t('staff.title'),
 			staff: {},
 			dataReady: false,
 			phoneTypes: ['HOME', 'WORK', 'MOBILE', 'FAX', 'OTHER'],

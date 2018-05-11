@@ -11,22 +11,22 @@ div
 			.row
 				.col-lg-12
 					.title-bar
-						.title Staff
+						.title {{ $t('staff.staff') }}
 						.options
 							router-link(:to="{name:'staffCreate'}")
 								span.fa.fa-plus-circle.fa-lg
-								| &nbsp; Add
+								| &nbsp; {{ $t('label.add') }}
 					hr
 
 					table.list.users-list.list-with-footer(v-if='staffList.length')
 						thead
 							tr
-								th Name
-								th Phone number
-								th Email
-								th User Name
+								th {{ $t('party.person.name') }}
+								th {{ $t('party.phone') }}
+								th {{ $t('party.email') }}
+								th {{ $t('staff.userName') }}
 								th
-									.col-edit-staff Edit
+									.col-edit-staff {{ $t('staff.edit') }}
 								th
 									md-button.md-icon-button(aria-label="Trash" style="padding-left:10px; padding-top:0 !important; margin-top:0 ;" @click='openDelete')
 										md-icon
@@ -55,7 +55,7 @@ export default {
 	name: 'staff-list',
 	data () {
 		return {
-			sectionTitle: 'People & Organizations',
+			sectionTitle: this.$t('staff.title'),
 			staffList: []
 		}
 	},
