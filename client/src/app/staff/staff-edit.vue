@@ -11,7 +11,7 @@ div
 			.row
 				md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
 					.md-toolbar-tools.form-toolbar
-						h3.md-title(style="flex: 1") Edit staff : {{ staff.name.shortName }}
+						h3.md-title(style="flex: 1") {{ $t('staff.editStaff') }} : {{ staff.name.shortName }}
 
 						md-button.md-icon-button.form-btn-toolbar(aria-label="Grid")
 							md-icon
@@ -47,13 +47,13 @@ div
 
 						.container-flex-form
 							.staff-form-left
-								v-jnx-person-name(:data='staff')
-								v-jnx-address(:data='staff')
+								v-jnx-person-name(section-title='party.contact', :data='staff')
+								v-jnx-address(section-title='party.addressesTitle', :data='staff')
 
 							.staff-form-right
-								v-jnx-person-job(:data='staff')
-								v-jnx-phone(:data='staff')
-								v-jnx-email(:data='staff')
+								v-jnx-person-job(section-title='staff.jobTitle', :data='staff')
+								v-jnx-phone(section-title='party.phonesTitle', :data='staff')
+								v-jnx-email(section-title='party.emailsTitle', :data='staff')
 	v-jnx-footer
 </template>
 

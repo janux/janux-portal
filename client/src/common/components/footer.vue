@@ -6,7 +6,7 @@
 <template lang="pug">
 	.sd-page-footer
 		.sd-page-footer-inner
-			| 2018 Janux Media LTD. Copyright.
+			| {{ $t('login.copy') }}
 
 </template>
 

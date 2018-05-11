@@ -11,7 +11,7 @@ div
 			.row
 				md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
 					.md-toolbar-tools.form-toolbar
-						h3.md-title(style="flex: 1") Create Staff
+						h3.md-title(style="flex: 1") {{ $t('staff.createStaff') }}
 
 						md-button.md-icon-button.form-btn-toolbar(aria-label="Grid")
 							md-icon
@@ -37,23 +37,23 @@ div
 								//md-button.md-icon-button.trash(aria-label="Trash")
 								//	md-icon.fa.fa-trash.fa-lg
 
-								md-button.md-icon-button.save(aria-label="Save" @click='save')
+								md-button.md-icon-button.save(aria-label="Save", @click='save')
 									md-icon
 										span.fa.fa-check.fa-sm
 
-								md-button.md-icon-button.cancel(aria-label="Cancel" @click='cancel')
+								md-button.md-icon-button.cancel(aria-label="Cancel", @click='cancel')
 									md-icon
 										span.fa.fa-times.fa-sm
 
 						.container-flex-form
 							.staff-form-left
-								v-jnx-person-name(:data='staff')
-								v-jnx-address(:data='staff')
+								v-jnx-person-name(section-title='party.contact', :data='staff')
+								v-jnx-address(section-title='party.addressesTitle', :data='staff')
 
 							.staff-form-right
-								v-jnx-person-job(:data='staff')
-								v-jnx-phone(:data='staff')
-								v-jnx-email(:data='staff')
+								v-jnx-person-job(section-title='staff.jobTitle', :data='staff')
+								v-jnx-phone(section-title='party.phonesTitle', :data='staff')
+								v-jnx-email(section-title='party.emailsTitle', :data='staff')
 	v-jnx-footer
 </template>
 

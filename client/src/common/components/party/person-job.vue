@@ -6,25 +6,30 @@
 <template lang="pug">
 	.section-form
 		p.form-section
-			| Job
+			| {{ componentTitle }}
 		fieldset.fieldset-flex
 			.fieldset-flex
 				.an-material.nopadding
 					md-field.full
-						label Job
+						label {{ $t('staff.job') }}
 						md-input(v-model='data.staff.jobTitle')
 
 		fieldset.fieldset-flex
 			.fieldset-flex
 				.an-material.nopadding
 					md-field.full
-						label Area
+						label {{ $t('staff.area') }}
 						md-input(v-model='data.staff.jobDepartment')
 </template>
 
 <script>
 export default {
 	name: 'jnx-person-job',
-	props: ['data']
+	props: ['sectionTitle', 'data'],
+	computed: {
+		componentTitle () {
+			return this.$t(this.sectionTitle)
+		}
+	}
 }
 </script>

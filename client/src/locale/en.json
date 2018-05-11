@@ -68,6 +68,9 @@
 			"noRoles": "You must select at least one role from the list"
 		}
 	},
+	"client": {
+		"listTitle": "Clients"
+	},
 	"role": {
 		"title": "Roles"
 	},
@@ -88,10 +91,7 @@
 	  	"editStaff": "Edit staff",
 	  	"createStaff": "Create staff",
 	  	"employeeTitle":"Employee",
-	  	"addressesTitle":"Adresses",
 	  	"jobTitle":"Job",
-	  	"phonesTitle":"Phones",
-	  	"mailsTitle":"Mails",
 	  	"name": "Name",
 	  	"maternalName": "Maternal name",
 	  	"lastName": "Last name",
@@ -133,6 +133,7 @@
 			"rfc": "RFC",
 			"reseller": "Reseller"
 		},
+		"contact": "Contact",
 		"country": "Country",
 		"email": "Email",
 		"phone": "Phone Number",
@@ -169,6 +170,9 @@
 			"MOBILE": "Mobile",
 			"FAX": "Fax",
 			"OTHER": "Other"
-		}
+		},
+		"addressesTitle": "Addresses",
+		"phonesTitle": "Phones",
+		"emailsTitle": "Emails"
 	}
 }

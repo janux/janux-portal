@@ -6,25 +6,25 @@
 <template lang="pug">
 	.section-form
 		p.form-section
-			| Emails
+			| {{ componentTitle }}
 		fieldset.fieldset-flex(v-for="(email,index) in data.contactMethods.emails")
 			.fieldset-flex
 				.an-material.nopadding.half
 					md-field.full
 						//label {{ 'party.type' | translate}}
 						//md-input(v-model="email.type")
-						label Type
+						label {{ $t('party.type') }}
 						md-select(aria-label='type' v-model='email.type')
-							md-option(value='aType', v-for='(aType, index) in mailTypes' :key='index') {{ aType }}
+							md-option(value='aType', v-for='(aType, index) in mailTypes', :key='index') {{ $t('party.contactType.'+aType) }}
 
 				.an-material.nopadding
 					md-field.full
-						label Email
+						label {{ $t('party.email') }}
 						md-input(v-model="email.address")
 
 				div
 					md-checkbox.md-primary(aria-label="Principal" v-model='email.principal')
-						| Main
+						| {{ $t('party.first') }}
 
 				div
 					button.btn-trash(@click="removeEmail(index)")
@@ -42,7 +42,7 @@ import {EmailAddress} from 'janux-people'
 
 export default {
 	name: 'jnx-email',
-	props: ['data'],
+	props: ['sectionTitle', 'data'],
 	data () {
 		return {
 			mailTypes: ['PERSONAL', 'WORK', 'OTHER']
@@ -54,6 +54,11 @@ export default {
 		},
 		addNewEmail () {
 			this.staff.setContactMethod('work', new EmailAddress())
+		}
+	},
+	computed: {
+		componentTitle () {
+			return this.$t(this.sectionTitle)
 		}
 	}
 }

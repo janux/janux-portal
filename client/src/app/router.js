@@ -21,7 +21,7 @@ const appRoutes = [
 const appRouter = new Router({ routes: appRoutes })
 
 appRouter.beforeEach((to, from, next) => {
-	console.log('router before each from', from, 'to', to)
+	console.debug('router before each from', from, 'to', to)
 
 	if (to.matched.some(record => record.meta.authRequired)) {
 		// this route requires auth, check if logged in

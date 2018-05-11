@@ -20,31 +20,31 @@
 									a.accordion-toggle(data-toggle="collapse" data-parent="#rightMenu1" href="#")
 										i.fa.fa-users(v-on:click="subMenu = !subMenu")
 										span.down(v-on:click="subMenu=true")
-											| People & Organizations
+											| {{ $t('staff.title') }}
 								.accordion-toggle.menu-sub
 									.accordion-inner(v-if="subMenu && !noneStyle")
 										ul
 											li
 												a(href="#")
-													| Users
+													| {{ $t('user.listTitle') }}
 											li
 												router-link(:to="{name:'staffList'}" active-class="active")
-													| Staff
+													| {{ $t('staff.staff') }}
 											li
 												a(href="#")
-													| Clients
+													| {{ $t('client.listTitle') }}
 								.accordion-toggle(v-if="peopleOrgsFlag && noneStyle")
 									.accordion-inner
 										ul
 											li
 												a.submenu-left(href="#")
-													| Users
+													| {{ $t('user.listTitle') }}
 											li
 												router-link.submenu-left(to="/staff" active-class="active")
-													| Staff
+													| {{ $t('staff.staff') }}
 											li
 												a.submenu-left(href="#")
-													| Clients
+													| {{ $t('client.listTitle') }}
 </template>
 
 <script>

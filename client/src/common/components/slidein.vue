@@ -13,20 +13,20 @@
 						li
 							a.active(href="#" v-on:click='ok')
 								span.fa.fa-users.fa-lg
-								.btn-text &nbsp;&nbsp;People & Organizations
+								.btn-text &nbsp;&nbsp;{{ $t('staff.title') }}
 							ul
 								li
 									a(href="#" v-on:click='ok')
 										span.fa.fa-angle-right
-										| &nbsp;&nbsp; Users
+										| &nbsp;&nbsp; {{ $t('user.listTitle') }}
 								li(v-on:click='ok')
 									router-link(:to="{name:'staffList'}" active-class="active")
 										span.fa.fa-angle-right
-										| &nbsp;&nbsp; Staff
+										| &nbsp;&nbsp; {{ $t('staff.staff') }}
 								li
 									a(href="#" v-on:click='ok')
 										span.fa.fa-angle-right
-										| &nbsp;&nbsp; Clients
+										| &nbsp;&nbsp; {{ $t('client.listTitle') }}
 
 </template>
 

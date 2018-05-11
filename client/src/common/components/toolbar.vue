@@ -5,8 +5,7 @@
 
 <template lang="pug">
 	md-toolbar.sd-page-header(md-elevation='1')
-		//.md-toolbar-row
-		.sd-page-logo(v-bind:class="{ 'sd-page-logo-collapsed': navBarExpanded }")
+		.sd-page-logo(:class="{ 'sd-page-logo-collapsed': navBarExpanded }")
 			a(href='../')
 				img.sd-logo-default(src='/img/janux_logo.png', alt='Janux')
 
