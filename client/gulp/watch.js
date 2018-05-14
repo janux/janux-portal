@@ -42,7 +42,7 @@ module.exports = function(gulp) {
 		// through all the folders under 'src'
 		gulp.watch([ 
 			path.join(cfg.dir.src, '**','*.js'),path.join(cfg.dir.src, '**','*.vue')
-		], ['lint','webpack']);
+		], ['webpack']);
 
 		// Watch assets
 		// TODO: apply this to all assets
