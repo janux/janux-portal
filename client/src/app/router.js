@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import staff from './staff'
+import user from './user'
 import login from 'Common/security/login'
 
 const appRoutes = [
@@ -15,7 +16,8 @@ const appRoutes = [
 	}
 ].concat(
 	login,
-	staff
+	staff,
+	user
 )
 
 const appRouter = new Router({ routes: appRoutes })

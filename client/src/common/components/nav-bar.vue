@@ -25,26 +25,26 @@
 									.accordion-inner(v-if="subMenu && !noneStyle")
 										ul
 											li
-												a(href="#")
+												router-link(:to="{name:'userList'}" active-class="active")
 													| {{ $t('user.listTitle') }}
 											li
 												router-link(:to="{name:'staffList'}" active-class="active")
 													| {{ $t('staff.staff') }}
-											li
-												a(href="#")
-													| {{ $t('client.listTitle') }}
+											<!--li-->
+												<!--a(href="#")-->
+													<!--| {{ $t('client.listTitle') }}-->
 								.accordion-toggle(v-if="peopleOrgsFlag && noneStyle")
 									.accordion-inner
 										ul
 											li
-												a.submenu-left(href="#")
+												router-link.submenu-left(:to="{name:'userList'}" active-class="active")
 													| {{ $t('user.listTitle') }}
 											li
-												router-link.submenu-left(to="/staff" active-class="active")
+												router-link.submenu-left(:to="{name:'staffList'}" active-class="active")
 													| {{ $t('staff.staff') }}
-											li
-												a.submenu-left(href="#")
-													| {{ $t('client.listTitle') }}
+											<!--li-->
+												<!--a.submenu-left(href="#")-->
+													<!--| {{ $t('client.listTitle') }}-->
 </template>
 
 <script>

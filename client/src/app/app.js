@@ -44,8 +44,8 @@ export const app = new Vue({
 		EventBus.$on('jsonrpc', data => {
 			if (data === 'INVALID_TOKEN') {
 				// There was a json rpc post and the server reject the token we send ( for whatever reason).
-				Vue.jnx.security.clearLoginData()
 				this.$router.push({name: 'login', params: { goodbye: 'FORCED_LOGOUT', redirect: '' }})
+				Vue.jnx.security.clearLoginData()
 			}
 		})
 	}

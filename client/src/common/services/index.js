@@ -9,6 +9,8 @@
 
 import {partyService} from './party-service'
 import {security} from 'Common/security/security-service'
+import {userService} from './user-service'
+import {roleService} from './role-service'
 
 function jnxServices (Vue) {
 	if (jnxServices.installed) {
@@ -17,7 +19,9 @@ function jnxServices (Vue) {
 
 	Vue.jnx = {
 		partyService: partyService(Vue.http),
-		security: security(Vue.http)
+		security: security(Vue.http),
+		userService: userService(Vue.http),
+		roleService: roleService(Vue.http)
 	}
 }
 
