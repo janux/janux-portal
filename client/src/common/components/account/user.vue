@@ -26,6 +26,14 @@ div
 		md-field.full
 			md-checkbox.md-primary(aria-label="Locked" v-model='data.locked')
 				| {{ $t('user.locked') }}
+		.full
+			md-datepicker(v-model="selectedDate", :md-open-on-focus="false")
+				label {{ $t('user.expirationDate') }}
+
+		.full
+			md-datepicker(v-model="data.expirePassWord", :md-open-on-focus="false")
+				label {{ $t('user.passExpirationDate') }}
+
 </template>
 
 <script>
@@ -36,6 +44,9 @@ export default {
 		componentTitle () {
 			return this.$t(this.sectionTitle)
 		}
-	}
+	},
+	data: () => ({
+		selectedDate: null
+	})
 }
 </script>

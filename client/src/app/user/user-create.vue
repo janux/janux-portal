@@ -6,7 +6,7 @@
 				.row
 					md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
 						.md-toolbar-tools.form-toolbar
-							h3.md-title(style="flex: 1") {{ $t('user.editUser') }}: {{ user.username }}
+							h3.md-title(style="flex: 1") {{ $t('user.createUser') }}
 
 					.container-fluid-flex.spacing-bottom
 
@@ -96,6 +96,7 @@ export default {
 			Vue.jnx.roleService.findAll().then((response) => {
 				this.roles = response
 				this.dataReady = true
+				console.log('role', this.roles)
 			})
 		},
 		save () {
