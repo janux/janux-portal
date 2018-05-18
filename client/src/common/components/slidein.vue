@@ -15,19 +15,27 @@
 								span.fa.fa-users.fa-lg
 								.btn-text &nbsp;&nbsp;{{ $t('staff.title') }}
 							ul
-								li
-									a(href="#" v-on:click='ok')
+								li(v-on:click='ok')
+									router-link(:to="{name:'userList'}" active-class="active")
 										span.fa.fa-angle-right
 										| &nbsp;&nbsp; {{ $t('user.listTitle') }}
 								li(v-on:click='ok')
 									router-link(:to="{name:'staffList'}" active-class="active")
 										span.fa.fa-angle-right
 										| &nbsp;&nbsp; {{ $t('staff.staff') }}
-								li
-									a(href="#" v-on:click='ok')
+						li
+							a.active(href="#" v-on:click='ok')
+								span.fa.fa-users.fa-lg
+								.btn-text &nbsp;&nbsp;{{ $t('permission.title') }}
+							ul
+								li(v-on:click='ok')
+									router-link(:to="{name:'roleList'}" active-class="active")
 										span.fa.fa-angle-right
-										| &nbsp;&nbsp; {{ $t('client.listTitle') }}
-
+										| &nbsp;&nbsp; {{ $t('role.title') }}
+								li(v-on:click='ok')
+									router-link(:to="{name:'authContextList'}" active-class="active")
+										span.fa.fa-angle-right
+										| &nbsp;&nbsp; {{ $t('permission.title') }}
 </template>
 
 <script>

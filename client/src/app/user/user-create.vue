@@ -61,7 +61,7 @@ import md5 from 'js-md5'
 import {Person, EmailAddress} from 'janux-people'
 
 export default {
-	name: 'edit-user',
+	name: 'user-create',
 	props: ['userId'],
 	data () {
 		return {

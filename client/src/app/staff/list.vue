@@ -59,16 +59,12 @@ export default {
 			staffList: []
 		}
 	},
-	created: function () {
-		this.fetchStaff()
+	beforeRouteEnter: (to, from, next) => {
+		Vue.jnx.partyService.findPeople().then((response) => {
+			next(vm => (vm.staffList = response))
+		})
 	},
 	methods: {
-		fetchStaff () {
-			return Vue.jnx.partyService.findPeople()
-				.then(staff => {
-					this.staffList = staff
-				})
-		},
 		openDelete () {
 			console.log('Deleting staff')
 		}

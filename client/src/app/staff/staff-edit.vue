@@ -37,11 +37,11 @@ div
 								//md-button.md-icon-button.trash(aria-label="Trash")
 								//	md-icon.fa.fa-trash.fa-lg
 
-								md-button.md-icon-button.save(aria-label="Save" @click='save')
+								md-button.md-icon-button.save(aria-label="Save", @click='save')
 									md-icon
 										span.fa.fa-check.fa-sm
 
-								md-button.md-icon-button.cancel(aria-label="Cancel" @click='cancel')
+								md-button.md-icon-button.cancel(aria-label="Cancel", @click='cancel')
 									md-icon
 										span.fa.fa-times.fa-sm
 
@@ -58,7 +58,6 @@ div
 </template>
 
 <script>
-import {PhoneNumber, EmailAddress, PostalAddress} from 'janux-people'
 import _ from 'lodash'
 import Vue from 'vue'
 import { mapState } from 'vuex'
@@ -76,39 +75,20 @@ export default {
 			addressTypes: ['HOME', 'WORK', 'OTHER']
 		}
 	},
-	created: function () {
-		Vue.jnx.partyService.findOne(this.id)
-			.then(resp => {
-				if (_.isNil(resp.staff)) {
-					resp.staff = {
-						jobTitle: '', jobDepartment: ''
-					}
+	beforeRouteEnter: (to, from, next) => {
+		Vue.jnx.partyService.findOne(to.params.id).then((response) => {
+			if (_.isNil(response.staff)) {
+				response.staff = {
+					jobTitle: '', jobDepartment: ''
 				}
-
-				this.staff = resp
-				this.dataReady = true
-				console.log('Staff', this.id, this.staff)
+			}
+			next((vm) => {
+				vm.dataReady = true
+				vm.staff = response
 			})
+		})
 	},
 	methods: {
-		removeAddress (index) {
-			this.staff.contactMethods.addresses.splice(index, 1)
-		},
-		addNewAddress () {
-			this.staff.setContactMethod('work', new PostalAddress())
-		},
-		removePhone (index) {
-			this.staff.contactMethods.phones.splice(index, 1)
-		},
-		addNewPhone () {
-			this.staff.setContactMethod('work', new PhoneNumber())
-		},
-		removeEmail (index) {
-			this.staff.contactMethods.emails.splice(index, 1)
-		},
-		addNewEmail () {
-			this.staff.setContactMethod('work', new EmailAddress())
-		},
 		save () {
 			console.log('Staff about to insert', this.staff)
 			Vue.jnx.partyService.update(this.staff).then((resp) => {

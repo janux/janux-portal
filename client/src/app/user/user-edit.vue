@@ -59,7 +59,7 @@ import { mapState } from 'vuex'
 import _ from 'lodash'
 
 export default {
-	name: 'edit-user',
+	name: 'user-edit',
 	props: ['userId'],
 	data () {
 		return {

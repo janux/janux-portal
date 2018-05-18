@@ -4,6 +4,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import staff from './staff'
 import user from './user'
+import role from './role'
+import authContext from './auth-context'
 import login from 'Common/security/login'
 
 const appRoutes = [
@@ -14,11 +16,7 @@ const appRoutes = [
 			name: 'staffList'
 		}
 	}
-].concat(
-	login,
-	staff,
-	user
-)
+].concat(login, staff, user, role, authContext)
 
 const appRouter = new Router({ routes: appRoutes })
 
