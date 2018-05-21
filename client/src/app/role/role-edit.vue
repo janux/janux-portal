@@ -32,7 +32,7 @@ import roleForm from './role-form.vue'
 import _ from 'lodash'
 
 export default {
-	name: 'staff-edit',
+	name: 'role-edit',
 	props: ['id'],
 	data () {
 		return {

@@ -13,7 +13,7 @@ export function roleService (http) {
 				'/rpc/2.0/role',
 				'findAll'
 			).then(function (resp) {
-				return resp.result
+				return _.orderBy(resp.result, 'sortOrder')
 			})
 		},
 

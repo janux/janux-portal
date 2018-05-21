@@ -72,7 +72,10 @@
 		"listTitle": "Clients"
 	},
 	"role": {
-		"title": "Roles"
+		"title": "Roles",
+		"dialogs": {
+			"positionUpdated": "Role position successfully updated"
+		}
 	},
 	"permission": {
 		"title": "Authorization Schema",
@@ -82,7 +85,11 @@
 		"copyContext": "Create Authorization Context from ",
 		"editingRole": "Editing Role:",
 		"createRole": "Create Role:",
-		"authContextGroup": "Authorization Context Group"
+		"authContextGroup": "Authorization Context Group",
+		"dialogs": {
+			"authCGroupPositionUpdated": "Group position successfully updated",
+			"authContextPositionUpdated": "Authorization context position successfully updated"
+		}
 	},
 	"staff": {
 		"staff": "Staff",

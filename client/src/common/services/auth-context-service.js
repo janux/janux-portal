@@ -30,7 +30,7 @@ export function authContextService (http) {
 			})
 		},
 
-		// Load available authContextorization contexts within their respective groups
+		// Load available auth contexts within their respective groups
 		findGroups: function () {
 			return http.jsonrpc(
 				'/rpc/2.0/authContext',

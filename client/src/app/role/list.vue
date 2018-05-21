@@ -21,7 +21,7 @@ div
 							.allmighty Is Allmighty?
 							.enabled Enabled?
 
-						draggable(v-model='roles', :options="{draggable:'.role'}")
+						draggable(v-model='roles', :options="{draggable:'.role'}",  @end="roleMoved")
 							.role(v-for="role in roles")
 								.element
 									table.roles-list
@@ -32,10 +32,10 @@ div
 												| {{ role.description }}
 											td.allmighty
 												span.fa.fa-check-square(v-if='role.isAlmighty')
-												| &nbsp;
+												| &nbsp
 											td.enabled
 												span.fa.fa-check-square(v-if='role.enabled')
-												| &nbsp;
+												| &nbsp
 											td.options
 												router-link.action-button(:to="{name: 'roleEdit', params: {roleName: role.name}}")
 													span.fa.fa-pencil.fa-lg
@@ -47,6 +47,10 @@ div
 								span.fa.fa-plus.fa-lg
 								| &nbsp;Add Role
 	v-jnx-footer
+
+	md-snackbar(v-if='snackbar.show', md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
+		span {{ $t(snackbar.message) }}
+		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
 </template>
 
 <script>
@@ -59,7 +63,8 @@ export default {
 	data () {
 		return {
 			sectionTitle: this.$t('permission.title'),
-			roles: []
+			roles: [],
+			snackbar: { show: false, message: '', duration: 1000 }
 		}
 	},
 	components: { draggable },
@@ -69,6 +74,23 @@ export default {
 		})
 	},
 	methods: {
+		roleMoved () {
+			let rolesToSave = []
+			// Update sort order
+			this.roles.forEach(function (role, iRole) {
+				role.sortOrder = iRole
+				let roleToSave = {}
+				roleToSave.id = role.id
+				roleToSave.sortOrder = role.sortOrder
+				rolesToSave.push(roleToSave)
+			})
+
+			Vue.jnx.roleService.updateSortOrder(rolesToSave).then((resp) => {
+				this.snackbar.message = 'role.dialogs.positionUpdated'
+				this.snackbar.show = true
+				console.log('Updated roles', resp)
+			})
+		},
 		openDeleteRoleDialog (roleName) {}
 	},
 	computed: mapState({
