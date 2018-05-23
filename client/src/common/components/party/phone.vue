@@ -63,10 +63,10 @@ export default {
 	},
 	methods: {
 		removePhone (index) {
-			this.staff.contactMethods.phones.splice(index, 1)
+			this.data.contactMethods.phones.splice(index, 1)
 		},
 		addNewPhone () {
-			this.staff.setContactMethod('work', new PhoneNumber())
+			this.data.setContactMethod('work', new PhoneNumber())
 		}
 	},
 	computed: {

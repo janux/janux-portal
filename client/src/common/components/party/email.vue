@@ -50,10 +50,10 @@ export default {
 	},
 	methods: {
 		removeEmail (index) {
-			this.staff.contactMethods.emails.splice(index, 1)
+			this.data.contactMethods.emails.splice(index, 1)
 		},
 		addNewEmail () {
-			this.staff.setContactMethod('work', new EmailAddress())
+			this.data.setContactMethod('work', new EmailAddress())
 		}
 	},
 	computed: {
