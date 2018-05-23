@@ -17,7 +17,7 @@
 						//md-input(v-model="address.type" id="address1")
 						label {{ $t('party.type') }}
 						md-select(aria-label='type' v-model='address.type')
-							md-option(value='aType', v-for='aType in addressTypes', :key='aType') {{ $t('party.contactType.'+aType) }}
+							md-option(:value='aType', v-for='aType in addressTypes', :key='aType') {{ $t('party.contactType.'+aType) }}
 
 				.an-material.nopadding
 					md-field.full

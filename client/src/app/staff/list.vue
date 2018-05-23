@@ -35,8 +35,8 @@ div
 						tbody
 							tr(v-for='staff in staffList')
 								td {{ staff.name.middle }} {{ staff.name.last }}, {{ staff.name.first }}
-								td {{ staff.phoneNumber('work').number }}
-								td {{ staff.emailAddress('work').address }}
+								td {{ staff.phoneNumber().number }}
+								td {{ staff.emailAddress().address }}
 								td {{ staff.user }}
 								td(style="text-align:center")
 									a.action-button
@@ -61,7 +61,10 @@ export default {
 	},
 	beforeRouteEnter: (to, from, next) => {
 		Vue.jnx.partyService.findPeople().then((response) => {
-			next(vm => (vm.staffList = response))
+			next(vm => {
+				vm.staffList = response
+				console.log('staffList', vm.staffList)
+			})
 		})
 	},
 	methods: {

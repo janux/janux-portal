@@ -15,7 +15,7 @@
 						//md-input(v-model="email.type")
 						label {{ $t('party.type') }}
 						md-select(aria-label='type' v-model='email.type')
-							md-option(value='aType', v-for='(aType, index) in mailTypes', :key='index') {{ $t('party.contactType.'+aType) }}
+							md-option(:value='eType', v-for='eType in mailTypes', :key='eType') {{ $t('party.contactType.'+eType) }}
 
 				.an-material.nopadding
 					md-field.full
