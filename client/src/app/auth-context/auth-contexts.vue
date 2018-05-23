@@ -47,7 +47,7 @@
 				span.fa.fa-plus.fa-lg
 				| &nbsp {{ $t('permission.addDisplayGroup') }}
 
-	md-snackbar(v-if='snackbar.show', md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
+	md-snackbar(md-position='center', :md-duration="snackbar.duration", :md-active.sync='snackbar.show')
 		span {{ $t(snackbar.message) }}
 		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
 </template>
@@ -77,7 +77,7 @@ export default {
 				authContextGroup: 'authContextGroup',
 				authContext: 'authContext'
 			},
-			snackbar: { show: false, message: '', duration: 500 }
+			snackbar: { show: false, message: '', duration: 1000 }
 		}
 	},
 	components: { draggable },

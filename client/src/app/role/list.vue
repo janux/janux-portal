@@ -48,7 +48,7 @@ div
 								| &nbsp;Add Role
 	v-jnx-footer
 
-	md-snackbar(v-if='snackbar.show', md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
+	md-snackbar(md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
 		span {{ $t(snackbar.message) }}
 		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
 </template>
