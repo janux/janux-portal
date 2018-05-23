@@ -25,7 +25,7 @@ const routes = [
 		meta: { authRequired: true }
 	},
 	{
-		path: '/auth-context/edit:contextGroupCode/:contextName/:copyFromContext',
+		path: '/auth-context/edit/:contextGroupCode/:contextName/:copyFromContext',
 		name: 'authContextEdit',
 		component: AuthContextEdit,
 		props: true,
@@ -38,7 +38,7 @@ const routes = [
 		meta: { authRequired: true }
 	},
 	{
-		path: '/auth-context/edit-group:id',
+		path: '/auth-context/edit-group/:authContextGroupCode',
 		name: 'authContextGroupEdit',
 		component: AuthContextGroupEdit,
 		props: true,

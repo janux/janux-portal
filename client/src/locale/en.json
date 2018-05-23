@@ -86,9 +86,19 @@
 		"editingRole": "Editing Role:",
 		"createRole": "Create Role:",
 		"authContextGroup": "Authorization Context Group",
+		"addAuthContext": "Add Authorization Context",
+		"addDisplayGroup": "Add Display Group",
+		"group": {
+			"name": "Name",
+			"description": "Description",
+			"code": "Code"
+		},
 		"dialogs": {
 			"authCGroupPositionUpdated": "Group position successfully updated",
-			"authContextPositionUpdated": "Authorization context position successfully updated"
+			"authContextPositionUpdated": "Authorization context position successfully updated",
+			"clonedSameName": "The authorization context has the same name as the one you are copying",
+			"oneBitMin": "Select at least one permission bit in order to create an authorization context",
+			"allRequired": "Please complete all required fields"
 		}
 	},
 	"staff": {

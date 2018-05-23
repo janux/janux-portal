@@ -10,7 +10,7 @@
 						tr
 							td.name {{ authContextGroup.name }}
 							td.options
-								router-link.action-button(to="{name: 'authContextGroupEdit', params: {authContextGroupCode: authContextGroup.code}}")
+								router-link.action-button(:to="{name: 'authContextGroupEdit', params: {authContextGroupCode: authContextGroup.code}}")
 									span.fa.fa-pencil.fa-lg
 								| &nbsp&nbsp
 								a.action-button(href='#', @click='openDeleteAuthContextGroupDialog(authContextGroup)')
@@ -27,7 +27,7 @@
 									td.bits
 										span(v-for="authBit in authCBitsToArray(authContext.bit)") &nbsp&nbsp {{ authBit.label }}
 									td.options
-										router-link.action-button(to="{name: 'authContextEdit', params: {contextGroupCode: authContextGroup.code, contextName: authContext.name}}")
+										router-link.action-button(:to="{name: 'authContextEdit', params: {contextGroupCode: authContextGroup.code, contextName: authContext.name, copyFromContext: false}}")
 											span.fa.fa-pencil.fa-lg
 
 										| &nbsp&nbsp
@@ -35,17 +35,17 @@
 											span.fa.fa-trash.fa-lg
 
 										| &nbsp
-										router-link.action-button(to="{name: 'authContextCopy', params: {copyFromContext: authContext.name}}")
+										router-link.action-button(:to="{name: 'authContextEdit', params: {contextGroupCode: '*', contextName: '*', copyFromContext: authContext.name}}")
 											span.fa.fa-files-o.fa-lg
 
 	.text-left
-		router-link.link.secondary(to="{name:'authContextCreate'}")
+		router-link.link.secondary(:to="{name:'authContextCreate'}")
 			span.fa.fa-plus.fa-lg
-			| &nbsp Add Authorization Context
+			| &nbsp {{ $t('permission.addAuthContext') }}
 		p
-			router-link.link.primary(to="{name: 'authContextGroupCreate'}")
+			router-link.link.primary(:to="{name: 'authContextGroupCreate'}")
 				span.fa.fa-plus.fa-lg
-				| &nbsp Add Display Group
+				| &nbsp {{ $t('permission.addDisplayGroup') }}
 
 	md-snackbar(v-if='snackbar.show', md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
 		span {{ $t(snackbar.message) }}
