@@ -71,7 +71,7 @@ export default {
 
 				Vue.jnx.authContextService.insertGroup(group)
 					.then(() => {
-						this.$root.$router.go(-1)
+						this.$root.$router.push({name: 'authContextList'})
 					})
 			} else {
 				this.snackbar.message = 'permission.dialogs.allRequired'

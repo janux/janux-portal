@@ -51,6 +51,15 @@ div
 	md-snackbar(md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
 		span {{ $t(snackbar.message) }}
 		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
+
+	md-dialog-confirm(
+		:md-active.sync='showDelConf',
+		md-title="Confirm delete?",
+		md-content='Are you sure to delete the role selected',
+		:md-confirm-text='$t("label.ok")',
+		:md-cancel-text='$t("label.no")',
+		@md-cancel='',
+		@md-confirm='deleteRole')
 </template>
 
 <script>
@@ -64,7 +73,9 @@ export default {
 		return {
 			sectionTitle: this.$t('permission.title'),
 			roles: [],
-			snackbar: { show: false, message: '', duration: 1000 }
+			snackbar: { show: false, message: '', duration: 1000 },
+			showDelConf: false,
+			roleNameToDelete: ''
 		}
 	},
 	components: { draggable },
@@ -91,7 +102,15 @@ export default {
 				console.log('Updated roles', resp)
 			})
 		},
-		openDeleteRoleDialog (roleName) {}
+		openDeleteRoleDialog (roleName) {
+			this.roleNameToDelete = roleName
+			this.showDelConf = true
+		},
+		deleteRole () {
+			Vue.jnx.roleService.deleteByName(this.roleNameToDelete).then(() => {
+				this.$root.$router.go()	// Reload
+			})
+		}
 	},
 	computed: mapState({
 		navBarExpanded: state => state.navBarExpanded

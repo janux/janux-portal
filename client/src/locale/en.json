@@ -98,7 +98,8 @@
 			"authContextPositionUpdated": "Authorization context position successfully updated",
 			"clonedSameName": "The authorization context has the same name as the one you are copying",
 			"oneBitMin": "Select at least one permission bit in order to create an authorization context",
-			"allRequired": "Please complete all required fields"
+			"allRequired": "Please complete all required fields",
+			"warningGroupDeletion": "You can't delete this group because it contains one or more authorization contexts"
 		}
 	},
 	"staff": {

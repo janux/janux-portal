@@ -50,6 +50,20 @@
 	md-snackbar(md-position='center', :md-duration="snackbar.duration", :md-active.sync='snackbar.show')
 		span {{ $t(snackbar.message) }}
 		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
+
+	md-dialog-confirm(
+		:md-active.sync='showDelConf',
+		md-title="Confirm delete?",
+		:md-content='deleteTarget',
+		:md-confirm-text='$t("label.ok")',
+		:md-cancel-text='$t("label.no")',
+		@md-cancel='',
+		@md-confirm='deleteConfirmed')
+
+	md-dialog-alert(
+		:md-active.sync='dialog.show',
+		:md-content='$t(dialog.message)',
+		:md-confirm-text='$t("label.ok")')
 </template>
 
 <script>
@@ -77,7 +91,12 @@ export default {
 				authContextGroup: 'authContextGroup',
 				authContext: 'authContext'
 			},
-			snackbar: { show: false, message: '', duration: 1000 }
+			snackbar: { show: false, message: '', duration: 1000 },
+			authContextToDelete: {},
+			authContextGroupToDelete: '',
+			showDelConf: false,
+			deleteTarget: '',
+			dialog: { show: false, message: '' }
 		}
 	},
 	components: { draggable },
@@ -141,8 +160,35 @@ export default {
 				console.log('Updated authorization context', resp)
 			})
 		},
-		openDeleteAuthContextGroupDialog (authContextGroup) {},
-		openDeleteAuthContextDialog (authContext) {}
+		openDeleteAuthContextGroupDialog (group) {
+			// Can't delete the group because it still contains linked authorization contexts
+			if (group.values.length) {
+				this.dialog.message = 'permission.dialogs.warningGroupDeletion'
+				this.dialog.show = true
+			} else {
+				this.deleteTarget = 'Are you sure to delete the selected Authorization Context Group'
+				this.authContextGroupToDelete = group.code
+				this.showDelConf = true
+			}
+		},
+		openDeleteAuthContextDialog (groupCode, authContextName) {
+			this.deleteTarget = 'Are you sure to delete the selected Authorization Context'
+			this.authContextToDelete = { group: groupCode, name: authContextName }
+			this.showDelConf = true
+		},
+		deleteConfirmed () {
+			if (!_.isNil(this.authContextToDelete.groupCode)) {
+				Vue.jnx.authContextService.deleteByName(this.authContextToDelete.groupCode, this.authContextToDelete.name).then(() => {
+					this.authContextToDelete = {}
+					this.$router.go('')	// Reload
+				})
+			} else if (this.authContextGroupToDelete !== '') {
+				Vue.jnx.authContextService.removeGroup(this.authContextGroupToDelete).then(() => {
+					this.authContextGroupToDelete = ''
+					this.$router.go('') // Reload
+				})
+			}
+		}
 	}
 }
 </script>
