@@ -33,8 +33,8 @@ div
 								td {{ user.username }}
 								td {{ user.contact.name.shortName }}
 								td {{ user.roles[0] }}
-								td {{ user.contact.emailAddress('work').address }}
-								td {{ user.contact.phoneNumber('work').number }}
+								td {{ user.contact.emailAddress().address }}
+								td {{ user.contact.phoneNumber().number }}
 								td(style="text-align:center")
 									a.action-button
 										router-link.fa.fa-lock.fa-lg(to="#")
