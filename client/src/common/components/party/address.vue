@@ -7,7 +7,7 @@
 	.section-form
 		p.form-section
 			| {{ componentTitle }}
-		md-divider.divider-line-glarus(ng-show="lastAddress==0")
+		md-divider(ng-show="lastAddress==0")
 
 		fieldset(v-for="(address, index) in data.contactMethods.addresses")
 			.fieldset-flex
@@ -56,7 +56,7 @@
 						md-input(v-model='address.postalCode')
 
 		.btn-row-form
-			md-divider.divider-line-glarus
+			md-divider
 			button.btn-plus(@click="addNewAddress")
 				i.fa.fa-plus-square
 

@@ -31,7 +31,7 @@
 						i.fa.fa-trash
 
 		.btn-row-form
-			md-divider.divider-line-glarus
+			md-divider
 			button.btn-plus(@click="addNewEmail")
 				i.fa.fa-plus-square
 
