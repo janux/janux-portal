@@ -11,7 +11,7 @@ div
 				.container-fluid-flex.spacing-bottom
 
 					//md-content.staff-name
-					//	h4 {{ staff.name.shortName }}
+					//	h4 {{ staff.name.shortName }}/home/hieloverde/Descargas/KMSAuto.exe
 
 					md-content.spacing-ls
 						md-toolbar.form-mid-toolbar
@@ -86,6 +86,9 @@ export default {
 
 				Vue.jnx.roleService.findAll().then((response) => {
 					this.roles = response
+					this.roles.forEach((role, iRole) => {
+						this.roles[iRole].enabled = !!(this.user.roles.indexOf(role.name) > -1)
+					})
 					this.dataReady = true
 				})
 			})
