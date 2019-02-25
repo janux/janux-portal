@@ -1,4 +1,5 @@
 'use strict';
+
 var UserPersistence         = require('janux-persist').UserService,
 	PartyServiceImpl        = require('janux-persist').PartyServiceImpl,
 	AuthContextPersistence  = require('janux-persist').AuthContextService,

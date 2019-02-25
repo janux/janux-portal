@@ -1,6 +1,6 @@
 // The bower directory is searched for imports,
 // so the following path will find the bootstrap less files
-@bootstrap: 'bootstrap/less';
+@bootstrap: '~bootstrap/less';
 
 // Bootstrap Core variables
 @import '@{bootstrap}/variables';
@@ -13,7 +13,6 @@
 
 // Icons
 @import 'icon/glyphicons/glyphicons';
-@import 'icon/entypo/entypo';
 @import 'font-awesome';
 
 // Responsive mixins and media queries
@@ -32,4 +31,9 @@
 // Layouts that are specific to a page, state or component are imported from this folder;
 // these styles should not depend on each other, as the import order is random.
 // The globbing functionality is provided by less-plugin-glob.
-@import 'layouts/*';
+// TODO: Add less-plugin-glob to webpack less-loader config
+@import 'layouts/login-toolbar';
+@import 'layouts/login';
+@import 'layouts/navbar';
+@import 'layouts/permission';
+@import 'layouts/users';

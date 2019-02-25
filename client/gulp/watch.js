@@ -1,4 +1,10 @@
 'use strict';
+
+const webpack          	 = require('webpack');
+const WebpackDevServer 	 = require('webpack-dev-server');
+const webpackConfig    	 = require('../build/webpack.dev.conf.js');
+const gutil  			 = require('gulp-util');
+
 //
 // Watch
 //
@@ -6,47 +12,25 @@
 var path = require('path');
 
 module.exports = function(gulp) {
-	
+
 	var cfg = gulp.cfg;
 
-	gulp.task('watch:clean', ['clean'], function() {
-		gulp.start('watch');
-	});
+	gulp.task('webpack-dev-server', function(callback) {
+		webpackConfig.then(function (wpConfig) {
+			// Start a webpack-dev-server
+			var compiler = webpack(wpConfig);
 
-	gulp.task('watch',['build', 'serve-reload'], function () {
+			new WebpackDevServer(compiler, wpConfig.devServer).listen(cfg.dev.port, cfg.dev.host, function(err) {
+				if(err) throw new gutil.PluginError("webpack-dev-server", err);
 
-		// gulp.start('server-reload');
+				// Server listening
+				gutil.log("[webpack-dev-server]", "http://",cfg.dev.host,":",cfg.dev.port,"/index.html");
 
-		// Watch for changes that change during dev
-		gulp.watch(cfg.fileset.watch, {debounceDelay: 1000}, function(event) {
-			// console.log('watch triggered:', event );
-
-			// Assuming a single page-app, always reload the index page
-			event.path = path.join(cfg.dir.dist, 'index.html');
-
-			// ensure all processing is done before reloading
-			setTimeout(function() {
-				gulp.plugins.express.notify(event);
-			},
-			250);
+				// keep the server alive or continue?
+				// callback();
+			});
 		});
-
-		
-		// Watch .less files
-		gulp.watch( cfg.fileset.lessSrc, ['styles']);
-
-		gulp.watch( cfg.fileset.pug, ['pug']);
-
-		// Watch .js files
-		// TODO: add two entries for 'app' and 'common' folders rather than going
-		// through all the folders under 'src'
-		gulp.watch([ 
-			path.join(cfg.dir.src, '**','*.js'),path.join(cfg.dir.src, '**','*.vue')
-		], ['webpack']);
-
-		// Watch assets
-		// TODO: apply this to all assets
-		gulp.watch(path.join(cfg.dir.src, cfg.dir.locale, '*.json'), ['copy']);
-		// gulp.watch( cfg.dir.img + '/**/*', ['images']);
 	});
+
+	gulp.task('watch', ['webpack-dev-server', 'serve-reload']);
 }

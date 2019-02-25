@@ -3,7 +3,7 @@
 
 		.login-body
 
-			img.logo(src='/img/janux_logo.png')
+			img.logo(src='~Img/janux_logo.png')
 			.brand
 				span.janux janux
 			.brand

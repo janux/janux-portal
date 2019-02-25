@@ -4,15 +4,14 @@ html
 		title Janux Vue.js Seed
 		meta(charset='utf-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
+		meta(name='Distribution', content='global')
+		meta(name='Robots', content='all')
 
-		base(href='/')
 		link(rel="stylesheet", href='//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons')
-		link(rel="stylesheet", href=cfg.server.static+'/'+cfg.dir.css+'/vue-material.css')
-		link(rel="stylesheet", href=cfg.server.static+'/'+cfg.dir.css+'/default.css')
-		link(rel='stylesheet', href=cfg.server.static + '/' + cfg.dir.css + '/main.css?' + cfg.build.timestamp)
 
+		// this is necessary to ensure that when using html5mode(true), and when reloading
+		// the page or accessing a bookmark, the css and other links are relative to '/'
+		// rather than /name-of-page
+		base(href='/')
 	body
 		div(id="app")
-		script(src=cfg.server.static + '/' + cfg.file.app + '?' + cfg.build.timestamp)
-
-// vim: set fo=rq wrap:

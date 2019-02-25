@@ -1,0 +1,19 @@
+//
+// =grid
+//
+
+// Specify the number of columns and set column and gutter widths
+@columns: 12;
+@column-width: 60;
+@gutter-width: 40;
+
+// Number of columns for maincolumn and sidebar
+@maincolumn-size: 12;
+// @sidebar-size: 3;
+// size definition for nested columns: (12 / 2) = 6
+@col2: (@maincolumn-size / 2);	// 2 nested per row
+@col3: (@maincolumn-size / 3);	// 3 nested per row
+@col4: (@maincolumn-size / 4);	// 4 nested per row
+
+// Remove the definition below for a pixel-based layout
+@total-width: 100%;

@@ -5,6 +5,10 @@
  * Created by hielo on 2018-04-18
  */
 
+import 'vue-material/dist/vue-material.css'
+import 'vue-material/dist/theme/default.css'
+import 'Css/main.less'
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
@@ -12,7 +16,7 @@ import Router from 'vue-router'
 import vueResource from 'vue-resource'
 import vueMaterial from 'vue-material'
 import i18n from 'Locale/lang'
-import App from './App'
+import App from './AppComponent.vue'
 import appRouter from './router'
 import store from 'Common/store'
 import common from 'Common'

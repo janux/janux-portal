@@ -1,4 +1,5 @@
-@import "semantic-grid/stylesheets/less/grid.less"; // from bower
+@import "grid";
+@import "semantic-grid-config";
 
 html, body, section{
 	color: @grey1;
@@ -70,7 +71,7 @@ html {
 				float: left;
 				font-size: 22px;
 				position: absolute;
-				padding-left:20px; 
+				padding-left:20px;
 				transition:all 0.3s ease;
 				-webkit-transition:all 0.3s ease;
 				-moz-transition:all 0.3s ease;
@@ -99,9 +100,9 @@ html {
 	.sidebar-nav{
 		a{
 			font-size:15px !important;
-			padding-left:20px; 
+			padding-left:20px;
 			span{
-				padding-left:30px; 
+				padding-left:30px;
 			}
 			.down{
 				&::after{
@@ -109,7 +110,7 @@ html {
 					content: " \f107";
 				}
 			}
-			
+
 		}
 		li{
 			a{
@@ -130,7 +131,7 @@ html {
 	border:medium none;
 }
 
-.accordion-inner{ 
+.accordion-inner{
 	ul {
 		padding:0;
 		list-style:none;
@@ -138,7 +139,7 @@ html {
 		li{
 			a{
 				font-size: 13px !important;
-				padding-left: 20px; 
+				padding-left: 20px;
 			}
 		}
 	}
@@ -194,7 +195,7 @@ html {
 }
 
 .btn-text{
-	display: inline-block; 
+	display: inline-block;
 	.medium-device({ display: none;});
 }
 
@@ -358,7 +359,7 @@ input[type='text'], input[type='password'] {
 				background-color: @grey6;
 			}
 		}
-		
+
 		a.active {
 			background-color: @grey6;
 			color: @white;

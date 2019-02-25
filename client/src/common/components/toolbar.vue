@@ -7,7 +7,7 @@
 	md-toolbar.sd-page-header(md-elevation='1')
 		.sd-page-logo(:class="{ 'sd-page-logo-collapsed': navBarExpanded }")
 			a(href='../')
-				img.sd-logo-default(src='/img/janux_logo.png', alt='Janux')
+				img.sd-logo-default(src='~Img/janux_logo.png', alt='Janux')
 
 		.sd-page-breadcrum
 			| {{ sectionTitle }}

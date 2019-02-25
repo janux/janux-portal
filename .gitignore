@@ -5,6 +5,7 @@ bower
 .DS_Store
 .idea
 janux-people.db
+development.js
 server/vendor/janux-*
 /client/client.iml
 /server/server.iml

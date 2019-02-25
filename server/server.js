@@ -51,23 +51,6 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-// serve static assets from '/static' context path
-var staticUrl = appContext.server.staticUrl;
-if (_.isString(staticUrl) && staticUrl.length > 0) {
-	app.use(appContext.server.staticUrl, express.static(appContext.server.distFolder));
-} else {
-	app.use(express.static(appContext.server.distFolder));
-}
-
-app.use(serveFavicon(appContext.server.distFolder + '/favicon.ico'));
-
-log.info('livereload is:', appContext.server.livereload);
-
-if (appContext.server.livereload) {
-	log.info('Using livereload');
-	app.use(livereload());
-}
-
 app.use(passport.initialize());
 app.use(passport.session()); // supports persistent login sessions
 // app.use(flash()); // used to pass messages on failed login
