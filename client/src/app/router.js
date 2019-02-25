@@ -18,7 +18,7 @@ const appRoutes = [
 	}
 ].concat(login, staff, user, role, authContext)
 
-const appRouter = new Router({ routes: appRoutes })
+const appRouter = new Router({ mode: 'history', routes: appRoutes })
 
 appRouter.beforeEach((to, from, next) => {
 	console.debug('router before each from', from, 'to', to)
