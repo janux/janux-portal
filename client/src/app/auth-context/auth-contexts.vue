@@ -71,6 +71,7 @@ import draggable from 'vuedraggable'
 import { authCBitsToArray } from 'App/role/util'
 import Vue from 'vue'
 import _ from 'lodash'
+import {EventBus} from 'Common/event-bus'
 
 export default {
 	name: 'auth-context-list',
@@ -178,14 +179,14 @@ export default {
 		},
 		deleteConfirmed () {
 			if (!_.isNil(this.authContextToDelete.group)) {
-				Vue.jnx.authContextService.deleteByName(this.authContextToDelete.groupCode, this.authContextToDelete.name).then(() => {
+				Vue.jnx.authContextService.deleteByName(this.authContextToDelete.group, this.authContextToDelete.name).then(() => {
 					this.authContextToDelete = {}
-					this.$router.go('')	// Reload
+					EventBus.$emit('auth-context-list-reload')
 				})
 			} else if (this.authContextGroupToDelete !== '') {
 				Vue.jnx.authContextService.removeGroup(this.authContextGroupToDelete).then(() => {
 					this.authContextGroupToDelete = ''
-					this.$router.go('') // Reload
+					EventBus.$emit('auth-context-list-reload')
 				})
 			}
 		}

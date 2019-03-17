@@ -22,6 +22,7 @@ div
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import authContextList from './auth-contexts.vue'
+import {EventBus} from 'Common/event-bus'
 
 export default {
 	name: 'role-list',
@@ -32,9 +33,19 @@ export default {
 		}
 	},
 	components: { authContextList },
-	beforeRouteEnter: (to, from, next) => {
-		Vue.jnx.authContextService.findGroups().then((response) => {
-			next(vm => (vm.authContextGroups = response))
+	methods: {
+		loadData () {
+			Vue.jnx.authContextService.findGroups().then((response) => {
+				this.authContextGroups = response
+			})
+		}
+	},
+	beforeMount () {
+		this.loadData()
+
+		// Reload list in case of auth-context or auth-context group delete
+		EventBus.$on('auth-context-list-reload', () => {
+			this.loadData()
 		})
 	},
 	computed: mapState({
