@@ -177,7 +177,7 @@ export default {
 			this.showDelConf = true
 		},
 		deleteConfirmed () {
-			if (!_.isNil(this.authContextToDelete.groupCode)) {
+			if (!_.isNil(this.authContextToDelete.group)) {
 				Vue.jnx.authContextService.deleteByName(this.authContextToDelete.groupCode, this.authContextToDelete.name).then(() => {
 					this.authContextToDelete = {}
 					this.$router.go('')	// Reload
