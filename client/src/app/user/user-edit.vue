@@ -57,6 +57,7 @@ div
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import _ from 'lodash'
+import md5 from 'js-md5'
 
 export default {
 	name: 'user-edit',
@@ -102,6 +103,9 @@ export default {
 					this.user.roles.push(role.name)
 				}
 			})
+
+			// password to md5
+			this.user.password = (this.user.password !== '') ? md5(this.user.password) : ''
 
 			Vue.jnx.userService.saveOrUpdate(this.user).then(() => {
 				console.log('User has been saved!')
