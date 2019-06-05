@@ -2,8 +2,9 @@
 
 var log4js = require('log4js'),
 	_      = require('underscore'),
-	bluebird = require('bluebird');
-	log    = log4js.getLogger('UserService');
+	bluebird = require('bluebird'),
+	log    = log4js.getLogger('UserService'),
+	md5 	= require('md5');
 
 // variable to hold the singleton instance, if used in that manner
 var userServiceInstance = undefined;
@@ -56,7 +57,7 @@ var createInstance = function (serviceReference) {
 					return userServicePersistence.removeSensitiveData(o);
 				});
 				return bluebird.resolve(filteredResult).asCallback(callback);
-			})
+			});
 	};
 
 	UserService.prototype.findById = function (userId, callback) {
@@ -70,7 +71,6 @@ var createInstance = function (serviceReference) {
 	// Override the method to save users
 	UserService.prototype.saveOrUpdate = function (aUserObj, callback) {
 
-
 		//
 		// If the user's role has been loaded, we ensure that only the name is stored back
 		//
@@ -79,6 +79,12 @@ var createInstance = function (serviceReference) {
 		// });
 		//
 		// return userDAO.prototype.saveOrUpdate.call(this, aUserObj).asCallback(callback);
+
+		// Updating password
+		if (aUserObj.password) {
+			aUserObj.password = md5(aUserObj.password);
+		}
+
 		return userServicePersistence.saveOrUpdate(aUserObj).asCallback(callback);
 
 	};
