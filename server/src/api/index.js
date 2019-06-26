@@ -32,11 +32,16 @@ var config                         = require('config'),
 	PartyService                   = require('./party-service'),
 	PartyGroupService              = require('./party-group-service');
 
+// Access control definitions
+const 	UserAccessControl		= require('./access-control/user').create(UserPersistenceService);
+
+
 module.exports = {
 	UserService           : UserService.create(UserPersistenceService),
 	AuthContextService    : AuthContextService.create(AuthContextPersistService, AuthContextGroupPersistService),
 	RoleService           : RoleService.create(RolePersistService),
 	UserPersistenceService: UserPersistenceService,
 	PartyService          : PartyService.create(PartyPersistenceService),
-	PartyGroupService     : PartyGroupService.create(PartyGroupPersistenceService)
+	PartyGroupService     : PartyGroupService.create(PartyGroupPersistenceService),
+	UserAccessControl	  : UserAccessControl
 };
