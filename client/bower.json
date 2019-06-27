@@ -1,8 +1,0 @@
-{
-	"name": "janux-vuejs-seed",
-	"version": "0.0.1-SNAPSHOT",
-	"dependencies": {
-		"bootstrap":         "3.3.4",
-		"normalize.css":     "3.0.0"
-	}
-}

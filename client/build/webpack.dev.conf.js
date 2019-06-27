@@ -5,7 +5,7 @@ const config = require('config')
 const merge = require('webpack-merge')
 const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
@@ -62,15 +62,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 			template: path.resolve(__dirname, '../src/index.pug'),
 			chunks: ['commons', 'app'],
 			inject: true
-		})
+		}),
 		// copy custom static assets
-		// new CopyWebpackPlugin([
-		//   {
-		//     from: path.resolve(__dirname, '../static'),
-		//     to: config.dev.assetsSubDirectory,
-		//     ignore: ['.*']
-		//   }
-		// ])
+		new CopyWebpackPlugin([
+		  {
+		    from: path.resolve(__dirname, '..', config.dir.src, config.dir.img),
+		    to: path.join(config.dev.assetsSubDirectory, config.dir.img),
+		    ignore: ['.*']
+		  }
+		])
 	]
 })
 
