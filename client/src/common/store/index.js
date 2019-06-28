@@ -6,6 +6,8 @@ import {app} from 'App/app'
 
 Vue.use(Vuex)
 
+// TODO: Separate states, actions and mutations
+
 const store = new Vuex.Store({
 	state: {
 		currentUser: null,
