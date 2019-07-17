@@ -23,7 +23,7 @@ This project depends on janux-persist , janux-people and janux-authorize. You ne
 
 a.- Get janux-people at 'https://github.com/janux/janux-people.js.git'
 
-b.- Checkout branch dev (`git fetch && git checkout dev`).
+b.- Checkout branch dev (`git fetch && git checkout develop`).
 
 c.- Run 'npm install' and then run 'gulp'
 
@@ -49,11 +49,11 @@ d.- Create symlinks of janux-people and janux-authorize. Inside the vendor direc
 
 For windows users you need to modify package.json and replace the path of janux-people and janux-persist with the correct paths.
 
-e.-Run `npm install`
+e.-Run 'npm install and then run 'gulp'
 
-**How to install the project.**
+*4.- *How to install Janux Vuejs seed *
 
-a.- Get the project at 'https://github.com/janux/janux-authorize.js.git'.
+a.- Get the project at 'https://ramoncalvo@bitbucket.org/janux-org/janux-vuejs-seed.git'.
 
 b.- Switch to branch develop ('git fetch && git checkout develop').
 
@@ -73,6 +73,6 @@ Run the following tasks.
 
 2.- Create auth-context sample data by running `npm run generate-demo-auth`\
 
-3.- Execute `npm run watch`.
+3.- Execute `gulp watch`.
 
 At this moment there is a server running at http://localhost:9000.
