@@ -53,7 +53,7 @@ e.-Run 'npm install and then run 'gulp'
 
 *4.- *How to install Janux Vuejs seed *
 
-a.- Get the project at 'https://ramoncalvo@bitbucket.org/janux-org/janux-vuejs-seed.git'.
+a.- Clone the project at 'janux-vuejs-seed.git'.
 
 b.- Switch to branch develop ('git fetch && git checkout develop').
 
