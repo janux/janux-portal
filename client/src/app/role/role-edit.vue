@@ -3,25 +3,7 @@
 * Created by hielo on 2018-05-17
 */
 
-<template lang="pug">
-div
-	v-jnx-header(:sectionTitle="sectionTitle")
-	.page-content-wrapper(v-bind:class="{ 'page-content-left' : navBarExpanded }")
-		.container-fluid(v-if="dataReady")
-			.row
-				md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
-					.md-toolbar-tools.form-toolbar
-						h3.md-title(style="flex: 1") {{ $t('permission.editingRole') }} {{ role.name }}
-
-						md-button.md-icon-button.save(aria-label="Save", @click="saveRole")
-							md-icon.fa.fa-check.fa-lg
-
-						md-button.md-icon-button.cancel(aria-label="Cancel", @click="cancel")
-							md-icon.fa.fa-times.fa-lg
-
-				.container-fluid-flex.spacing-bottom
-					role-form(:role="role", :authContextGroups="authContextGroups")
-	v-jnx-footer
+<template lang="pug" src="./role-edit.pug">
 </template>
 
 <script>

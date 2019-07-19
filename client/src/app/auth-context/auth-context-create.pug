@@ -1,0 +1,22 @@
+div
+	v-jnx-header(:sectionTitle="sectionTitle")
+	.page-content-wrapper(v-bind:class="{ 'page-content-left' : navBarExpanded }")
+		.container-fluid
+			.row
+				md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
+					.md-toolbar-tools.form-toolbar
+						h3.md-title(style="flex: 1") {{ $t('permission.createContext') }}
+
+						md-button.md-icon-button.save(aria-label="Save", @click="saveAuthContext")
+							md-icon.fa.fa-check.fa-lg
+
+						md-button.md-icon-button.cancel(aria-label="Cancel", @click="cancel")
+							md-icon.fa.fa-times.fa-lg
+
+				.container-fluid-flex.spacing-bottom
+					auth-context(:authContext="authContext", :groupsList="groupsList")
+	v-jnx-footer
+
+	md-snackbar(md-position='center', :md-duration='snackbar.duration', :md-active.sync='snackbar.show', md-persistent='')
+		span {{ $t(snackbar.message) }}
+		md-button.md-primary(@click='snackbar.show = false') {{ $t('label.ok') }}
