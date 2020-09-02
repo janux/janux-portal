@@ -16,6 +16,7 @@ var PartyDaoLokiJsImpl = require('janux-persist').PartyDaoLokiJsImpl;
 var AccountDaoLokiJsImpl = require('janux-persist').AccountDaoLokiJsImpl;
 var daoFactory = require('janux-persist').DaoFactory;
 var usrService = require('janux-persist').UserService;
+var PasswordService = require('janux-persist').PasswordService;
 var userGenerator = require("./users-generator");
 
 const PARTY_DEFAULT_COLLECTION_NAME            = 'contact',
@@ -29,6 +30,7 @@ var UserGenerator = (function () {
         this._log.debug("Call to generateUserDateInTheDatabase");
         var partyDao;
         var accountDao;
+		var passwordService = new PasswordService();
 		if (dbEngine === DataSourceHandler.MONGOOSE) {
 			partyDao = daoFactory.subscribeDao(new DaoSettings(dbEngine, path, PARTY_DEFAULT_COLLECTION_NAME, EntityPropertiesImpl.createDefaultProperties(), PartyMongooseSchema), PartyDaoMongooseImpl);
 			accountDao = daoFactory.subscribeDao(new DaoSettings(dbEngine, path, ACCOUNT_DEFAULT_COLLECTION_NAME, EntityPropertiesImpl.createDefaultProperties(), AccountMongooseDbSchema), AccountDaoMongooseImpl);
@@ -39,7 +41,7 @@ var UserGenerator = (function () {
 
         // partyDao = daoFactory.createPartyDao(dbEngine, path);
         // accountDao = daoFactory.createAccountDao(dbEngine, path);
-        var userService = usrService.createInstance(accountDao, partyDao);
+        var userService = usrService.createInstance(accountDao, partyDao, passwordService);
         var usersToInsert = this.generateUserFakeData();
 
 		var inserted = new Promise(function(resolve) {
@@ -66,17 +68,17 @@ var UserGenerator = (function () {
         var users = [
             {
                 username: 'widget',
-                password: md5('test1'),
+                password: 'test1',
                 roles: ["WIDGET_DESIGNER"]
             },
             {
                 username: 'manager',
-                password: md5('test2'),
+                password: 'test2',
                 roles: ["MANAGER"]
             },
             {
                 username: 'admin',
-                password: md5('1234567'),
+                password: '1234567',
                 roles: ["ADMIN"]
             }
         ];

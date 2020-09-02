@@ -80,11 +80,6 @@ var createInstance = function (serviceReference) {
 		//
 		// return userDAO.prototype.saveOrUpdate.call(this, aUserObj).asCallback(callback);
 
-		// Updating password
-		if (aUserObj.password) {
-			aUserObj.password = md5(aUserObj.password);
-		}
-
 		return userServicePersistence.saveOrUpdate(aUserObj).asCallback(callback);
 
 	};
