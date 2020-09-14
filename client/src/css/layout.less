@@ -123,8 +123,18 @@ html {
 }
 .submenu-left{
 	padding-left: 50px !important;
+	border-top: .5px solid white;
+}
+.submenu-left:hover {
+	border-top: .5px solid white;
 }
 
+.sidebar-nav .isOpen {
+	text-align: left;
+}
+.sidebar-nav .isClose {
+	text-align: right;
+}
 
 //Submenu view
 .accordion-group {
@@ -148,7 +158,12 @@ html {
 .accordion-heading{
 	.accordion-toggle {
 		padding: 16px 0 21px;
+		
+		&:hover{
+			background-color: @green2;
+		}
 	}
+	
 }
 
 .menu-sub {

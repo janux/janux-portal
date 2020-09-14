@@ -9,8 +9,9 @@
 		.sidebar-wrapper(@mouseleave="resetFlags" v-bind:class="{ noneStyle: navBarExpanded }")
 			ul.sidebar-nav
 				li
-					a(v-on:click="toggleStyle")
-						i.fa.fa-bars
+					a(v-on:click="toggleStyle", v-bind:class="{ isClose: navBarExpanded, isOpen: !navBarExpanded }")
+						i( v-if="navBarExpanded").fa.fa-caret-square-o-left
+						i(v-else).fa.fa-bars
 						span
 							| &nbsp;
 				li
