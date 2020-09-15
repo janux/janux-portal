@@ -1,25 +1,29 @@
 {
- "name": "janux-vuejs-seed",
- "version": "0.0.1",
- "description": "This is the janux-vuejs-seed project. It is working POC using janux-people, janux-authorize and janux-persist.",
- "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "postinstall": "npm run install-server && npm run install-client && npm run install-client",
-  "install-client": "npm install --prefix  ./client",
-  "install-server": "npm install --prefix ./server",
-  "build": "npm run build --prefix  ./client",
-  "watch": "./client/node_modules/gulp/bin/gulp.js --cwd ./client watch",
-  "generate-demo-users": "npm run generate-demo-users --prefix ./server",
-  "generate-demo-auth": "npm run generate-demo-auth --prefix ./server"
- },
- "repository": {
-  "type": "git",
-  "url": "git+https://github.com/janux/janux-auth-angular-seed.git"
- },
- "keywords": [
-  "janux"
- ],
- "author": "",
- "license": "ISC",
- "homepage": "https://github.com/janux/janux-auth-angular-seed#readme"
+  "name": "janux-vuejs-seed",
+  "version": "0.0.1",
+  "description": "This is the janux-vuejs-seed project. It is working POC using janux-people, janux-authorize and janux-persist.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run install-server && npm run install-client && npm run install-client",
+    "install-client": "npm install --prefix  ./client",
+    "install-server": "npm install --prefix ./server",
+    "build": "npm run build --prefix  ./client",
+    "watch": "./client/node_modules/gulp/bin/gulp.js --cwd ./client watch",
+    "generate-demo-users": "npm run generate-demo-users --prefix ./server",
+    "generate-demo-auth": "npm run generate-demo-auth --prefix ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janux/janux-auth-angular-seed.git"
+  },
+  "keywords": [
+    "janux"
+  ],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/janux/janux-auth-angular-seed#readme",
+  "dependencies": {
+    "ag-grid-community": "^24.0.0",
+    "ag-grid-vue": "^24.0.0"
+  }
 }

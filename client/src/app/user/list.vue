@@ -14,60 +14,25 @@ div
 								| &nbsp; {{ $t('label.add') }}
 					hr
 
-					table.list.users-list(v-if='usersMatch.length')
-						thead
-							tr
-								th {{ $t('user.username') }}
-								th {{ $t('user.displayName') }}
-								th {{ $t('user.role') }}
-								th {{ $t('user.email') }}
-								th {{ $t('user.phone') }}
-								th {{ $t('user.renew') }}
-								th {{ $t('user.edit') }}
-								th
-									md-button.md-icon-button(aria-label="Trash" style="background:none;", @click='openDelete')
-										md-icon.fa.fa-trash.fa-lg(style="color:#ffffff;")
-
-						tbody
-							tr(v-for='user in usersMatch')
-								td {{ user.username }}
-								td {{ user.contact.name.shortName }}
-								td {{ user.roles[0] }}
-								td {{ user.contact.emailAddress().address }}
-								td {{ user.contact.phoneNumber().number }}
-								td(style="text-align:center")
-									a.action-button
-										router-link.fa.fa-lock.fa-lg(to="#")
-								td.text-center
-									a.action-button
-										router-link.fa.fa-pencil.fa-lg(:to="{name:'userEdit', params:{userId:user.userId}}")
-								td(style="text-align:center")
-									md-checkbox(aria-label="Trash" v-model='user.Selected' class="md-primary")
-								//td.text-center
-								//	a.action-button(@click='editUser(user.userId)')
-								//		span.fa.fa-pencil.fa-lg
-								//	a.action-button(@click='openDeleteAuthContextDialog(user)')
-								//		span.fa.fa-trash.fa-lg
-
-					.users-filter
-						form
-							.fieldset-flex
-								.an-material.nopadding
-									label(for='username') Find by:
-								.an-material.nopadding
-									md-field.full
-										md-select(aria-label='type' v-model='searchField')
-											md-option(:value='field', v-for='(field, index) in searchFields', :key='index') {{ field }}
-								.an-material.nopadding
-									md-field.full
-										md-input(id='username' type='text' v-model='searchString')
-								.an-material.nopadding
-									button.btn.btn-default(type='submit', @click='findUsers') {{ $t('label.search') }}
+					#grid-wrapper(style="width: 100%; height: 500px;")
+						ag-grid-vue(
+						style="width: 100%; height: 500px;"
+						class="ag-theme-alpine"
+						id="myGrid"
+						:gridOptions='gridOptions',
+						pagination='true',
+						paginationPageSize='15',
+						:defaultColDef='defaultColDef'
+						:columnDefs="columnDefs",
+						:rowData="usersMatch",
+						@first-data-rendered="onFirstDataRendered",
+						@grid-size-changed="onGridSizeChanged"
+						)
 	v-jnx-footer
 
 	md-dialog-confirm(
 		:md-active.sync='showDelConf',
-		md-title="Confirm delete?",
+		md-title='Confirm delete?',
 		md-content='Are you sure to delete the users selected',
 		:md-confirm-text='$t("label.ok")',
 		:md-cancel-text='$t("label.no")',
@@ -85,10 +50,33 @@ div
 import Vue from 'vue'
 import moment from 'moment'
 import _ from 'lodash'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
+import { AgGridVue } from 'ag-grid-vue'
+
+import rowName from './ag-grid/row-name'
+import rowUsername from './ag-grid/row-username'
+import rowRole from './ag-grid/row-role'
+import rowPhone from './ag-grid/row-phone'
+import rowEmail from './ag-grid/row-email'
+import rowEdit from './ag-grid/row-edit'
+import rowDelete from './ag-grid/row-delete'
+import rowLockPass from './ag-grid/row-lock-pass'
+
+import { EventBus } from '@/common/event-bus.js'
 
 export default {
 	name: 'user-list',
+	components: {
+		AgGridVue,
+		rowName,
+		rowUsername,
+		rowRole,
+		rowPhone,
+		rowEmail,
+		rowEdit,
+		rowLockPass,
+		rowDelete
+	},
 	data () {
 		return {
 			sectionTitle: this.$t('user.title'),
@@ -98,58 +86,152 @@ export default {
 			searchString: '',
 			showDelConf: false,
 			showErrorSel: false,
-			selectedIds: []
+			selectedIds: [],
+
+			gridOptions: null,
+			gridApi: null,
+			columnApi: null,
+			// staffList: [],
+			defaultColDef: {
+				resizable: true,
+				sortable: true,
+				filter: true
+			},
+			columnDefs: { field: 'name', sortable: true },
+			currentRowId: null
 		}
 	},
 	created: function () {
 		this.fetchUsers()
 	},
+	mounted () {
+		this.gridApi = this.gridOptions.api
+		this.gridColumnApi = this.gridOptions.columnApi
+		this.getEventBus()
+	},
+	beforeMount () {
+		this.gridOptions = {}
+		this.columnDefs = [
+			{
+				headerName: 'User Name',
+				field: 'username',
+				cellRendererFramework: rowUsername,
+				minWidth: 30,
+				maxWidth: 220
+			},
+			{
+				headerName: 'Name´s',
+				field: 'name',
+				cellRendererFramework: rowName,
+				minWidth: 50,
+				maxWidth: 450
+			},
+			{
+				headerName: 'Role',
+				field: 'role',
+				cellRendererFramework: rowRole,
+				minWidth: 50,
+				maxWidth: 200
+			},
+			{
+				headerName: 'Email',
+				field: 'email',
+				cellRendererFramework: rowEmail,
+				minWidth: 50,
+				maxWidth: 480
+			},
+			{
+				headerName: 'Phone Number',
+				field: 'phone',
+				cellRendererFramework: rowPhone,
+				minWidth: 50,
+				maxWidth: 400
+			},
+			{
+				headerName: 'Renew password',
+				field: 'newPass',
+				cellRendererFramework: rowLockPass,
+				minWidth: 50,
+				maxWidth: 170
+			},
+			{
+				headerName: 'Edit',
+				field: 'edit',
+				cellRendererFramework: rowEdit,
+				minWidth: 50,
+				maxWidth: 100
+			},
+			{
+				headerName: 'Delete',
+				field: 'delete',
+				cellRendererFramework: rowDelete,
+				minWidth: 50,
+				maxWidth: 100
+			}
+		]
+	},
 	methods: {
 		fetchUsers () {
-			Vue.jnx.userService.findBy('username', '').then((result) => {
+			Vue.jnx.userService.findBy('username', '').then(result => {
 				this.usersMatch = _.map(result, function (user) {
-					user.cdate = moment(user.cdate).format('YYYY-MM-DD HH:mm:ss')
+					user.cdate = moment(user.cdate).format(
+						'YYYY-MM-DD HH:mm:ss'
+					)
 					return user
 				})
-				console.log('users match', this.usersMatch)
+				// console.log('users match', this.usersMatch)
 			})
 		},
-
 		findUsers () {
-			Vue.jnx.userService.findBy(this.searchField, this.searchString).then((result) => {
-				this.usersMatch = _.map(result, function (user) {
-					user.cdate = moment(user.cdate).format('YYYY-MM-DD HH:mm:ss')
-					return user
+			Vue.jnx.userService
+				.findBy(this.searchField, this.searchString)
+				.then(result => {
+					this.usersMatch = _.map(result, function (user) {
+						user.cdate = moment(user.cdate).format(
+							'YYYY-MM-DD HH:mm:ss'
+						)
+						return user
+					})
+					// console.log('usersMatch', this.usersMatch)
 				})
-				console.log('usersMatch', this.usersMatch)
-			})
 		},
-
 		openDelete () {
-			this.selectedIds = []
-			for (var i = 0; i < this.usersMatch.length; i++) {
-				if (this.usersMatch[i].Selected) {
-					var userId = this.usersMatch[i].userId
-					this.selectedIds.push(userId)
-				}
-			}
-
-			if (this.selectedIds.length > 0) {
-				this.showDelConf = true
-			} else {
-				this.showErrorSel = true
-			}
+			this.showDelConf = true
 		},
 
 		confirmDelete () {
-			let userDeletionArray = []
-			for (var i = 0; i < this.selectedIds.length; i++) {
-				// console.log(selectedIds[i]);
-				userDeletionArray.push(Vue.jnx.userService.deleteUser(this.selectedIds[i]))
-			}
+			console.log('confirmDelete')
 
-			Promise.all(userDeletionArray).then(() => {
-				this.$root.$router.go()
+			Vue.jnx.userService.deleteUser(this.currentRowId).then(() => {
+				this.fetchUsers()
+			})
+		},
+		onFirstDataRendered (params) {
+			params.api.sizeColumnsToFit()
+		},
+		onGridSizeChanged (params) {
+			let gridWidth = document.getElementById('grid-wrapper').offsetWidth
+			let columnsToShow = []
+			let columnsToHide = []
+			let totalColsWidth = 0
+			let allColumns = params.columnApi.getAllColumns()
+			for (let i = 0; i < allColumns.length; i++) {
+				let column = allColumns[i]
+				totalColsWidth += column.getMinWidth()
+				if (totalColsWidth > gridWidth) {
+					columnsToHide.push(column.colId)
+				} else {
+					columnsToShow.push(column.colId)
+				}
+			}
+			params.columnApi.setColumnsVisible(columnsToShow, true)
+			params.columnApi.setColumnsVisible(columnsToHide, false)
+			params.api.sizeColumnsToFit()
+		},
+		getEventBus () {
+			EventBus.$on('ask-if-delete-this', (id) => {
+				this.currentRowId = id
+				this.openDelete()
 			})
 		}
 	},

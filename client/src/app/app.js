@@ -9,6 +9,9 @@ import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import 'Css/main.less'
 
+import 'ag-grid-community/dist/styles/ag-grid.css'
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
+
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
