@@ -4,7 +4,7 @@
 	overflow: hidden;
 }
 .md-toolbar.md-theme-default.sd-page-header {
-	background: @green1;
+	background: @primaryColor;
 	position: fixed;
 	color: @white;
 }
@@ -30,22 +30,34 @@
 	margin: 0;
 	width: 40px;
 }
+.tagline {
+	color: white;
+	padding-left: 15px;
+	font-family: 'Base9-SmallCaps';
+	text-transform: uppercase;
+	font-weight: bold;
+	.medium-device({ display: none; });
+	.small-device({ display: none; });
+	.xs-device({ display: none; });
+}
 .sd-page-breadcrum {
+	background-color: @matiz1;
 	float: left;
 	font-size: 17px;
 	display: inline-block;
 	font-family: inherit;
+	font-weight: 500;
 	width: 40%;
 	height: 70px;
-	padding-left: 5px;
+	padding-left: 15px;
 	line-height: 70px;
 	&:before {
 		font-family: @font-awesome;
 		content: "\f101  ";
 	}
-	.medium-device({ width: 30%; font-size: 15px;});
-	.small-device({ width: 60%; font-size: 13px; });
-	.xs-device({ width: 60%; font-size: 13px; });
+	.medium-device({ width: 30%; font-size: 15px; });
+	.small-device({ width: 60%; font-size: 13px; background-color: @primaryColor; });
+	.xs-device({ width: 60%; font-size: 13px; background-color: @primaryColor; });
 }
 .sd-top-menu {
 	margin-left: auto;

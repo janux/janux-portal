@@ -3,9 +3,8 @@
 	border-top:2px solid @green2;
 }
 .md-toolbar.form-mid-toolbar {
-	background: @grey2;
+	background: @primaryColor;
 	color: @white;
-	border-top:1px solid @grey2;
 	z-index: 0;
 }
 
@@ -14,10 +13,14 @@
 	padding-left: 0;
 }
 .md-tabs.md-theme-default .md-tabs-navigation {
-	background: @grey2;
+	background: @primaryColor;
 }
 .md-tabs.md-theme-default .md-tabs-navigation .md-button.md-active {
 	color: @white;
+}
+.md-tabs-indicator-left {
+	left: 10px!important;
+	right: calc(100% - 110px)!important;
 }
 .md-tabs.md-theme-default .md-tabs-indicator {
 	background: @white;
@@ -33,28 +36,32 @@ md-toolbar.form-mid-toolbar{
 }
 .md-button.trash,.md-button.save,.md-button.cancel{
 	border-radius: 20% !important;
-	box-shadow: 2px 2px 3px @grey1;
+	border: .5px solid rgba(255,255,255,.4);
 }
 .md-button.trash{
 	background: #706e6e;
 }
 .md-button.save{
-	background: @green2;
+	background: @matiz1; 
 	&:hover{
-		background: @grey1 !important;
+		background: @secondaryColor5Lighthen !important;
 	}
 }
+.md-button-content {
+	color: white;
+	font-weight: 600;
+}
 .md-button.cancel{
-	background: #d0021b;
+	background: @matiz1;
 	&:hover{
-		background: @grey1 !important;
+		background: @secondaryColor5Lighthen !important;
 	}
 }
 .md-toolbar.md-theme-default.form-root-toolbar{
 	background: @grey3;
 	color: @green1 !important;
 	.md-title {
-		color: @green1 !important;
+		color: @secondaryColor !important;
 	}
 	z-index: 0;
 }
@@ -76,15 +83,14 @@ md-toolbar.form-mid-toolbar{
 	width: 100%;
 	height: 64px;
 	max-height: 64px;
-	padding: 0 16px;
 	margin: 0;
 }
 .md-toolbar-tools.form-toolbar .md-button{
 	color: @white;
-	background: @green4;
+	background: @matiz1;
 	border-radius: 20%;
 	&:hover{
-		background: @green1;
+		background: @secondaryColor5Lighthen;
 	}
 }
 .md-button.md-icon-button .fa{
@@ -116,12 +122,15 @@ md-toolbar.form-mid-toolbar{
 
     }
 }
-.btn-plus{
-	background:@green2 !important;
-	border-radius:20% !important;
+.btn-plus, .btn-trash{
+	background: @matiz1 !important;
+	color: white;
+	border-radius:0 !important;
 	float: right;
+	border: .5px solid darken(@primaryColor, 7%);
 	&:hover{
-		background: @green1 !important;
+		background: @secondaryColor5Lighthen !important;
+		color: white;
 	}
 }
 
@@ -136,7 +145,7 @@ md-toolbar.form-mid-toolbar{
 
 .form-section{
 	display:table; 
-	background:@green2; 
+	background:@primaryColor; 
 	padding:5px 15px;
 	color:white;
 }

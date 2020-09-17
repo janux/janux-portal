@@ -19,7 +19,7 @@ html {
 
 // Sidebar Collapsed view
 .sidebar-wrapper {
-	background: @sidebar-bg;
+	background: @secondaryColor;
 	height: 100%;
 	position: fixed;
 	left: 0;
@@ -48,7 +48,7 @@ html {
 			background: inherit;
 			width: 100%;
 		}
-		a{
+		a{	
 			display: block;
 			outline: 0;
 			border-bottom: @sidebar-border;
@@ -64,7 +64,7 @@ html {
 			transition:all 0.1s ease;
 			margin-bottom: -17px; //Dont know why is a margin under
 			&:hover{
-				background: @sidebar-hover;
+				background: @matiz4;
 			}
 			i{
 				color: #fff;
@@ -82,6 +82,25 @@ html {
 		a.active {
 			background-color: @sidebar-hover;
 			color: @white;
+		}
+	}
+
+	.accordion-inner {
+		li {
+			a {
+				background: lighten(@secondaryColor, 5%);
+				&:hover{
+					background: @primaryColor;
+					color: black !important;
+					font-weight: 500;
+				}
+				
+			}
+			a.active {
+				background-color: @matiz1;
+				color: @white !important;
+				font-weight: 500;
+			}
 		}
 	}
 }
@@ -135,6 +154,11 @@ html {
 .sidebar-nav .isClose {
 	text-align: right;
 }
+.sidebar-ghost-btn {
+	&:active {
+		visibility: hidden;
+	}
+}
 
 //Submenu view
 .accordion-group {
@@ -160,7 +184,8 @@ html {
 		padding: 16px 0 21px;
 		
 		&:hover{
-			background-color: @green2;
+			background-color: lighten(@secondaryColor, 15%);
+			border-top: 1px solid white;
 		}
 	}
 	
@@ -292,19 +317,26 @@ input[type='text'], input[type='password'] {
 		text-align: right;
 		width: 50%;
 		a {
-			color: @green1;
-			background-color: @green2;
+			color: white;
+			background-color: @matiz1;
 			cursor:pointer;
 			font-weight: bold;
-			padding:15px;
+			padding: 14px 11px;
 			text-decoration: none;
 			border-radius: 10px;
 			&:hover{
 				color: @white;
+				background: @secondaryColor;
 			}
 		}
 		.small-device({ width: 80%; font-size: 13px; });
 		.xs-device({ width: 80%; font-size: 13px; });
+	}
+}
+
+#grid-wrapper {
+	.fa-pencil, .fa-lock, .fa-trash {
+		color: @secondaryColor;
 	}
 }
 
@@ -328,6 +360,18 @@ input[type='text'], input[type='password'] {
 
 .show{  display: inline;  }
 .hide{  display: none;  }
+
+.inside-view {
+	.md-field.md-theme-default::after {
+		background-color: @secondaryColor;
+	}
+	.md-field.md-theme-default::before {
+		background-color: @secondaryColor;
+	}
+	.md-theme-default:before {
+		color: @secondaryColor !important;
+	}
+}
 
 //Mobile menu
 .sd-page-container {
@@ -370,29 +414,31 @@ input[type='text'], input[type='password'] {
 			display: block;
 			padding: 20px 30px;
 			text-decoration: none;
-			border-bottom: 1px solid @grey2;
+			border-bottom: .5px solid rgba(255, 255, 255, .5) !important;
 			text-align: left;
 			font-size: 13px;
+			background-color: darken(@secondaryColor, 8%);
 			cursor: pointer;
 			&:hover {
 				background-color: @grey6;
 			}
-		}
-
-		a.active {
-			background-color: @grey6;
-			color: @white;
 		}
 		ul{
 			list-style: none;
 			padding: 0px;
 			li a{
 				width: 100%;
-				background-color: @grey4;
+				background-color: darken(@secondaryColor, 5%);
+				border-top: .5px solid rgba(255, 255, 255, .5) !important;
+				color: rgba(255, 255, 255, .5) !important;
 				padding: 5px 60px;
 				border: none;
 			}
 			.medium-device({ display: none;});
+		}
+
+		a.active {
+			color: @white !important;
 		}
 	}
 }

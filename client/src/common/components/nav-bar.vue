@@ -12,7 +12,7 @@
 					a(v-on:click="toggleStyle", v-bind:class="{ isClose: navBarExpanded, isOpen: !navBarExpanded }")
 						i( v-if="navBarExpanded").fa.fa-caret-square-o-left
 						i(v-else).fa.fa-bars
-						span
+						span.sidebar-ghost-btn
 							| &nbsp;
 				li
 					.accordion(id="rightMenu1")

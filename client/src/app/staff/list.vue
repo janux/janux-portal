@@ -11,8 +11,8 @@ div
 						.title {{ $t('staff.staff') }}
 						.options
 							router-link(:to="{name:'staffCreate'}")
-								span.fa.fa-plus-circle.fa-lg
-								| &nbsp; {{ $t('label.add') }}
+								span.fa.fa-user-plus.fa-lg
+								//- | &nbsp; {{ $t('label.add') }}
 					hr
 
 					#grid-wrapper(style="width: 100%; height: 70vh;")

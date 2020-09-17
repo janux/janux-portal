@@ -8,6 +8,7 @@
 		.sd-page-logo(:class="{ 'sd-page-logo-collapsed': navBarExpanded }")
 			a(href='../')
 				img.sd-logo-default(src='~Img/janux_logo.png', alt='Janux')
+				span.tagline(v-if="navBarExpanded") Janux People
 
 		.sd-page-breadcrum
 			| {{ sectionTitle }}
