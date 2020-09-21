@@ -65,7 +65,8 @@
 			"confirmDeletion":"Are you sure you want to delete the row selection?",
 			"nameEmpty": "The user's contact name can not be empty",
 			"emailEmpty": "The user's contact email can not be empty",
-			"noRoles": "You must select at least one role from the list"
+			"noRoles": "You must select at least one role from the list",
+			"noUsernamePassword": "Username and password are empty"
 		}
 	},
 	"client": {

@@ -31,7 +31,7 @@ div
 										span.fa.fa-times.fa-sm
 
 						.user-form(v-if="currentNavItem == 'user'")
-							md-content.staff-form(layout-padding)
+							md-content.staff-form.flex-container(layout-padding)
 								.container-flex-form
 									v-jnx-user(section-title="user.user", :data="user", password="true")
 									v-jnx-role(section-title="user.roles", :data="roles")

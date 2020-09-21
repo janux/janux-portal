@@ -53,12 +53,21 @@ export default {
 			})
 		},
 		save () {
+			if (_.trim(this.user.username) === '' && _.trim(this.user.password) === '' ) {
+				this.infoDialog('user.dialogs.noUsernamePassword')
+				return
+			}
+
+			console.log('user roles ', this.roles)
+			let Roles = []
 			if (!_.isNil(this.user.password) && !_.isNil(this.user.username)) {
 				this.roles.forEach(function (role) {
 					if (role.enabled) {
-						this.user.roles.push(role.name)
+						// this.user.roles.push(role.name)
+						Roles.push(role.name)
 					}
 				})
+				this.user.roles = Roles
 
 				if (this.user.roles.length > 0) {
 					if (this.user.contact.contactMethods.emails[0].address) {
