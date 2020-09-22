@@ -6,7 +6,7 @@
 <template lang="pug">
 div
 	p.form-section {{ componentTitle }}
-	div.an-material
+	div.an-material.p-30px
 		md-field.user-field
 			label {{ $t('user.username') }}
 			md-input(v-model='data.username' required='')
@@ -19,20 +19,22 @@ div
 			label {{ $t('user.email') }}
 			md-input(v-model='data.contact.contactMethods.emails[0].address')
 
-		md-field.full
-			md-checkbox.md-primary(aria-label="Enabled" v-model='data.enabled')
-				| {{ $t('user.enabled') }}
+		.row-user
+			md-field.full.row-child
+				md-checkbox.md-primary(aria-label="Enabled" v-model='data.enabled')
+					| {{ $t('user.enabled') }}
 
-		md-field.full
-			md-checkbox.md-primary(aria-label="Locked" v-model='data.locked')
-				| {{ $t('user.locked') }}
-		.full
-			md-datepicker(v-model="selectedDate", :md-open-on-focus="false")
-				label {{ $t('user.expirationDate') }}
+			md-field.full.row-child
+				md-checkbox.md-primary(aria-label="Locked" v-model='data.locked')
+					| {{ $t('user.locked') }}
+		.row-user
+			.full.row-child
+				md-datepicker(v-model="selectedDate", :md-open-on-focus="false")
+					label {{ $t('user.expirationDate') }}
 
-		.full
-			md-datepicker(v-model="data.expirePassWord", :md-open-on-focus="false")
-				label {{ $t('user.passExpirationDate') }}
+			.full.row-child
+				md-datepicker(v-model="data.expirePassWord", :md-open-on-focus="false")
+					label {{ $t('user.passExpirationDate') }}
 
 </template>
 

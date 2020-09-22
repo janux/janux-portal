@@ -1,6 +1,6 @@
 div
 	v-jnx-header(:sectionTitle="sectionTitle")
-	.page-content-wrapper.inside-view(v-bind:class="{ 'page-content-left' : navBarExpanded }")
+	.page-content-wrapper.inside-view.staff-view(v-bind:class="{ 'page-content-left' : navBarExpanded }")
 		.container-fluid(v-if="dataReady")
 			.row
 				md-toolbar.form-root-toolbar.md-accent(md-elevation="1")
@@ -40,7 +40,7 @@ div
 										span.fa.fa-times.fa-sm
 
 						.container-flex-form
-							.staff-form-left
+							.staff-form-left.left-side-adjust
 								v-jnx-person-name(section-title='party.contact', :data='staff')
 								v-jnx-address(section-title='party.addressesTitle', :data='staff')
 

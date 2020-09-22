@@ -25,6 +25,7 @@ export default {
 		fetchData () {
 			Vue.jnx.userService.findById(this.userId).then((response) => {
 				this.user = response
+				console.log('user response ', response)
 
 				if (_.isNil(this.user.contact.staff)) {
 					this.user.contact.staff = {

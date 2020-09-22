@@ -372,6 +372,22 @@ input[type='text'], input[type='password'] {
 		color: @secondaryColor !important;
 	}
 }
+.staff-view {
+	.md-tabs-navigation .md-ripple {
+		padding: 0 10px !important;
+	}
+}
+
+.md-field.md-theme-default.md-focused label {
+	color: @secondaryColor;
+}
+.md-field.full.md-theme-default.md-has-value:hover:active::after {
+	background-color: @secondaryColor;
+}
+
+.md-field.md-theme-default:after {
+	background-color: @secondaryColor !important;
+}
 
 //Mobile menu
 .sd-page-container {
