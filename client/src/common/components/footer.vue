@@ -6,12 +6,17 @@
 <template lang="pug">
 	.sd-page-footer
 		.sd-page-footer-inner
-			| {{ $t('login.copy') }}
+			| {{ getCurrrentYear() }} {{ $t('login.copy') }}
 
 </template>
 
 <script>
 export default {
-	name: 'jnx-footer'
+	name: 'jnx-footer',
+	methods: {
+		getCurrrentYear () {
+			return new Date().getFullYear()
+		}
+	}
 }
 </script>
