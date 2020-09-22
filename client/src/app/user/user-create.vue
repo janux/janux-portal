@@ -6,7 +6,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import _ from 'lodash'
 import md5 from 'js-md5'
-import {Person, EmailAddress} from 'janux-people'
+import {Person, EmailAddress, PhoneNumber} from 'janux-people'
 
 export default {
 	name: 'user-create',
@@ -37,7 +37,7 @@ export default {
 		fetchData () {
 			// Create a new person
 			var person = new Person()
-			// person.setContactMethod('work', new PhoneNumber());
+			person.setContactMethod('work', new PhoneNumber())
 			person.setContactMethod('work', new EmailAddress())
 			// person.setContactMethod('Home', new PostalAddress());
 
@@ -53,7 +53,7 @@ export default {
 			})
 		},
 		save () {
-			if (_.trim(this.user.username) === '' && _.trim(this.user.password) === '' ) {
+			if (_.trim(this.user.username) === '' && _.trim(this.user.password) === '') {
 				this.infoDialog('user.dialogs.noUsernamePassword')
 				return
 			}
