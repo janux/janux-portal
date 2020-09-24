@@ -100,7 +100,7 @@ md-toolbar.form-mid-toolbar{
 	width: 100%;
 }
 .an-material{
-	padding-left: 20px;
+	padding-left: 10px;
 	label{
 		font-weight: normal !important;
 	}
@@ -115,7 +115,8 @@ md-toolbar.form-mid-toolbar{
 	    color: grey; 
 	}
     .full{
-    	width: 100%;
+		width: 100%;
+		z-index: 0;
     	.ng-pristine{
 			border-color: #dcdcdc !important;
 		}
@@ -292,10 +293,13 @@ md-toolbar.form-mid-toolbar{
 }
 .row-user {
 	display: flex;
+	flex-wrap: wrap;
 }
 .row-child {
-	width: 50% !important;
+	width: 50%;
 	margin: 0 9px;
+
+	.xs-device({ width: 100%; });
 }
 .div-wrapper {
 	display: flex; 

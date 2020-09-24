@@ -27,7 +27,7 @@ export default {
 				authContextGroup: 'authContextGroup',
 				authContext: 'authContext'
 			},
-			snackbar: { show: false, message: '', duration: 1000 },
+			snackbar: { show: false, message: '', duration: 4000 },
 			authContextToDelete: {},
 			authContextGroupToDelete: '',
 			showDelConf: false,

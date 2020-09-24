@@ -6,7 +6,7 @@
 <template lang="pug">
 div
 	v-jnx-header(:sectionTitle="sectionTitle")
-	.page-content-wrapper(v-bind:class="{ 'page-content-left' : navBarExpanded }")
+	.page-content-wrapper.fa-adjust-view(v-bind:class="{ 'page-content-left' : navBarExpanded }")
 		.container-fluid
 			.row
 				.col-lg-12
@@ -73,7 +73,7 @@ export default {
 		return {
 			sectionTitle: this.$t('permission.title'),
 			roles: [],
-			snackbar: { show: false, message: '', duration: 1000 },
+			snackbar: { show: false, message: '', duration: 4000 },
 			showDelConf: false,
 			roleNameToDelete: ''
 		}

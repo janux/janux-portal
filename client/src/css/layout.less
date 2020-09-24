@@ -203,12 +203,17 @@ html {
 
 // Page content
 .page-content-wrapper {
-    width: 100%;
+	width: 100%;
     position: absolute;
 	top:70px;
-    padding: 0px 0px 15px @sidebar-width;
-    .small-device({ padding: 0px;});
-	.smallest-device({ padding: 0px; });
+	padding: 0px 0px 15px @sidebar-width;
+}
+.user-edit {
+	.small-device({ padding: 0px; width: 94% !important; });
+	.smallest-device({ padding: 0px; width: 100%; });
+	.medium-device({ width: 100%; });
+	.large-device({ width: 100%; });
+	.xl-device({ width: 100%; });
 }
 .page-content-left {
 	padding-left: @sidebar-width-full;
@@ -245,7 +250,7 @@ html {
 
 input[type='text'], input[type='password'] {
 	background: white;
-	border: 1px solid #f1f1f1;
+	border: 1px solid #c4c4c4;
 	padding:1px;
 	width: 100%;
 	height: 30px;
@@ -270,20 +275,44 @@ input[type='text'], input[type='password'] {
     	text-align: left;
     }
 }
-
 .container-fluid-flex{
 	display: flex;
 	display: -webkit-flex;
 	flex-flow: row wrap;
 	width: 100%;
+
+	.user-btn-responsive {
+		z-index: 0;
+		.medium-device({ display: none; });
+		.large-device({ display: none; });
+		.xl-device({ display: none; });
+		width: 100%;
+		padding: 15px;
+		padding-right: 0;
+
+		.user-edit-md-button {
+			md-toolbar {
+				margin-left: 15px;
+			}
+		}
+	}
+	.user-btn {
+		.small-and-down({ display: none; });
+		.smallest-device({ display: none; });
+	}
 }
+
 .container-flex-form {
 	width:100%;
 	display: flex;
 	align-items: stretch;
+	flex-wrap: wrap;
 }
 .container-flex-form > div{
 	flex: 1;
+	.small-device({ width: 100%; });
+	.smallest-device({ width: 100%; });
+	.medium-device({ width: 50%; });
 }
 
 .container-body{
@@ -457,4 +486,35 @@ input[type='text'], input[type='password'] {
 			color: @white !important;
 		}
 	}
+}
+
+.fa-adjust-view .fa {
+	color: @secondaryColor;
+}
+.roles-list {
+	.fa-pencil {
+		padding-right: 10px;
+	}
+}
+.auth-context-group {
+	.fa-trash {
+		padding: 0 10px;
+	}
+}
+.link {
+	cursor: pointer;
+	color: @secondaryColor !important;
+}
+
+.group-element, .element {
+	cursor: grab;
+}
+
+.md-snackbar {
+	background-color: @secondaryColor !important;
+}
+
+.form-control {
+	margin: 5px;
+	padding: 0 5px !important;
 }
