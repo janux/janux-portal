@@ -46,8 +46,8 @@ div
 									v-jnx-role(section-title="user.roles", :data="roles")
 
 						.user-form(v-if="currentNavItem == 'userContact'")
-							.container-flex-form
-								.staff-form-left.left-side-adjust
+							.container-flex-form.left-side-adjust.user-contact
+								.staff-form-left
 									v-jnx-person-name(section-title='party.contact', :data='user.contact')
 									v-jnx-address(section-title='party.addressesTitle', :data='user.contact')
 

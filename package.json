@@ -23,7 +23,7 @@
   "license": "ISC",
   "homepage": "https://github.com/janux/janux-auth-angular-seed#readme",
   "dependencies": {
-    "ag-grid-community": "^24.0.0",
-    "ag-grid-vue": "^24.0.0"
+    "ag-grid-community": "24.0.0",
+    "ag-grid-vue": "24.0.0"
   }
 }

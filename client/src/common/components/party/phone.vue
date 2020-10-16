@@ -9,7 +9,7 @@
 			| {{ componentTitle }}
 		fieldset.fieldset-flex(v-for="(phone, index) in data.contactMethods.phones")
 			.fieldset-flex.div-wrapper
-				.an-material.nopadding.w-10-percent
+				.an-material.nopadding.w-20-percent
 					md-field.full
 						//label {{ 'party.type' | translate}}
 						//md-input(v-model="phone.type")
@@ -17,7 +17,7 @@
 						md-select(aria-label='type' v-model='phone.type')
 							md-option(:value='pType', v-for='pType in phoneTypes', :key='pType') {{ $t('party.contactType.'+pType) }}
 
-				.an-material.nopadding.w-10-percent
+				.an-material.nopadding.w-20-percent
 					md-field.full
 						label {{ $t('party.code') }}
 						md-input(v-model="phone.countryCode")
@@ -26,14 +26,15 @@
 						label {{ $t('party.area') }}
 						md-input(v-model='phone.areaCode')
 
-				.an-material.nopadding.w-50-percent
+				.an-material.nopadding.w-40-percent
 					md-field.full
 						label {{ $t('party.number') }}
 						md-input(v-model='phone.number')
-				.an-material.nopadding.w-60-percent
+				.an-material.nopadding.w-20-percent
 					md-field.full
 						label {{ $t('party.ext') }}
 						md-input(v-model='phone.ext')
+
 				div.w-10-percent
 					md-checkbox.md-primary(aria-label="SMS" v-model='phone.sms')
 						| {{ $t('party.sms') }}

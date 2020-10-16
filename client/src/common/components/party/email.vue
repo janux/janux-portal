@@ -9,7 +9,7 @@
 			| {{ componentTitle }}
 		fieldset.fieldset-flex(v-for="(email,index) in data.contactMethods.emails")
 			.fieldset-flex
-				.an-material.nopadding.half
+				.an-material.nopadding.party-element
 					md-field.full
 						//label {{ 'party.type' | translate}}
 						//md-input(v-model="email.type")
@@ -17,14 +17,14 @@
 						md-select(aria-label='type' v-model='email.type')
 							md-option(:value='eType', v-for='eType in mailTypes', :key='eType') {{ $t('party.contactType.'+eType) }}
 
-				.an-material.nopadding
-					md-field.full
-						label {{ $t('party.email') }}
-						md-input(v-model="email.address")
-
 				div
 					md-checkbox.md-primary(aria-label="Principal" v-model='email.principal')
 						| {{ $t('party.first') }}
+
+				.an-material.party-element
+					md-field.full
+						label {{ $t('party.email') }}
+						md-input(v-model="email.address")
 
 				div
 					button.btn-trash(@click="removeEmail(index)")
