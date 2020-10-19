@@ -1,19 +1,19 @@
 div
 	v-jnx-header(:sectionTitle="sectionTitle")
-	.page-content-wrapper.user-edit(v-bind:class="{ 'page-content-left' : navBarExpanded }")
+	.page-content-wrapper.user-views(v-bind:class="{ 'page-content-left' : navBarExpanded }")
 		.container-fluid(v-if="dataReady")
 			.row
-				md-toolbar.form-root-toolbar.md-accent(md-elevation="1" style="margin-left: 15px;")
+				md-toolbar.form-root-toolbar.md-accent.toolbar-adjust(md-elevation="1")
 					.md-toolbar-tools.form-toolbar
-						h3.md-title(style="flex: 1") {{ $t('user.editUser') }}: {{ user.username }}
+						// User edit
+						h3.md-title(v-if="viewType == 'edit'" style="flex: 1") {{ $t('user.editUser') }}: {{ user.username }}
+						// User create
+						h3.md-title(v-if="viewType == 'create'" style="flex: 1") {{ $t('user.createUser') }}
 
 				.container-fluid-flex.spacing-bottom
 
-					//md-content.staff-name
-					//	h4 {{ staff.name.shortName }}/home/hieloverde/Descargas/KMSAuto.exe
-
 					.user-btn-responsive
-						md-button.user-edit-md-button.md-icon-button.save(aria-label="Save", @click='save')
+						md-button.user-md-button.md-icon-button.save(aria-label="Save", @click='save')
 							md-icon
 								span.fa.fa-check.fa-sm
 
@@ -27,7 +27,6 @@ div
 								md-tabs(md-active-tab="tab-user")
 									md-tab#tab-user(md-label="USER", @click="currentNavItem='user'")
 									md-tab#tab-contact(md-label="CONTACT", @click="currentNavItem='userContact'")
-									md-tab#tab-notifications(md-label="NOTIFICATIONS", @click="currentNavItem='userNotifications'")
 
 								span(flex)
 
@@ -56,12 +55,8 @@ div
 									v-jnx-phone(section-title='party.phonesTitle', :data='user.contact')
 									v-jnx-email(section-title='party.emailsTitle', :data='user.contact')
 
-						.user-form(v-if="currentNavItem == 'userNotifications'")
-							h3 User notifications
-
-					
 					.user-btn-responsive
-						md-button.user-edit-md-button.md-icon-button.save(aria-label="Save", @click='save')
+						md-button.user-md-button.md-icon-button.save(aria-label="Save", @click='save')
 							md-icon
 								span.fa.fa-check.fa-sm
 
@@ -69,3 +64,10 @@ div
 							md-icon
 								span.fa.fa-times.fa-sm
 	v-jnx-footer
+
+	// user create
+	span(v-if="viewType == 'create'")
+		md-dialog-alert(
+			:md-active.sync='dialog.show',
+			:md-content='$t(dialog.message)',
+			:md-confirm-text='$t("label.ok")')

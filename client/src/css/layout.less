@@ -48,7 +48,7 @@ html {
 			background: inherit;
 			width: 100%;
 		}
-		a{	
+		a{
 			display: block;
 			outline: 0;
 			border-bottom: @sidebar-border;
@@ -94,7 +94,7 @@ html {
 					color: black !important;
 					font-weight: 500;
 				}
-				
+
 			}
 			a.active {
 				background-color: @matiz1;
@@ -182,13 +182,13 @@ html {
 .accordion-heading{
 	.accordion-toggle {
 		padding: 16px 0 21px;
-		
+
 		&:hover{
 			background-color: lighten(@secondaryColor, 15%);
 			border-top: 1px solid white;
 		}
 	}
-	
+
 }
 
 .menu-sub {
@@ -208,12 +208,15 @@ html {
 	top:70px;
 	padding: 0px 0px 15px @sidebar-width;
 }
-.user-edit {
-	.small-device({ padding: 0px; width: 94% !important; });
+.user-views {
+	.small-device({ padding: 0px; width: 98% !important; });
 	.smallest-device({ padding: 0px; width: 100%; });
 	.medium-device({ width: 100%; });
 	.large-device({ width: 100%; });
 	.xl-device({ width: 100%; });
+}
+.toolbar-adjust {
+	.small-device({ margin-left: 5px; });
 }
 .page-content-left {
 	padding-left: @sidebar-width-full;
@@ -290,7 +293,7 @@ input[type='text'], input[type='password'] {
 		padding: 15px;
 		padding-right: 0;
 
-		.user-edit-md-button {
+		.user-md-button {
 			md-toolbar {
 				margin-left: 15px;
 			}

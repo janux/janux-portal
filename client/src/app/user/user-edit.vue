@@ -1,4 +1,4 @@
-<template lang="pug" src="./user-edit.pug">
+<template lang="pug" src="./user-views.pug">
 </template>
 
 <script>
@@ -11,6 +11,7 @@ export default {
 	props: ['userId'],
 	data () {
 		return {
+			viewType: 'edit',
 			sectionTitle: this.$t('user.title'),
 			currentNavItem: 'user',
 			user: {},
