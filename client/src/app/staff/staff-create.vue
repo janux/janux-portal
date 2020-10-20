@@ -3,7 +3,7 @@
 * Created by hielo on 2018-04-24
 */
 
-<template lang="pug" src="./staff-create.pug">
+<template lang="pug" src="./staff-views.pug">
 </template>
 
 <script>
@@ -16,6 +16,7 @@ export default {
 	props: ['id'],
 	data () {
 		return {
+			viewType: 'create',
 			sectionTitle: this.$t('staff.title'),
 			staff: {}
 		}
