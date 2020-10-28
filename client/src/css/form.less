@@ -45,7 +45,7 @@ md-toolbar.form-mid-toolbar{
 .md-button.trash{
 	background: #706e6e;
 }
-.md-button.save{
+.md-button.save,.md-button.cancel{
 	background: @matiz1;
 	&:hover{
 		background: @secondaryColor5Lighthen !important;
@@ -55,10 +55,19 @@ md-toolbar.form-mid-toolbar{
 	color: white;
 	font-weight: 600;
 }
-.md-button.cancel{
+
+.auth-action-btn {
+	border-radius: 20% !important;
+	border: .5px solid rgba(255,255,255,.4);
+	color: white;
+	padding: 8px 8px;
 	background: @matiz1;
+	.fa {
+		color: white;
+	}
 	&:hover{
 		background: @secondaryColor5Lighthen !important;
+		color: white;
 	}
 }
 .md-toolbar.md-theme-default.form-root-toolbar{

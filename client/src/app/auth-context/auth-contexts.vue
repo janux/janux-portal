@@ -23,6 +23,7 @@ export default {
 	},
 	data () {
 		return {
+			longView: false,
 			listTypes: {
 				authContextGroup: 'authContextGroup',
 				authContext: 'authContext'
@@ -34,6 +35,12 @@ export default {
 			deleteTarget: '',
 			dialog: { show: false, message: '' }
 		}
+	},
+	created () {
+		this.isShowResponsiveData()
+	},
+	mounted () {
+		window.addEventListener('resize', this.isShowResponsiveData)
 	},
 	components: { draggable },
 	methods: {
@@ -124,6 +131,12 @@ export default {
 					EventBus.$emit('auth-context-list-reload')
 				})
 			}
+		},
+		isShowResponsiveData () {
+			let widthPage = document.documentElement.clientWidth
+			console.log('widthPage ', widthPage)
+			this.widthBrowser = widthPage
+			widthPage >= 760 ? this.longView = true : this.longView = false
 		}
 	}
 }

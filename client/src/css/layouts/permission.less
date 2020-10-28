@@ -26,7 +26,7 @@
 			}
 
 			td.bits {
-				width: 70%;
+				width: 50%;
 			}
 
 			td.options {
@@ -37,6 +37,43 @@
 
 	.entypo {
 		color:@dnd-icon;
+	}
+}
+
+.auth-context-view {
+	td.options {
+		text-align: right;
+	}
+	.responsive-layout {
+		background: @secondaryColor; color: white; border: none;
+	}
+	.responsive-tr {
+		padding: 10px;
+	}
+	.block-limit {
+		border-top: 1px solid rgba(93, 80, 163, .4);
+		width: 80%;
+	}
+	.responsive-link {
+		background: @secondaryColor;
+		border: none;
+		width: 80%;
+		color: white !important;
+	}
+	.responsive-td {
+		display: flex; flex-direction: column; align-items: center;
+	}
+	.bottom-controls {
+		padding: 15px 0;
+		display: flex;
+		flex-direction: column;
+
+		.secondary {
+			padding: 5px 0;
+		}
+		.primary {
+			padding: 5px 0; padding-bottom: 10px;
+		}
 	}
 }
 
@@ -59,9 +96,6 @@
 }
 
 .context-list-labels {
-	td:nth-of-type(1):before { content: "Name"; }
-	td:nth-of-type(2):before { content: "Bits"; }
-	td:nth-of-type(3):before { content: "Options"; }
 }
 
 .context-resp-table {

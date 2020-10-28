@@ -151,13 +151,9 @@ export default {
 		},
 		isShowResponsiveData () {
 			let widthPage = document.documentElement.clientWidth
-			console.log('widthPage ', widthPage)
+			// console.log('widthPage ', widthPage)
 			this.widthBrowser = widthPage
-			if (widthPage >= 760) {
-				this.longView = true
-			} else {
-				this.longView = false
-			}
+			widthPage >= 760 ? this.longView = true : this.longView = false
 		}
 	},
 	computed: mapState({

@@ -1,7 +1,9 @@
-.sd-page-content-wrapper.fa-adjust-view
+.sd-page-content-wrapper.fa-adjust-view.auth-context-view
 
-	// Draggable Group list
-	draggable(v-model='authContextGroups', :options="{draggable:'.auth-context-group', group: listTypes.authContextGroup}", @end="groupMoved")
+	//- Draggable Group list
+	draggable(
+		:class="{ 'isNotLongView-bg': !longView }"
+		v-model='authContextGroups', :options="{draggable: longView ? '.auth-context-group' : '.none', group: listTypes.authContextGroup}", @end="groupMoved")
 		.auth-context-group(v-for='authContextGroup in authContextGroups')
 			.group-element
 				table
@@ -9,42 +11,69 @@
 						tr
 							td.name {{ authContextGroup.name }}
 							td.options
-								router-link.action-button(:to="{name: 'authContextGroupEdit', params: {authContextGroupCode: authContextGroup.code}}")
-									span.fa.fa-pencil.fa-lg
+								router-link.action-button(
+									v-if="longView"
+									:class="{ 'btn btn-success responsive-layout': !longView }"
+									:to="{name: 'authContextGroupEdit', params: {authContextGroupCode: authContextGroup.code}}")
+									span.fa.fa-pencil.fa-lg(v-if="longView")
+								router-link.user-md-button.md-icon-button.auth-action-btn(v-if="!longView", :to="{name: 'authContextGroupEdit', params: {authContextGroupCode: authContextGroup.code}}")
+									md-icon
+										span.fa.fa-pencil.fa-sm
 								| &nbsp&nbsp
-								a.action-button(href='#', @click='openDeleteAuthContextGroupDialog(authContextGroup)')
-									span.fa.fa-trash.fa-lg
+								a.action-button(
+									v-if="longView"
+									:class="{ 'btn btn-success responsive-layout': !longView }"
+									@click='openDeleteAuthContextGroupDialog(authContextGroup)')
+									span.fa.fa-trash.fa-lg(v-if="longView")
+								a.user-md-button.md-icon-button.auth-action-btn(v-if="!longView", @click='openDeleteAuthContextGroupDialog(authContextGroup)')
+									md-icon
+										span.fa.fa-trash.fa-sm
 
-			// Draggable Authorization Context list
-			draggable.draggable(v-model='authContextGroup.values', :options="{draggable:'.auth-context', group: listTypes.authContext}", @end="authContextMoved(authContextGroup, $event)")
+			//- Draggable Authorization Context list
+			draggable.draggable(
+				:class="{ 'isNotLongView-bg': !longView }"
+				v-model='authContextGroup.values', :options="{draggable: longView ? '.auth-context' : '.none', group: listTypes.authContext}", @end="authContextMoved(authContextGroup, $event)")
 				.auth-context(:id="authContext.name", v-for='authContext in authContextGroup.values')
 					.element
 						table.context-list
 							tbody
-								tr
-									td.name {{ authContext.name }}
-									td.bits
+								tr(:class="{'responsive-tr': !longView}")
+									h5(v-if="!longView") Name:
+									td.name(:class="{ 'text-center': !longView }") {{ authContext.name }}
+									hr(v-if="!longView", class="block-limit") 
+									h5(v-if="!longView") Permission:
+									td.bits(:class="{ 'text-center': !longView }")
 										span(v-for="authBit in authCBitsToArray(authContext.bit)") &nbsp&nbsp {{ authBit.label }}
-									td.options
-										router-link.action-button(:to="{name: 'authContextEdit', params: {contextGroupCode: authContextGroup.code, contextName: authContext.name, copyFromContext: false}}")
-											span.fa.fa-pencil.fa-lg
+
+									hr(v-if="!longView", class="block-limit") 
+									td.options(:class="{'responsive-td': !longView}")
+										router-link.action-button(
+											:class="{ 'btn btn-success responsive-link': !longView }"
+											:to="{name: 'authContextEdit', params: {contextGroupCode: authContextGroup.code, contextName: authContext.name, copyFromContext: false}}")
+											span.fa.fa-pencil.fa-lg(v-if="longView")
+											span(v-if="!longView") edit
 
 										| &nbsp&nbsp
-										a.action-button(href='#', @click='openDeleteAuthContextDialog(authContextGroup.code, authContext.name)')
-											span.fa.fa-trash.fa-lg
+										a.action-button(
+											:class="{ 'btn btn-success responsive-link': !longView }"
+											@click='openDeleteAuthContextDialog(authContextGroup.code, authContext.name)')
+											span.fa.fa-trash.fa-lg(v-if="longView")
+											span(v-if="!longView") delete
 
 										| &nbsp
-										router-link.action-button(:to="{name: 'authContextEdit', params: {contextGroupCode: '*', contextName: '*', copyFromContext: authContext.name}}")
-											span.fa.fa-files-o.fa-lg
+										router-link.action-button(
+											:class="{ 'btn btn-success responsive-link': !longView }"
+											:to="{name: 'authContextEdit', params: {contextGroupCode: '*', contextName: '*', copyFromContext: authContext.name}}")
+											span.fa.fa-files-o.fa-lg(v-if="longView")
+											span(v-if="!longView") clone
 
-	.text-left
+	.text-left.bottom-controls
 		router-link.link.secondary(:to="{name:'authContextCreate'}")
 			span.fa.fa-plus.fa-lg
 			| &nbsp {{ $t('permission.addAuthContext') }}
-		p
-			router-link.link.primary(:to="{name: 'authContextGroupCreate'}")
-				span.fa.fa-plus.fa-lg
-				| &nbsp {{ $t('permission.addDisplayGroup') }}
+		router-link.link.primary(:to="{name: 'authContextGroupCreate'}")
+			span.fa.fa-plus.fa-lg
+			| &nbsp {{ $t('permission.addDisplayGroup') }}
 
 	md-snackbar(md-position='center', :md-duration="snackbar.duration", :md-active.sync='snackbar.show')
 		span {{ $t(snackbar.message) }}
