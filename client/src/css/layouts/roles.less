@@ -71,4 +71,55 @@
 	}
 }
 
+// edit responsive role
+.edit-responsive-role {
+	.xs-device({display: flex; flex-direction: column;});
+	.small-and-down({display: flex; flex-direction: column;});
+	.small-device({display: flex; flex-direction: column;});
+}
 
+.responsive-control {
+	padding: 15px 0 0px 15px;
+	margin-bottom: 10px;
+	width: 100%;
+	display: none;
+	background: lighten(@matiz1, 55%);
+	.xs-device({display: inline-block; padding-bottom: 15px; });
+	.small-and-down({display: inline-block; padding-bottom: 15px; });
+	.small-device({display: inline-block; padding-bottom: 15px; });
+
+	.interior-crl {
+		width: 100%;
+		padding: 0 15px;
+		display: flex;
+		justify-content: space-between;
+		.element-crl {
+			.element-text {
+				font-weight: 600;
+			}
+		}
+	}
+}
+.desktop-control {
+	display: inline-block;
+	.xs-device({display: none;});
+	.small-and-down({display: none;});
+	.small-device({display: none;});
+	
+	.interior-crl {
+		display: flex;
+		.element-crl {
+			margin: 0 5px;
+			.element-text {
+				font-weight: 600;
+			}
+		}
+	}
+}
+.element-crl {
+	display: flex; align-items: center;
+}
+
+.md-ripple, .md-checkbox-container {
+	z-index: 1;
+}

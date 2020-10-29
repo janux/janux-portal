@@ -7,12 +7,16 @@ div
 					.md-toolbar-tools.form-toolbar
 						h3.md-title(style="flex: 1") {{ $t('permission.editingRole') }} {{ role.name }}
 
-						md-button.md-icon-button.save(aria-label="Save", @click="saveRole")
-							md-icon.fa.fa-check.fa-lg
-
-						md-button.md-icon-button.cancel(aria-label="Cancel", @click="cancel")
-							md-icon.fa.fa-times.fa-lg
+						//- Destop controls
+						.desktop-control
+							include includes/responsive-edit-role.pug
+				//- Responsive controls
+				.responsive-control
+					include includes/responsive-edit-role.pug
 
 				.container-fluid-flex.spacing-bottom
 					role-form(:role="role", :authContextGroups="authContextGroups")
+
+					.responsive-control.mb-15
+						include includes/responsive-edit-role.pug
 	v-jnx-footer

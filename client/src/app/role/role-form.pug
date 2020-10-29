@@ -8,10 +8,10 @@
 		.role-option
 			.text
 			.control
-				| Enabled &nbsp;
-				input(type='checkbox' v-model='role.enabled')
-				| &nbsp; Is Almighty &nbsp;
-				input(type='checkbox' v-model='role.isAlmighty')
+				md-checkbox(v-model='role.enabled')
+					| Enabled &nbsp;
+				md-checkbox(v-model='role.isAlmighty')
+					| Is Almighty &nbsp;
 
 		.role-option
 			.text Description:
@@ -22,9 +22,9 @@
 		.group-element {{ authContextGroup.name }}
 		table.context-check-list
 			tbody
-				tr(v-for='authContext in authContextGroup.values')
+				tr.edit-responsive-role(v-for='authContext in authContextGroup.values')
 					td.name {{ authContext.name }}
 					td.bits
 						div.bit(v-for="authBit in authCBitsToArray(authContext.bit)")
-							| {{ authBit.label }}
-							input.bit-check(type='checkbox', v-model='role.authContexts[authContext.name].bit[authBit.label]')
+							md-checkbox(v-model='role.authContexts[authContext.name].bit[authBit.label]')
+								| {{ authBit.label }}
