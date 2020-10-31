@@ -58,9 +58,6 @@ import { mapState } from 'vuex'
 import { AgGridVue } from 'ag-grid-vue'
 import rowDelete from './ag-grid/row-delete'
 import rowName from './ag-grid/row-name'
-import rowNameResponsive from './ag-grid/row-name-responsive'
-
-import rowUsername from './ag-grid/row-username'
 import rowPhone from './ag-grid/row-phone'
 import rowEmail from './ag-grid/row-email'
 import rowEdit from './ag-grid/row-edit'
@@ -70,8 +67,6 @@ export default {
 	components: {
 		AgGridVue,
 		rowName,
-		rowNameResponsive,
-		rowUsername,
 		rowPhone,
 		rowEmail,
 		rowEdit,
@@ -88,7 +83,7 @@ export default {
 			defaultColDef: {
 				resizable: true,
 				sortable: true,
-				filter: true
+				filter: false
 			},
 			defaultColDefResponsive: {
 				width: 150,
@@ -104,15 +99,14 @@ export default {
 		this.gridColumnApi = this.gridOptions.columnApi
 		this.getBrowserWidth()
 	},
-	// beforeRouteEnter: (to, from, next) => {
-
-	// 	Vue.jnx.partyService.findPeople().then(response => {
-	// 		next(vm => {
-	// 			vm.staffList = response
-	// 			console.log('staffList', vm.staffList)
-	// 		})
-	// 	})
-	// },
+	beforeRouteEnter: (to, from, next) => {
+		Vue.jnx.partyService.findPeople().then(response => {
+			next(vm => {
+				vm.staffList = response
+				console.log('staffList', vm.staffList)
+			})
+		})
+	},
 	methods: {
 		openDelete () {
 			console.log('Deleting staff')
@@ -197,65 +191,21 @@ export default {
 				maxWidth: 450
 			},
 			{
-				headerName: 'User Name',
-				field: 'username',
-				cellRendererFramework: rowUsername,
-				minWidth: 30,
-				maxWidth: 220
-			},
-			{
 				headerName: 'Edit',
 				field: 'edit',
 				cellRendererFramework: rowEdit,
 				minWidth: 50,
+				maxWidth: 200
+			},
+			{
+				headerName: 'Delete',
+				field: 'delete',
+				cellRendererFramework: rowDelete,
+				minWidth: 50,
 				maxWidth: 100
 			}
-			// {
-			// 	headerName: 'Delete',
-			// 	field: 'delete',
-			// 	cellRendererFramework: rowDelete,
-			// 	minWidth: 50,
-			// 	maxWidth: 100
-			// }
 		]
-		this.columnDefs_is_ShortWidth = [
-			// {
-			// 	headerName: 'Staff users',
-			// 	field: 'name',
-			// 	cellRendererFramework: rowNameResponsive,
-			// 	minWidth: 50,
-			// 	maxWidth: 250
-			// }
-			{
-				headerName: 'Staff users',
-				field: 'name',
-				cellRendererFramework: rowNameResponsive,
-				minWidth: 50,
-				maxWidth: 350
-				// rowHeight: 150
-			}
-			// {
-			// 	headerName: 'Phone Number',
-			// 	field: 'phone',
-			// 	cellRendererFramework: rowPhone,
-			// 	minWidth: 50,
-			// 	maxWidth: 450
-			// },
-			// {
-			// 	headerName: 'Email',
-			// 	field: 'email',
-			// 	cellRendererFramework: rowEmail,
-			// 	minWidth: 50,
-			// 	maxWidth: 450
-			// },
-			// {
-			// 	headerName: 'Edit',
-			// 	field: 'edit',
-			// 	cellRendererFramework: rowEdit,
-			// 	minWidth: 50,
-			// 	maxWidth: 300
-			// }
-		]
+		this.columnDefs_is_ShortWidth = []
 	}
 }
 </script>
