@@ -80,24 +80,21 @@ export default {
 	data () {
 		return {
 			sectionTitle: this.$t('user.title'),
-			searchFields: ['username', 'name', 'email', 'phone'],
 			usersMatch: [],
-			searchField: 'username',
-			searchString: '',
 			showDelConf: false,
 			showErrorSel: false,
 			selectedIds: [],
+			userEmails: [],
+			userPhones: [],
 
 			gridOptions: null,
 			gridApi: null,
 			columnApi: null,
-			// staffList: [],
 			defaultColDef: {
 				resizable: true,
 				sortable: true,
 				filter: true
 			},
-			columnDefs: { field: 'name', sortable: true },
 			currentRowId: null
 		}
 	},
@@ -121,14 +118,14 @@ export default {
 			},
 			{
 				headerName: 'Name´s',
-				field: 'name',
+				field: 'names',
 				cellRendererFramework: rowName,
 				minWidth: 50,
 				maxWidth: 450
 			},
 			{
 				headerName: 'Role',
-				field: 'role',
+				field: 'roles',
 				cellRendererFramework: rowRole,
 				minWidth: 50,
 				maxWidth: 200
@@ -152,21 +149,24 @@ export default {
 				field: 'newPass',
 				cellRendererFramework: rowLockPass,
 				minWidth: 50,
-				maxWidth: 170
+				maxWidth: 170,
+				filter: false
 			},
 			{
 				headerName: 'Edit',
 				field: 'edit',
 				cellRendererFramework: rowEdit,
 				minWidth: 50,
-				maxWidth: 100
+				maxWidth: 100,
+				filter: false
 			},
 			{
 				headerName: 'Delete',
 				field: 'delete',
 				cellRendererFramework: rowDelete,
 				minWidth: 50,
-				maxWidth: 100
+				maxWidth: 100,
+				filter: false
 			}
 		]
 	},
@@ -177,23 +177,13 @@ export default {
 					user.cdate = moment(user.cdate).format(
 						'YYYY-MM-DD HH:mm:ss'
 					)
+					user.names = `${user.contact.name.last}, ${user.contact.name.first}`
+					user.email = user.contact.contactMethods.emails[0].address
+					user.phone = user.contact.contactMethods.phones[0].number
 					return user
 				})
 				// console.log('users match', this.usersMatch)
 			})
-		},
-		findUsers () {
-			Vue.jnx.userService
-				.findBy(this.searchField, this.searchString)
-				.then(result => {
-					this.usersMatch = _.map(result, function (user) {
-						user.cdate = moment(user.cdate).format(
-							'YYYY-MM-DD HH:mm:ss'
-						)
-						return user
-					})
-					// console.log('usersMatch', this.usersMatch)
-				})
 		},
 		openDelete () {
 			this.showDelConf = true
