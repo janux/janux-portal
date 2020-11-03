@@ -11,31 +11,31 @@
 				.sd-page-sidebar.mobile
 					ul.sd-page-sidebar-menu
 						li
-							a.active(href="#" v-on:click='ok')
+							a.side-menu-a(v-on:click='ok' :class="{ 'sideMenuActive': readUrl('firstMenuGroup') }")
 								span.fa.fa-users.fa-lg
-								.btn-text &nbsp;&nbsp;{{ $t('staff.title') }}
+								span &nbsp;&nbsp;{{ $t('staff.title') }}
 							ul
 								li(v-on:click='ok')
-									router-link(:to="{name:'userList'}" active-class="active")
-										span.fa.fa-angle-right
-										| &nbsp;&nbsp; {{ $t('user.listTitle') }}
+									router-link(:to="{name:'userList'}" active-class="sideMenuActive" class="menuItem")
+										span.fa.fa-angle-right(style="font-size: 1.3rem;")
+										span(class="itemMenuText") {{ $t('user.listTitle') }}
 								li(v-on:click='ok')
-									router-link(:to="{name:'staffList'}" active-class="active")
-										span.fa.fa-angle-right
-										| &nbsp;&nbsp; {{ $t('staff.staff') }}
+									router-link(:to="{name:'staffList'}" active-class="sideMenuActive" class="menuItem")
+										span.fa.fa-angle-right(style="font-size: 1.3rem;")
+										span(class="itemMenuText") {{ $t('staff.staff') }}
 						li
-							a.active(href="#" v-on:click='ok')
+							a.side-menu-a(v-on:click='ok' :class="{ 'sideMenuActive': readUrl('secondMenuGroup') }")
 								span.fa.fa-users.fa-lg
-								.btn-text &nbsp;&nbsp;{{ $t('permission.title') }}
+								span &nbsp;&nbsp;{{ $t('permission.title') }}
 							ul
 								li(v-on:click='ok')
-									router-link(:to="{name:'roleList'}" active-class="active")
-										span.fa.fa-angle-right
-										| &nbsp;&nbsp; {{ $t('role.title') }}
+									router-link(:to="{name:'roleList'}" active-class="sideMenuActive" class="menuItem")
+										span.fa.fa-angle-right(style="font-size: 1.3rem;")
+										span(class="itemMenuText") {{ $t('role.title') }}
 								li(v-on:click='ok')
-									router-link(:to="{name:'authContextList'}" active-class="active")
-										span.fa.fa-angle-right
-										| &nbsp;&nbsp; {{ $t('permission.title') }}
+									router-link(:to="{name:'authContextList'}" active-class="sideMenuActive" class="menuItem")
+										span.fa.fa-angle-right(style="font-size: 1.3rem;")
+										span(class="itemMenuText") {{ $t('permission.title') }}
 </template>
 
 <script>
@@ -51,7 +51,7 @@ export default {
 	}),
 	methods: {
 		ok () {
-			this.close()
+			// this.close()
 		},
 		open () {
 			this.isOpen = true
@@ -64,6 +64,16 @@ export default {
 				this.close()
 			} else {
 				this.open()
+			}
+		},
+		readUrl (pathName) {
+			let currentRoute = this.$router.currentRoute.fullPath
+			if (pathName === 'firstMenuGroup' && (currentRoute === '/user' || currentRoute === '/staff')) {
+				return true
+			} else if (pathName === 'secondMenuGroup' && (currentRoute === '/role' || currentRoute === '/auth-context')) {
+				return true
+			} else {
+				return false
 			}
 		}
 	},
