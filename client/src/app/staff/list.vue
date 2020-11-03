@@ -16,7 +16,23 @@ div
 					hr
 
 					#grid-wrapper(style="width: 100%; height: 70vh;")
-						//- Desktop ag grid
+						//- No Desktop ag grid
+						ag-grid-vue(
+							v-if="isShortWidth"
+							style="width: 100%; height: 100%;"
+							class="ag-theme-alpine"
+							id="myGrid"
+							:gridOptions='gridOptions',
+							pagination='true',
+							paginationPageSize='15',
+							:defaultColDef='defaultColDefResponsive'
+							:columnDefs="resposive_columnDefs",
+							:getRowHeight="getResponsiveRowHeight"
+							:animateRows="true",
+							@grid-ready="onGridReady"
+							:rowData="staffList"
+							)
+
 						ag-grid-vue(
 							v-if="!isShortWidth"
 							style="width: 100%; height: 100%;"
@@ -30,23 +46,7 @@ div
 							:rowData="staffList",
 							@first-data-rendered="onFirstDataRendered",
 							@grid-size-changed="onGridSizeChanged"
-						)
-						//- !Desktop ag grid
-						ag-grid-vue(
-							v-if="isShortWidth"
-							style="width: 100%; height: 100%;"
-							class="ag-theme-alpine"
-							id="myGrid"
-							:gridOptions='gridOptions',
-							pagination='true',
-							paginationPageSize='15',
-							:defaultColDef='defaultColDefResponsive'
-							:columnDefs="columnDefs_is_ShortWidth",
-							:getRowHeight="getRowHeight"
-							:animateRows="true",
-							@grid-ready="onGridReady"
-							:rowData="staffList"
-						)
+							)
 	v-jnx-footer
 
 </template>
@@ -57,6 +57,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 import { AgGridVue } from 'ag-grid-vue'
 import rowDelete from './ag-grid/row-delete'
+import responsiveName from './ag-grid/responsive-name'
 import rowName from './ag-grid/row-name'
 import rowPhone from './ag-grid/row-phone'
 import rowEmail from './ag-grid/row-email'
@@ -66,6 +67,7 @@ export default {
 	name: 'staff-list',
 	components: {
 		AgGridVue,
+		responsiveName,
 		rowName,
 		rowPhone,
 		rowEmail,
@@ -74,8 +76,9 @@ export default {
 	},
 	data () {
 		return {
-			isShortWidth: false,
 			sectionTitle: this.$t('staff.title'),
+			isShortWidth: null,
+			currentWidth: window.innerWidth - 40,
 			gridOptions: null,
 			gridApi: null,
 			columnApi: null,
@@ -94,10 +97,18 @@ export default {
 			columnDefs: { field: 'name', sortable: true }
 		}
 	},
+	beforeMount () {
+		this.getBrowserWidth()
+		this.setGridStyleParameters()
+	},
 	mounted () {
 		this.gridApi = this.gridOptions.api
 		this.gridColumnApi = this.gridOptions.columnApi
-		this.getBrowserWidth()
+		// TODO ask if is neccesary make resize call function
+		// window.addEventListener('resize', this.getBrowserWidth)
+	},
+	beforeDestroy () {
+		// window.removeEventListener('resize', this.getBrowserWidth())
 	},
 	beforeRouteEnter: (to, from, next) => {
 		Vue.jnx.partyService.findPeople().then(response => {
@@ -107,7 +118,59 @@ export default {
 			})
 		})
 	},
+	computed: mapState({
+		navBarExpanded: state => state.navBarExpanded
+	}),
 	methods: {
+		setGridStyleParameters () {
+			this.getBrowserWidth()
+			this.gridOptions = {}
+			this.columnDefs = [
+				{
+					headerName: 'Name´s',
+					field: 'name',
+					cellRendererFramework: rowName,
+					minWidth: this.isShortWidth ? this.currentWidth : 50,
+					maxWidth: 450
+				},
+				{
+					headerName: 'Phone Number',
+					field: 'phone',
+					cellRendererFramework: rowPhone,
+					minWidth: 50,
+					maxWidth: 450
+				},
+				{
+					headerName: 'Email',
+					field: 'email',
+					cellRendererFramework: rowEmail,
+					minWidth: 50,
+					maxWidth: 450
+				},
+				{
+					headerName: 'Edit',
+					field: 'edit',
+					cellRendererFramework: rowEdit,
+					minWidth: 50,
+					maxWidth: 200
+				},
+				{
+					headerName: 'Delete',
+					field: 'delete',
+					cellRendererFramework: rowDelete,
+					minWidth: 50,
+					maxWidth: 100
+				}
+			]
+			this.resposive_columnDefs = [
+				{
+					headerName: 'Name´s',
+					field: 'responsiveName',
+					cellRendererFramework: responsiveName,
+					minWidth: this.currentWidth
+				}
+			]
+		},
 		openDelete () {
 			console.log('Deleting staff')
 		},
@@ -134,20 +197,41 @@ export default {
 			params.api.sizeColumnsToFit()
 		},
 		getBrowserWidth () {
-			let width = window.innerWidth
-			if (width <= 360) {
-				this.isShortWidth = true
-			} else {
-				this.isShortWidth = false
-			}
-			console.log(`The width is ${window.innerWidth} px`)
+			this.isMobile() ? this.isShortWidth = true : this.isShortWidth = false
 		},
-
+		isMobile () {
+			let isMobile = {
+				Android: function () {
+					return navigator.userAgent.match(/Android/i)
+				},
+				BlackBerry: function () {
+					return navigator.userAgent.match(/BlackBerry/i)
+				},
+				iOS: function () {
+					return navigator.userAgent.match(/iPhone|iPad|iPod/i)
+				},
+				Opera: function () {
+					return navigator.userAgent.match(/Opera Mini/i)
+				},
+				Windows: function () {
+					return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i)
+				},
+				any: function () {
+					return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
+				}
+			}
+			if (isMobile.any() || window.innerWidth <= 769) {
+				return true
+			} else {
+				return false
+			}
+		},
 		onGridReady (params) {
 			const updateData = (data) => {
-				var differentHeights = [40, 80, 120, 200]
+				let differentHeights = [40, 80, 120, 200]
 				data.forEach(function (dataItem, index) {
 					dataItem.rowHeight = differentHeights[index % 4]
+					dataItem.responsiveName = `${dataItem.name.last}, ${dataItem.name.first}`
 				})
 				this.staffList = data
 			}
@@ -158,54 +242,9 @@ export default {
 				console.log('response', response)
 			})
 		},
-		getRowHeight (params) {
-			// return params.data.rowHeight;
-			return 200
+		getResponsiveRowHeight (params) {
+			return 170
 		}
-	},
-	computed: mapState({
-		navBarExpanded: state => state.navBarExpanded
-	}),
-	beforeMount () {
-		this.gridOptions = {}
-		this.columnDefs = [
-			{
-				headerName: 'Name´s',
-				field: 'name',
-				cellRendererFramework: rowName,
-				minWidth: 50,
-				maxWidth: 450
-			},
-			{
-				headerName: 'Phone Number',
-				field: 'phone',
-				cellRendererFramework: rowPhone,
-				minWidth: 50,
-				maxWidth: 450
-			},
-			{
-				headerName: 'Email',
-				field: 'email',
-				cellRendererFramework: rowEmail,
-				minWidth: 50,
-				maxWidth: 450
-			},
-			{
-				headerName: 'Edit',
-				field: 'edit',
-				cellRendererFramework: rowEdit,
-				minWidth: 50,
-				maxWidth: 200
-			},
-			{
-				headerName: 'Delete',
-				field: 'delete',
-				cellRendererFramework: rowDelete,
-				minWidth: 50,
-				maxWidth: 100
-			}
-		]
-		this.columnDefs_is_ShortWidth = []
 	}
 }
 </script>
