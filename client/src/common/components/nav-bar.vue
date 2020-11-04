@@ -90,13 +90,23 @@ export default {
 			subMenu2: false,
 			subMenuData: false,
 			peopleOrgsFlag: false,
-			authSchemaFlag: false
+			authSchemaFlag: false,
+			isMobileDevice: null
 		}
 	},
 	computed: {
 		...mapState({
 			navBarExpanded: state => state.navBarExpanded
 		})
+	},
+	beforeMount () {
+		this.getBrowserWidth()
+	},
+	mounted () {
+		// window.addEventListener('resize', this.getBrowserWidth)
+	},
+	beforeDestroy () {
+		// window.removeEventListener('resize', this.getBrowserWidth())
 	},
 	methods: {
 		peopleOrgsToggleSubmenu: function () {
@@ -120,6 +130,47 @@ export default {
 			this.subMenu = false
 			this.subMenu2 = false
 			this.subMenuData = false
+		},
+		getBrowserWidth () {
+			this.isMobile() ? this.isMobileDevice = true : this.isMobileDevice = false
+			let isMob = this.isMobileDevice
+			let isShortWidth
+			isShortWidth = window.innerWidth <= 769 ? isShortWidth = true : isShortWidth = false
+			store.dispatch({
+				type: actionTypes.IsMobileDevice,
+				value: isMob
+			})
+			store.dispatch({
+				type: actionTypes.IsResponsive,
+				value: isShortWidth
+			})
+		},
+		isMobile () {
+			let isMobile = {
+				Android: function () {
+					return navigator.userAgent.match(/Android/i)
+				},
+				BlackBerry: function () {
+					return navigator.userAgent.match(/BlackBerry/i)
+				},
+				iOS: function () {
+					return navigator.userAgent.match(/iPhone|iPad|iPod/i)
+				},
+				Opera: function () {
+					return navigator.userAgent.match(/Opera Mini/i)
+				},
+				Windows: function () {
+					return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i)
+				},
+				any: function () {
+					return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
+				}
+			}
+			if (isMobile.any()) {
+				return true
+			} else {
+				return false
+			}
 		}
 	}
 }

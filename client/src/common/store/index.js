@@ -12,6 +12,8 @@ const store = new Vuex.Store({
 	state: {
 		currentUser: null,
 		navBarExpanded: true,
+		isMobileDevice: null,
+		isResponsive: null,
 		lang: 'en'
 	},
 	mutations: {
@@ -25,6 +27,16 @@ const store = new Vuex.Store({
 			return state.currentUser
 		},
 
+		isMobileDeviceMutation (state, payload) {
+			state.isMobileDevice = payload.value
+			return state.isMobileDevice
+		},
+
+		isResponsiveMutation (state, payload) {
+			state.isResponsive = payload.value
+			return state.isResponsive
+		},
+
 		setLangMutation (state, payload) {
 			app.$i18n.locale = payload
 		}
@@ -36,6 +48,14 @@ const store = new Vuex.Store({
 
 		updateCurrentUser (context, payload) {
 			context.commit('currentUserMutation', payload)
+		},
+
+		isMobileDevice (context, payload) {
+			context.commit('isMobileDeviceMutation', payload)
+		},
+
+		isResponsive (context, payload) {
+			context.commit('isResponsiveMutation', payload)
 		},
 
 		setLang (context, payload) {

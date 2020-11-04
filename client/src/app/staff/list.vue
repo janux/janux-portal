@@ -14,7 +14,6 @@ div
 								span.fa.fa-user-plus.fa-lg
 								//- | &nbsp; {{ $t('label.add') }}
 					hr
-
 					#grid-wrapper(style="width: 100%; height: 70vh;")
 						//- No Desktop ag grid
 						ag-grid-vue(
@@ -32,9 +31,9 @@ div
 							@grid-ready="onGridReady"
 							:rowData="staffList"
 							)
-
+						//- No Responsive ag grid
 						ag-grid-vue(
-							v-if="!isShortWidth"
+							v-if="!isShortWidth && isShortWidth != null"
 							style="width: 100%; height: 100%;"
 							class="ag-theme-alpine"
 							id="myGrid"
@@ -77,7 +76,6 @@ export default {
 	data () {
 		return {
 			sectionTitle: this.$t('staff.title'),
-			isShortWidth: null,
 			currentWidth: window.innerWidth - 40,
 			gridOptions: null,
 			gridApi: null,
@@ -98,17 +96,12 @@ export default {
 		}
 	},
 	beforeMount () {
-		this.getBrowserWidth()
 		this.setGridStyleParameters()
 	},
 	mounted () {
 		this.gridApi = this.gridOptions.api
 		this.gridColumnApi = this.gridOptions.columnApi
 		// TODO ask if is neccesary make resize call function
-		// window.addEventListener('resize', this.getBrowserWidth)
-	},
-	beforeDestroy () {
-		// window.removeEventListener('resize', this.getBrowserWidth())
 	},
 	beforeRouteEnter: (to, from, next) => {
 		Vue.jnx.partyService.findPeople().then(response => {
@@ -119,11 +112,11 @@ export default {
 		})
 	},
 	computed: mapState({
-		navBarExpanded: state => state.navBarExpanded
+		navBarExpanded: state => state.navBarExpanded,
+		isShortWidth: state => state.isResponsive
 	}),
 	methods: {
 		setGridStyleParameters () {
-			this.getBrowserWidth()
 			this.gridOptions = {}
 			this.columnDefs = [
 				{
@@ -164,7 +157,7 @@ export default {
 			]
 			this.resposive_columnDefs = [
 				{
-					headerName: 'Name´s',
+					headerName: 'Staff Results',
 					field: 'responsiveName',
 					cellRendererFramework: responsiveName,
 					minWidth: this.currentWidth
@@ -195,36 +188,6 @@ export default {
 			params.columnApi.setColumnsVisible(columnsToShow, true)
 			params.columnApi.setColumnsVisible(columnsToHide, false)
 			params.api.sizeColumnsToFit()
-		},
-		getBrowserWidth () {
-			this.isMobile() ? this.isShortWidth = true : this.isShortWidth = false
-		},
-		isMobile () {
-			let isMobile = {
-				Android: function () {
-					return navigator.userAgent.match(/Android/i)
-				},
-				BlackBerry: function () {
-					return navigator.userAgent.match(/BlackBerry/i)
-				},
-				iOS: function () {
-					return navigator.userAgent.match(/iPhone|iPad|iPod/i)
-				},
-				Opera: function () {
-					return navigator.userAgent.match(/Opera Mini/i)
-				},
-				Windows: function () {
-					return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i)
-				},
-				any: function () {
-					return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows())
-				}
-			}
-			if (isMobile.any() || window.innerWidth <= 769) {
-				return true
-			} else {
-				return false
-			}
 		},
 		onGridReady (params) {
 			const updateData = (data) => {

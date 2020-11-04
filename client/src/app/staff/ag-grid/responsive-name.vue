@@ -1,15 +1,18 @@
 <template lang="pug">
-	div(style="display: flex; justify-content: space-between; padding-top: 15px;")
-		div(style="width: 70%; display: flex; flex-direction: column;")
-			span Name´s: {{ params.data.name.last }}, {{ params.data.name.first }}
-			span Phone: {{ params.data.contactMethods.phones[0].number }}
-			span Email: {{ params.data.contactMethods.emails[0].address }}
-		div(style="width: 25%; display: flex; flex-direction: column; justify-content: space-around;")
-			div(class="text-center")
-				router-link.fa.fa-pencil.fa-lg(style="font-size: 3rem;" :to="{name:'staffEdit', params:{id: params.data.id} }")
-			div(class="text-center")
+	.grids-inside-wrapper
+		div
+			span Name´s:&nbsp;
+				span.content {{ params.data.name.last }}, {{ params.data.name.first }}
+			span Phone:&nbsp;
+				span.content {{ params.data.contactMethods.phones[0].number }}
+			span Email:&nbsp;
+				span.content {{ params.data.contactMethods.emails[0].address }}
+		div
+			.text-center
+				router-link.fa.fa-pencil.fa-lg(:to="{name:'staffEdit', params:{id: params.data.id} }")
+			.text-center
 				a.row-btn(@click="openDelete")
-					i(class="fa fa-trash" style="font-size: 3rem;"  aria-hidden="true")
+					i(class="fa fa-trash" aria-hidden="true")
 </template>
 
 <script>

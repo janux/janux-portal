@@ -13,9 +13,40 @@ div
 								span.fa.fa-user-plus.fa-lg
 								//- | &nbsp; {{ $t('label.add') }}
 					hr
+					#grid-wrapper
+						.users-filter(v-if="isMobileDevice")
+							form
+								.fieldset-flex.filter-column
+									span Find by:
+									div(style="display: flex;")
+										.an-material.filter-element.filter-category
+											md-field.full
+												md-select(aria-label='type' v-model='searchField')
+													md-option(:value='field', v-for='(field, index) in searchFields', :key='index') {{ field }}
+										div.filter-element
+											.an-material.nopadding
+												md-field.full
+													md-input(id='username' type='text' v-model='searchString')
+								.an-material
+									a.btn.btn-default.filter-btn(@click='findUsers') {{ $t('label.search') }}
 
-					#grid-wrapper(style="width: 100%; height: 500px;")
 						ag-grid-vue(
+						v-if="isMobileDevice || isShortWidth"
+						style="width: 100%; height: 100%;"
+						class="ag-theme-alpine"
+						id="myGrid"
+						:gridOptions='gridOptions',
+						pagination='true',
+						paginationPageSize='15',
+						:defaultColDef='defaultColDefResponsive'
+						:getRowHeight="getResponsiveRowHeight"
+						:columnDefs="resposive_columnDefs",
+						:rowData="usersMatch",
+						@first-data-rendered="onFirstDataRendered",
+						@grid-size-changed="onGridSizeChanged"
+						)
+						ag-grid-vue(
+						v-if="!isShortWidth && isShortWidth != null"
 						style="width: 100%; height: 500px;"
 						class="ag-theme-alpine"
 						id="myGrid"
@@ -28,6 +59,7 @@ div
 						@first-data-rendered="onFirstDataRendered",
 						@grid-size-changed="onGridSizeChanged"
 						)
+
 	v-jnx-footer
 
 	md-dialog-confirm(
@@ -55,6 +87,7 @@ import { AgGridVue } from 'ag-grid-vue'
 
 import rowName from './ag-grid/row-name'
 import rowUsername from './ag-grid/row-username'
+import responsiveRecord from './ag-grid/responsive-record'
 import rowRole from './ag-grid/row-role'
 import rowPhone from './ag-grid/row-phone'
 import rowEmail from './ag-grid/row-email'
@@ -69,6 +102,7 @@ export default {
 	components: {
 		AgGridVue,
 		rowName,
+		responsiveRecord,
 		rowUsername,
 		rowRole,
 		rowPhone,
@@ -80,12 +114,17 @@ export default {
 	data () {
 		return {
 			sectionTitle: this.$t('user.title'),
+			searchFields: ['username', 'name', 'email', 'phone'],
+			searchField: 'username',
+			searchString: '',
 			usersMatch: [],
 			showDelConf: false,
 			showErrorSel: false,
 			selectedIds: [],
 			userEmails: [],
 			userPhones: [],
+
+			currentWidth: window.innerWidth - 40,
 
 			gridOptions: null,
 			gridApi: null,
@@ -95,7 +134,14 @@ export default {
 				sortable: true,
 				filter: true
 			},
-			currentRowId: null
+			defaultColDefResponsive: {
+				width: 150,
+				sortable: true,
+				resizable: true,
+				filter: true
+			},
+			currentRowId: null,
+			columnDefs: { field: 'name', sortable: true }
 		}
 	},
 	created: function () {
@@ -107,69 +153,13 @@ export default {
 		this.getEventBus()
 	},
 	beforeMount () {
-		this.gridOptions = {}
-		this.columnDefs = [
-			{
-				headerName: 'User Name',
-				field: 'username',
-				cellRendererFramework: rowUsername,
-				minWidth: 30,
-				maxWidth: 220
-			},
-			{
-				headerName: 'Name´s',
-				field: 'names',
-				cellRendererFramework: rowName,
-				minWidth: 50,
-				maxWidth: 450
-			},
-			{
-				headerName: 'Role',
-				field: 'roles',
-				cellRendererFramework: rowRole,
-				minWidth: 50,
-				maxWidth: 200
-			},
-			{
-				headerName: 'Email',
-				field: 'email',
-				cellRendererFramework: rowEmail,
-				minWidth: 50,
-				maxWidth: 480
-			},
-			{
-				headerName: 'Phone Number',
-				field: 'phone',
-				cellRendererFramework: rowPhone,
-				minWidth: 50,
-				maxWidth: 400
-			},
-			{
-				headerName: 'Renew password',
-				field: 'newPass',
-				cellRendererFramework: rowLockPass,
-				minWidth: 50,
-				maxWidth: 170,
-				filter: false
-			},
-			{
-				headerName: 'Edit',
-				field: 'edit',
-				cellRendererFramework: rowEdit,
-				minWidth: 50,
-				maxWidth: 100,
-				filter: false
-			},
-			{
-				headerName: 'Delete',
-				field: 'delete',
-				cellRendererFramework: rowDelete,
-				minWidth: 50,
-				maxWidth: 100,
-				filter: false
-			}
-		]
+		this.setGridStyleParameters()
 	},
+	computed: mapState({
+		navBarExpanded: state => state.navBarExpanded,
+		isShortWidth: state => state.isResponsive,
+		isMobileDevice: state => state.isMobileDevice
+	}),
 	methods: {
 		fetchUsers () {
 			Vue.jnx.userService.findBy('username', '').then(result => {
@@ -183,6 +173,18 @@ export default {
 					return user
 				})
 				// console.log('users match', this.usersMatch)
+			})
+		},
+		findUsers () {
+			Vue.jnx.userService.findBy(this.searchField, this.searchString).then((result) => {
+				this.usersMatch = _.map(result, function (user) {
+					user.cdate = moment(user.cdate).format('YYYY-MM-DD HH:mm:ss')
+					user.names = `${user.contact.name.last}, ${user.contact.name.first}`
+					user.email = user.contact.contactMethods.emails[0].address
+					user.phone = user.contact.contactMethods.phones[0].number
+					return user
+				})
+				console.log('usersMatch', this.usersMatch)
 			})
 		},
 		openDelete () {
@@ -200,6 +202,7 @@ export default {
 			params.api.sizeColumnsToFit()
 		},
 		onGridSizeChanged (params) {
+			// TODO Seek the way to reload each grid according to if isResponsive Layout
 			let gridWidth = document.getElementById('grid-wrapper').offsetWidth
 			let columnsToShow = []
 			let columnsToHide = []
@@ -223,10 +226,82 @@ export default {
 				this.currentRowId = id
 				this.openDelete()
 			})
+		},
+		getResponsiveRowHeight (params) {
+			return 220
+		},
+		setGridStyleParameters () {
+			this.gridOptions = {}
+			this.columnDefs = [
+				{
+					headerName: 'User Name',
+					field: 'username',
+					cellRendererFramework: rowUsername,
+					minWidth: 30,
+					maxWidth: 220
+				},
+				{
+					headerName: 'Name´s',
+					field: 'names',
+					cellRendererFramework: rowName,
+					minWidth: 50,
+					maxWidth: 450
+				},
+				{
+					headerName: 'Role',
+					field: 'roles',
+					cellRendererFramework: rowRole,
+					minWidth: 50,
+					maxWidth: 200
+				},
+				{
+					headerName: 'Email',
+					field: 'email',
+					cellRendererFramework: rowEmail,
+					minWidth: 50,
+					maxWidth: 480
+				},
+				{
+					headerName: 'Phone Number',
+					field: 'phone',
+					cellRendererFramework: rowPhone,
+					minWidth: 50,
+					maxWidth: 400
+				},
+				{
+					headerName: 'Renew password',
+					field: 'newPass',
+					cellRendererFramework: rowLockPass,
+					minWidth: 50,
+					maxWidth: 170,
+					filter: false
+				},
+				{
+					headerName: 'Edit',
+					field: 'edit',
+					cellRendererFramework: rowEdit,
+					minWidth: 50,
+					maxWidth: 100,
+					filter: false
+				},
+				{
+					headerName: 'Delete',
+					field: 'delete',
+					cellRendererFramework: rowDelete,
+					minWidth: 50,
+					maxWidth: 100,
+					filter: false
+				}
+			]
+			this.resposive_columnDefs = [
+				{
+					headerName: 'User Results',
+					field: 'responsiveName',
+					cellRendererFramework: responsiveRecord,
+					minWidth: this.currentWidth
+				}
+			]
 		}
-	},
-	computed: mapState({
-		navBarExpanded: state => state.navBarExpanded
-	})
+	}
 }
 </script>
