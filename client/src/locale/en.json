@@ -193,5 +193,20 @@
 		"addressesTitle": "Addresses",
 		"phonesTitle": "Phones",
 		"emailsTitle": "Emails"
+	},
+	"periodFilter": {
+		"last7Days": "Last 7 days",
+		"currentWeek": "Current week",
+		"lastWeek": "Last week",
+		"last30Days": "Last 30 days",
+		"currentMonth": "Current month",
+		"lastMonth": "Last month",
+		"last90Days": "Last 90 days",
+		"currentQuarter": "Current quarter",
+		"lastQuarter": "Last quarter",
+		"oneYear": "One year",
+		"yearToDate": "Last 1 Year",
+		"fiveYearToDate": "Last 5 Years",
+		"lastYear": "Last year"
 	}
 }

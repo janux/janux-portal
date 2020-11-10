@@ -7,13 +7,18 @@ div
 		.container-fluid
 			.row
 				.col-lg-12
-					.title-bar
-						.title {{ $t('staff.staff') }}
-						.options
-							router-link(:to="{name:'staffCreate'}")
-								span.fa.fa-user-plus.fa-lg
-								//- | &nbsp; {{ $t('label.add') }}
-					hr
+					.title-bar.control-adjust
+						.fieldset-flex.filter-adjust
+							label.filter-period-label(for='period') Show staff created or updated in:
+							md-field.filter-period-select
+								md-select(aria-label='type' v-model='periodFilterKey', @input="periodChange")
+									md-option(:value='field.key', v-for='(field, index) in periodFilter', :key='index') {{ $t(field.label) }}
+						.options.add-btn
+							.fieldset-flex(style="justify-content: flex-end;")
+								router-link(:to="{name:'staffCreate'}")
+									span Add Staff &nbsp;
+									span.fa.fa-user-plus.fa-lg
+
 					#grid-wrapper(style="width: 100%; height: 70vh;")
 						//- No Desktop ag grid
 						ag-grid-vue(
@@ -92,7 +97,30 @@ export default {
 				resizable: true,
 				filter: true
 			},
-			columnDefs: { field: 'name', sortable: true }
+			columnDefs: { field: 'name', sortable: true },
+			periodFilterKey: 'last30Days',
+			periodFilter: [
+				{
+					key: 'last30Days',
+					label: 'periodFilter.last30Days'
+				},
+				{
+					key: 'last90Days',
+					label: 'periodFilter.last90Days'
+				},
+				{
+					key: 'oneYear',
+					label: 'periodFilter.oneYear'
+				},
+				{
+					key: 'yearToDate',
+					label: 'periodFilter.yearToDate'
+				},
+				{
+					key: 'fiveYearToDate',
+					label: 'periodFilter.fiveYearToDate'
+				}
+			]
 		}
 	},
 	beforeMount () {
@@ -104,7 +132,8 @@ export default {
 		// TODO ask if is neccesary make resize call function
 	},
 	beforeRouteEnter: (to, from, next) => {
-		Vue.jnx.partyService.findPeople().then(response => {
+		const period = Vue.timePeriods['last30Days']
+		Vue.jnx.partyService.findPeopleByPeriod({ to: period.to(), from: period.from() }).then(response => {
 			next(vm => {
 				vm.staffList = response
 				console.log('staffList', vm.staffList)
@@ -116,6 +145,17 @@ export default {
 		isShortWidth: state => state.isResponsive
 	}),
 	methods: {
+		fetchUsers () {
+			const period = Vue.timePeriods[this.periodFilterKey]
+			Vue.jnx.partyService.findPeopleByPeriod({ to: period.to(), from: period.from() }).then((result) => {
+				this.staffList = result
+				console.log('users match', this.staffList)
+				this.dataReady = true
+			})
+		},
+		periodChange () {
+			this.fetchUsers()
+		},
 		setGridStyleParameters () {
 			this.gridOptions = {}
 			this.columnDefs = [

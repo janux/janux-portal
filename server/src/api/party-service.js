@@ -76,6 +76,19 @@ var createInstance = function (serviceReference) {
 	};
 
 	/**
+	 * Find all people by period.
+	 * @param object
+	 * @param callback
+	 */
+	PartyService.prototype.findPeopleByPeriod = function (object, callback) {
+		log.debug("Call to findPeopleByPeriod by period: %j", object);
+		return partyServiceImpl.findPeopleByPeriod(object)
+			.then(function (result) {
+				return Promise.resolve(toJSONMany(result)).asCallback(callback);
+			});
+	};
+
+	/**
 	 * Find all organizations.
 	 * @param callback
 	 */

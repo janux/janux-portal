@@ -10,6 +10,7 @@ import {jsonrpc} from './jsonrpc'
 import {ExampleDirective} from './directives'
 import _ from 'lodash'
 import { EventBus } from 'Common/event-bus'
+import timePeriods from './time-periods'
 
 function plugin (Vue) {
 	if (plugin.installed) {
@@ -20,6 +21,11 @@ function plugin (Vue) {
 	// Common directives
 	//
 	Vue.directive('example-directive', ExampleDirective)
+
+	//
+	// Adding time periods to Vue object
+	//
+	Vue.timePeriods = timePeriods
 
 	//
 	// Adding jsonrpc

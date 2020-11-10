@@ -75,6 +75,24 @@ export function partyService (http) {
 			})
 		},
 		/**
+		 * Find all people by period.
+		 * @param object
+		 */
+		findPeopleByPeriod: function (object) {
+			return http.jsonrpc(
+				'/rpc/2.0/partyService',
+				'findPeopleByPeriod',
+				[object]
+			).then((resp) => {
+				console.log('/rpc/2.0/partyService - findPeopleByPeriod:', resp.result)
+				let contacts = resp.result
+				contacts = _.map(contacts, function (o) {
+					return fromJSON(o)
+				})
+				return contacts
+			})
+		},
+		/**
 		 * Find one contact by id.
 		 * @param id
 		 */

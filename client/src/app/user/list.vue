@@ -8,7 +8,7 @@ div
 
 					.title-bar
 						.title {{ $t('user.listTitle') }}
-						.options
+						.options(style="width: 100%; padding-top: 10px;")
 							router-link(:to="{name:'userCreate'}")
 								span.fa.fa-user-plus.fa-lg
 								//- | &nbsp; {{ $t('label.add') }}
