@@ -1,7 +1,7 @@
 {
- "name": "janux-vuejs-seed",
+ "name": "janux-portal",
  "version": "0.0.1",
- "description": "This is the janux-vuejs-seed project. It is working POC using janux-people, janux-authorize and janux-persist.",
+ "description": "This is the janux-portal project. It is working POC using janux-people, janux-authorize and janux-persist.",
  "scripts": {
   "test": "echo \"Error: no test specified\" && exit 1",
   "postinstall": "npm run install-server && npm run install-client && npm run install-client",
@@ -14,12 +14,12 @@
  },
  "repository": {
   "type": "git",
-  "url": "git+https://github.com/janux/janux-auth-angular-seed.git"
+  "url": "git+https://github.com/janux/janux-portal.git"
  },
  "keywords": [
   "janux"
  ],
  "author": "",
  "license": "ISC",
- "homepage": "https://github.com/janux/janux-auth-angular-seed#readme"
+ "homepage": "https://github.com/janux/janux-portal#readme"
 }

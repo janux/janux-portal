@@ -1,4 +1,4 @@
-# Janux Vue.js Seed
+# Janux Portal
 
 This project is still under construction.  If you are interested in learning more, please send an
 email to pparavicini@janux.org, and come back soon.
@@ -51,9 +51,9 @@ For windows users you need to modify package.json and replace the path of janux-
 
 e.-Run 'npm install and then run 'gulp'
 
-*4.- *How to install Janux Vuejs seed *
+*4.- *How to install Janux Portal *
 
-a.- Clone the project at 'janux-vuejs-seed.git'.
+a.- Clone the project at 'janux-portal.git'.
 
 b.- Switch to branch develop ('git fetch && git checkout develop').
 
