@@ -1,4 +1,9 @@
 @import 'variable';
 @import 'icon/glyphicons/glyphicons';
-@import 'icon/entypo/entypo';
+// 'icon/entypo/entypo' has never existed as a LESS source in this repo (only
+// a raw vendor/entypo/css/entypo.css) - this import has been dead since
+// before the Vite migration and fails any LESS compiler, old or new.
+// Disabled here rather than fabricated; restoring entypo icons is a
+// separate, unverified piece of work.
+// @import 'icon/entypo/entypo';
 @import 'print';

@@ -1,4 +1,6 @@
-@bootstrap: '~bootstrap/less';
+// Vite's Less resolver, unlike webpack's, does not strip a leading '~'
+// itself - path without it resolves straight to node_modules.
+@bootstrap: 'bootstrap/less';
 
 // Bootstrap Core mixins
 @import '@{bootstrap}/mixins';

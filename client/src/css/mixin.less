@@ -31,8 +31,12 @@
 // see http://snook.ca/archives/html_and_css/font-size-with-rem
 //
 .rem(@attribute, @font-pixel-size, @conv-factor: 10) {
-	@{attribute}: unit(@font-pixel-size, px); 
-	@{attribute}: unit(@font-pixel-size / @conv-factor, rem);
+	@{attribute}: unit(@font-pixel-size, px);
+	// Less 4 defaults to 'parens-division' math mode: bare '/' between two
+	// plain numbers is no longer evaluated unless parenthesized (avoids
+	// ambiguity with CSS shorthand like 'font: 16px/1.5'). Needed once Less
+	// was bumped from 3.9 to 4.9 as part of the Vite migration.
+	@{attribute}: unit((@font-pixel-size / @conv-factor), rem);
 }
 
 .arrow(@direction, @size, @color) when (@direction = 'down') {

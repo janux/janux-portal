@@ -1,6 +1,6 @@
-// The bower directory is searched for imports,
-// so the following path will find the bootstrap less files
-@bootstrap: '~bootstrap/less';
+// Vite's Less resolver, unlike webpack's, does not strip a leading '~'
+// itself - path without it resolves straight to node_modules.
+@bootstrap: 'bootstrap/less';
 
 // Bootstrap Core variables
 @import '@{bootstrap}/variables';

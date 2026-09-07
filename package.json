@@ -3,14 +3,17 @@
  "version": "0.0.1",
  "description": "This is the janux-portal project. It is working POC using janux-people, janux-authorize and janux-persist.",
  "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "postinstall": "npm run install-server && npm run install-client && npm run install-client",
-  "install-client": "npm install --prefix  ./client",
+  "test": "npm test --prefix ./client",
+  "postinstall": "npm run install-server && npm run install-client",
+  "install-client": "npm install --prefix ./client",
   "install-server": "npm install --prefix ./server",
-  "build": "npm run build --prefix  ./client",
-  "watch": "./client/node_modules/gulp/bin/gulp.js --cwd ./client watch",
+  "build": "npm run build --prefix ./client",
+  "watch": "concurrently -n server,client -c blue,green \"npm run dev --prefix ./server\" \"npm run dev --prefix ./client\"",
   "generate-demo-users": "npm run generate-demo-users --prefix ./server",
   "generate-demo-auth": "npm run generate-demo-auth --prefix ./server"
+ },
+ "devDependencies": {
+  "concurrently": "10.0.5"
  },
  "repository": {
   "type": "git",

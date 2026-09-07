@@ -9,8 +9,6 @@ import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import 'Css/main.less'
 
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Router from 'vue-router'
 import vueResource from 'vue-resource'
@@ -38,8 +36,7 @@ export const app = new Vue({
 	store,
 	i18n,
 	router: appRouter,
-	components: { App },
-	template: '<App/>',
+	render: h => h(App),
 	beforeCreate () {
 		// On page reload, check to see whether the user logged in previously
 		Vue.jnx.security.requestCurrentUser()
