@@ -8,7 +8,17 @@ module.exports = {
 		server: {
 			port: 9000,
 			staticUrl: '',
-			distFolder: path.join('..', 'client', 'dist'),
+			// The Jenkins QA deploy (JAM-37) copies client/dist's *contents*
+			// into $TARGET/client directly (cp -a $WORKSPACE/client/dist
+			// $TARGET/client), matching glarus-ops's own convention - so the
+			// deployed layout has no nested dist/ folder. Confirmed live:
+			// before this fix, any GET that fell through to this app's own
+			// index handler (e.g. a direct navigation/refresh at /login,
+			// since only POST /login is routed) 404'd with an ENOENT for
+			// client/dist/index.html. Local dev overrides this back in
+			// config/local.js, since a local `vite build` does produce a
+			// real nested dist/ and there's no deploy step to flatten it.
+			distFolder: path.join('..', 'client'),
 			livereload: false,
 			// Never a real secret - this repo has no live deployment (no PM2
 			// process, no Jenkins job - see jam-devops/production-env.md and
