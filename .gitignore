@@ -10,4 +10,11 @@ server/vendor/janux-*
 /client/client.iml
 /server/server.iml
 /server/config/local.js
+# Host-resident config, per JAM-23 - not currently applicable (this repo has
+# no live deployment), kept for parity with easytitle24/glarus-ops in case
+# that changes.
+/server/config/chaos.js
+/server/config/eos-01.js
+/server/config/eos-02.js
+/server/config/eolus.js
 /server/vendor/glarus-services/

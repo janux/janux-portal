@@ -10,7 +10,18 @@ module.exports = {
 			staticUrl: '',
 			distFolder: path.join('..', 'client', 'dist'),
 			livereload: false,
-			secret: 'jules cyril value main why latex'
+			// Never a real secret - this repo has no live deployment (no PM2
+			// process, no Jenkins job - see jam-devops/production-env.md and
+			// jenkins-build.md, neither mentions janux-portal), so unlike
+			// easytitle24/glarus-ops there's no host-resident override to add;
+			// a real value belongs in a gitignored config/local.js if this is
+			// ever actually run somewhere. Was a real, working secret
+			// (identical to easytitle24's own, pre-rotation) - see JAM-23.
+			secret: 'CHANGE IN EACH janux-portal ENV',
+			// Same story, for the express-session/cookie-parser secret (was
+			// hardcoded inline in server.js as 'lucy in the sky', identical
+			// across easytitle24/glarus-ops/janux-portal).
+			sessionSecret: 'CHANGE IN EACH janux-portal ENV'
 		},
 
 		dao: {

@@ -39,14 +39,14 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
-app.use(cookieParser('lucy in the sky'));
+app.use(cookieParser(appContext.server.sessionSecret));
 
 // cookieSession stores the session info encrypted in the cookie client-side
 // app.use(express.cookieSession());
 
 app.use(methodOverride());
 app.use(session({
-	secret: 'lucy in the sky',
+	secret: appContext.server.sessionSecret,
 	resave: true,
 	saveUninitialized: true
 }));
