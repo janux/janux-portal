@@ -55,6 +55,16 @@ app.use(passport.initialize());
 app.use(passport.session()); // supports persistent login sessions
 // app.use(flash()); // used to pass messages on failed login
 
+// Serve the built client's static assets (JS/CSS/fonts/images) directly.
+// Must come before route/index.js's app.get('*', index) SPA-fallback catch-all,
+// or every asset request 404s into that fallback and gets index.html back
+// instead of the real file - confirmed live (JAM-37): this app has never had
+// this middleware, and has only ever actually run with something else (nginx
+// in QA, Vite's dev server locally) serving its static assets on its behalf.
+// A hard navigation/reload straight at this server, with nothing in front of
+// it, could not load its own JS bundle before this was added.
+app.use(express.static(appContext.server.distFolder));
+
 // route configuration, see route/index.js for details
 require('./route')(app);
 
