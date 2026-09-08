@@ -56,7 +56,15 @@ var service = {
 		service.findByAccountName(username, function (err, user) {
 			if (err) {
 				return done(null, false, { message:err});
-			} else if (_.isObject(user) && user.password === md5(password)) {
+			} else if (_.isObject(user) && user.password === md5(password) &&
+					user.enabled === true && !user.locked &&
+					(!user.expire || user.expire >= new Date())) {
+				// enabled must be exactly true (fail closed: an account that
+				// predates this field, or whose enabled flag was never set,
+				// does not get to sign in). locked/expire default open when
+				// absent, since "never set" naturally reads as "not locked" /
+				// "never expires" for those two. expirePassword is
+				// deliberately not checked here - see JAM-24's follow-up.
 
 				user.roles = _.map(user.roles, function (role) {
 					return RoleService.findOneByName(role)

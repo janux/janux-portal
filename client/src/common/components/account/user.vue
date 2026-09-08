@@ -30,8 +30,13 @@ div
 			md-datepicker(v-model="selectedDate", :md-open-on-focus="false")
 				label {{ $t('user.expirationDate') }}
 
+		//- Greyed out: expirePassword isn't enforced at login yet (JAM-24's
+		//- follow-up covers forcing a password change on the way in). Also
+		//- corrects this field having written to data.expirePassWord (wrong
+		//- case) rather than the schema's actual expirePassword - it was
+		//- never reaching the account record either way.
 		.full
-			md-datepicker(v-model="data.expirePassWord", :md-open-on-focus="false")
+			md-datepicker(v-model="data.expirePassword", :md-open-on-focus="false", :disabled="true")
 				label {{ $t('user.passExpirationDate') }}
 
 </template>

@@ -43,6 +43,15 @@ var UsersGenerator = (function () {
 
 		userObj = (typeof userObj !== 'undefined')? userObj : randUsr;
 
+		// Generated demo/test accounts default to enabled, same as a real
+		// registration or invitation-acceptance would set - otherwise
+		// they're rejected outright now that authenticate() enforces
+		// `enabled` (JAM-24). A caller can still override by passing
+		// enabled explicitly on userObj.
+		if (typeof userObj.enabled === 'undefined') {
+			userObj.enabled = true;
+		}
+
 		userObj.userId =  faker.random.uuid();
 		userObj.contact = this.generateContact();
 		userObj.mdate = aDate;
