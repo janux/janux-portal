@@ -43,6 +43,7 @@ module.exports = {
 	AuthContextService    : AuthContextService.create(AuthContextPersistService, AuthContextGroupPersistService),
 	RoleService           : RoleService.create(RolePersistService),
 	UserPersistenceService: UserPersistenceService,
+	PasswordService       : passwordService,
 	PartyService          : PartyService.create(PartyPersistenceService),
 	PartyGroupService     : PartyGroupService.create(PartyGroupPersistenceService),
 	UserAccessControl	  : UserAccessControl

@@ -5,9 +5,10 @@ var
 	// Q    = require('q'),
 	log4js      = require('log4js'),
 	util        = require('util'),
-	md5         = require('md5'),
+	canAccountAuthenticate = require('janux-persist').canAccountAuthenticate,
 	RoleService = require('../api/index').RoleService,
 	UserPersistenceService = require('../api/index').UserPersistenceService,
+	PasswordService = require('../api/index').PasswordService,
 	log         = log4js.getLogger('Auth UserService');
 
 var service = {
@@ -56,15 +57,27 @@ var service = {
 		service.findByAccountName(username, function (err, user) {
 			if (err) {
 				return done(null, false, { message:err});
-			} else if (_.isObject(user) && user.password === md5(password) &&
-					user.enabled === true && !user.locked &&
-					(!user.expire || user.expire >= new Date())) {
-				// enabled must be exactly true (fail closed: an account that
-				// predates this field, or whose enabled flag was never set,
-				// does not get to sign in). locked/expire default open when
-				// absent, since "never set" naturally reads as "not locked" /
-				// "never expires" for those two. expirePassword is
-				// deliberately not checked here - see JAM-24's follow-up.
+			} else if (_.isObject(user) && PasswordService.isValidPassword(user.password, password) &&
+					canAccountAuthenticate(user)) {
+				// enabled/locked/expire are janux-persist's canAccountAuthenticate()
+				// (JAM-24/JAM-46) - expirePassword is deliberately not checked
+				// here, see JAM-24's follow-up (JAM-45).
+
+				// JAM-41: a successful match against a pre-migration md5 hash
+				// is the cue to upgrade it to bcrypt now. update() takes a
+				// full account-shaped object and hashes whatever plaintext
+				// password it's given, so snapshot user's current fields
+				// before roles below get replaced with resolved Role
+				// objects - accountDao.update() would otherwise persist
+				// those instead of the plain role names. Fire-and-forget:
+				// this is housekeeping, not something login should wait on
+				// or fail over.
+				if (PasswordService.isLegacyHash(user.password)) {
+					UserPersistenceService.update(_.extend({}, user, { password: password }), null)
+						.catch(function (err) {
+							log.error('Failed to upgrade legacy password hash for "%s": %j', username, err);
+						});
+				}
 
 				user.roles = _.map(user.roles, function (role) {
 					return RoleService.findOneByName(role)

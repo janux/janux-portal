@@ -5,6 +5,28 @@ var path = require('path');
 module.exports = {
 
 	serverAppContext: {
+		// JAM-25: no `passwordPolicy` key by default - janux-persist's own
+		// DEFAULT_PASSWORD_POLICY applies if this app ever grows a
+		// registration/invitation/recovery flow (it has none today - see
+		// this app's CLAUDE.md - so nothing currently reads this key).
+		//
+		// To override, set `serverAppContext.passwordPolicy` in this app's own
+		// config/local.js - but the full object, all three fields, every time
+		// (JAM-55: a partial object, e.g. just `{ minLength: 16 }`, silently
+		// disables the other two checks rather than falling back to their
+		// defaults):
+		//
+		// serverAppContext: {
+		//   // 1. Override a couple of DEFAULT_PASSWORD_POLICY's fields,
+		//   //    copying the rest across as-is:
+		//   passwordPolicy: Object.assign(
+		//     {}, require('janux-persist').DEFAULT_PASSWORD_POLICY, { minLength: 16 }
+		//   ),
+		//
+		//   // 2. Or specify an entirely custom policy:
+		//   passwordPolicy: { minLength: 8, maxLength: 64, pattern: '^.+$' }
+		// }
+
 		server: {
 			port: 9000,
 			staticUrl: '',

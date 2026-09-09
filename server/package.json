@@ -15,12 +15,13 @@
     "express-session": "1.13.0",
     "janux-authorize": "1.0.0",
     "janux-people": "1.0.1",
-    "janux-persist": "0.0.5",
+    "janux-persist": "0.0.6-rc5",
     "jsonwebtoken": "^8.0.1",
     "lodash": "4.17.15",
     "log4js": "0.6.14",
     "md5": "2.2.1",
     "method-override": "2.3.5",
+    "moment": "2.19.1",
     "mongodb": "2.1.18",
     "mongoose": "4.4.14",
     "multitransport-jsonrpc": "0.8.3",
@@ -29,16 +30,15 @@
     "q": "1.1.2",
     "serve-favicon": "2.3.0",
     "sprintf": "0.1.3",
-    "underscore": "1.7.0",
-    "moment": "2.19.1",
-    "stack-trace": "0.0.9"
+    "stack-trace": "0.0.9",
+    "underscore": "1.7.0"
   },
   "devDependencies": {
-    "mocha": "2.1.0",
     "chai": "1.10.0",
-    "should": "7.0.1",
     "faker": "3.1.0",
-    "lokijs": "1.4.1"
+    "lokijs": "1.4.1",
+    "mocha": "2.1.0",
+    "should": "7.0.1"
   },
   "scripts": {
     "start": "node server.js",
