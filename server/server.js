@@ -10,6 +10,7 @@ var _              = require('lodash'),
 	methodOverride = require('method-override'),
 	serveFavicon   = require('serve-favicon'),
 	session        = require('express-session'),
+	MongoStore     = require('connect-mongo')(session),
 	errorHandler   = require('errorhandler'),
 	livereload     = require('connect-livereload'),
 	// flash         = require('connect-flash'),
@@ -45,10 +46,23 @@ app.use(cookieParser(appContext.server.sessionSecret));
 // app.use(express.cookieSession());
 
 app.use(methodOverride());
+// JAM-29: sessions must survive a restart/deploy and be visible from both
+// eos-01 and eos-02 - MemoryStore (express-session's default) is per-process
+// and dies with it. Same fix glarus-ops shipped for JAM-28 (session state
+// stranding users on a blank page after any restart), ported here before
+// janux-portal hits the same failure - see JAM-29 for the full writeup.
+// connect-mongo opens its own connection (via its own bundled driver), so
+// this doesn't depend on this app's own mongoose/mongodb versions.
+//
+// saveUninitialized is false: `true` unconditionally persisted a session
+// document for every anonymous request, an unbounded leak against
+// MemoryStore (which the Express docs call out by name as unsuitable for
+// production) and unnecessary write volume even against a durable store.
 app.use(session({
 	secret: appContext.server.sessionSecret,
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: false,
+	store: new MongoStore({ url: appContext.db.mongoConnUrl })
 }));
 
 app.use(passport.initialize());

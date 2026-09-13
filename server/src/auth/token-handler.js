@@ -11,7 +11,29 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 
 /**
- * Generates a new token based on the user info
+ * Generates a new token based on the user info.
+ *
+ * Carries identity only (username). The full role graph and contact record
+ * deliberately stay out of it (JAM-29): embedding them makes token size
+ * scale with how many roles an account holds and how rich its contact
+ * record is, and once a token crosses nginx's 8 KB header limit every
+ * request fails with "Request Header or Cookie Too Large" - including the
+ * login meant to replace the token, which leaves no way back but clearing
+ * browser storage by hand. This is the same fix glarus-ops shipped for
+ * JAM-7 after hitting that outage for real; porting it here before
+ * janux-portal does too. It's also a security fix, not just a stability
+ * one: with the full role graph embedded, an isAdmin-style check reading
+ * roles straight off the JWT's own claims is never re-verified against the
+ * database - whoever holds the signing secret could forge a token with a
+ * fabricated admin role and pass every such check. Once roles aren't
+ * embedded, a forged token only claims an identity, not a privilege level
+ * - route/rpc-api.js's resolveUser middleware (user-service.js) is what
+ * re-resolves the real role graph from the database on every request.
+ *
+ * Callers needing the current user's roles/contact fetch them from
+ * `/current-user` (see `authentication-handler.js#sendCurrentUser`), which
+ * also means a revoked role takes effect on the next request rather than
+ * remaining valid for the token's full lifetime.
  * @param user
  * @return {*}
  */
@@ -25,7 +47,7 @@ function generateToken(user) {
 	// console.log("now : " + now + "tomo: " + tomorrow + " expirationDate: " + expirationDate);
 	const expirationSeconds = expirationDate.getTime() - now.getTime();
 	// console.log("Setting " + expirationSeconds + " seconds");
-	return jwt.sign(user, config.server.secret, {
+	return jwt.sign({ username: user.username }, config.server.secret, {
 		expiresIn: expirationSeconds
 	});
 }

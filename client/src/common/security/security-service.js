@@ -8,7 +8,6 @@
 import {Person} from 'janux-people'
 import {Role} from 'janux-authorize'
 import _ from 'lodash'
-import jwtHelper from './jwt-helper'
 import store from 'Common/store'
 import * as actionTypes from 'Common/store/action-types'
 
@@ -29,19 +28,21 @@ export function security (http) {
 	const service = {
 
 		//
-		// Check if user is currently authenticated
+		// Check if user is currently authenticated.
 		//
+		// JAM-29: this used to also report true on the strength of an
+		// unexpired local token alone, rebuilding currentUser from the
+		// token's own payload when it was still nil. That was sound only
+		// while the token carried the full user - since the token was
+		// slimmed to identity only (same fix glarus-ops shipped for JAM-7,
+		// ported here before janux-portal hit the same 8 KB header-limit
+		// outage), a token merely proves the browser once logged in, never
+		// that the server-side session backing it is still alive, and it no
+		// longer carries roles/contact to rebuild currentUser from anyway.
+		// A caller needing a definitive answer must await
+		// requestCurrentUser() first - see JAM-28, the glarus-ops instance
+		// of exactly this defect.
 		isAuthenticated: function () {
-			// Validate if there is a token
-			const token = localStorage.getItem('token')
-			if (_.isNil(service.currentUser) && _.isNil(token) === false) {
-				if (jwtHelper.isTokenExpired(token) === false) {
-					var tokenPayload = jwtHelper.decodeToken(token)
-					service.currentUser = hydrateRoles(tokenPayload)
-					service.currentUser.contact = Person.fromJSON(service.currentUser.contact)
-					console.log('Token decoded')
-				}
-			}
 			return !_.isNil(service.currentUser)
 		},
 
@@ -110,6 +111,19 @@ export function security (http) {
 					}
 					console.log('currentUser-served:', service.currentUser)
 					return service.currentUser
+				}).catch((err) => {
+					// JAM-29: /current-user now answers 401, not 200 with an
+					// empty body, when there's no live server session (JAM-28
+					// is the glarus-ops instance of this same defect). That's
+					// the same outcome the old empty-body response meant -
+					// normalize it the same way, so every caller of
+					// requestCurrentUser() still gets a promise that settles
+					// with null rather than one that rejects.
+					if (err && err.status === 401) {
+						service.currentUser = null
+						return null
+					}
+					throw err
 				})
 			}
 		},

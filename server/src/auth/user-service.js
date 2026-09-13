@@ -5,11 +5,30 @@ var
 	// Q    = require('q'),
 	log4js      = require('log4js'),
 	util        = require('util'),
-	canAccountAuthenticate = require('janux-persist').canAccountAuthenticate,
 	RoleService = require('../api/index').RoleService,
 	UserPersistenceService = require('../api/index').UserPersistenceService,
 	PasswordService = require('../api/index').PasswordService,
 	log         = log4js.getLogger('Auth UserService');
+
+// Resolves each role name in user.roles to its full janux-authorize Role
+// (roles/permissions, not just a name) - a caller cannot make an
+// authorization decision from a bare string. Used both on login and on
+// passport's session deserialization (load(), below), so /current-user
+// returns the same fully-expanded shape login does after a page reload
+// (JAM-29). Idempotent: already-expanded Role objects pass through
+// unchanged, so it's safe to call on a user that has been expanded once
+// already.
+function expandRoles(user) {
+	if (!_.isObject(user) || !_.isArray(user.roles) || user.roles.length === 0) {
+		return Promise.resolve(user);
+	}
+	return Promise.all(_.map(user.roles, function (role) {
+		return _.isString(role) ? RoleService.findOneByName(role) : role;
+	})).then(function (roles) {
+		user.roles = roles;
+		return user;
+	});
+}
 
 var service = {
 
@@ -58,8 +77,8 @@ var service = {
 			if (err) {
 				return done(null, false, { message:err});
 			} else if (_.isObject(user) && PasswordService.isValidPassword(user.password, password) &&
-					canAccountAuthenticate(user)) {
-				// enabled/locked/expire are janux-persist's canAccountAuthenticate()
+					user.canAuthenticate()) {
+				// enabled/locked/expire are janux-persist's AccountEntity#canAuthenticate()
 				// (JAM-24/JAM-46) - expirePassword is deliberately not checked
 				// here, see JAM-24's follow-up (JAM-45).
 
@@ -79,17 +98,9 @@ var service = {
 						});
 				}
 
-				user.roles = _.map(user.roles, function (role) {
-					return RoleService.findOneByName(role)
+				expandRoles(user).then(function (expandedUser) {
+					return done(null, UserPersistenceService.removeSensitiveData(expandedUser));
 				});
-				Promise.all(user.roles).then(function (roles) {
-					user.roles = roles;
-					return done(null, UserPersistenceService.removeSensitiveData(user));
-				});
-				// RoleService.findOneByName(user.role).then(function(role) {
-				// 	user.roles = role;
-				// 	return done(null, user);
-				// });
 
 			} else {
 				var msg = util.format('Invalid username/password supplied by "%s"', username);
@@ -101,3 +112,4 @@ var service = {
 };
 
 module.exports = service;
+module.exports.expandRoles = expandRoles;
