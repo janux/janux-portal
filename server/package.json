@@ -3,6 +3,10 @@
   "version": "0.1.02",
   "private": true,
   "description": "Back-end to support janux auth seed angular front-end",
+  "engines": {
+    "node": ">= 12.0.0",
+    "npm": ">= 6.0.0"
+  },
   "dependencies": {
     "bluebird": "2.9.15",
     "body-parser": "1.15.0",
