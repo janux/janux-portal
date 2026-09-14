@@ -1,0 +1,7 @@
+{
+	"all": true,
+	"include": ["src/**/*.js", "route/**/*.js", "app-context.js", "server.js"],
+	"exclude": ["test/**", "test-api/**", "node_modules/**", "coverage/**", "vendor/**"],
+	"reporter": ["text-summary", "text", "html"],
+	"report-dir": "coverage"
+}

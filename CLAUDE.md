@@ -58,6 +58,38 @@ npm run generate-demo-users
 npm run generate-demo-auth
 ```
 
+## Server test suite: no `npm test` existed, two dead specs removed
+
+Found while wiring up `npm run coverage` (nyc + `.nycrc.json`, same pattern
+as the other janux/easytitle24/glarus servers): `server/package.json` had
+no `test` script at all, and two of its four specs failed outright:
+
+- `test/auth/authorization-service.spec.js` required `src/auth
+  /authorization-service.js`, which has never existed. The route that
+  would have used it (`GET /authenticationContexts` in `route/auth.js`)
+  is itself commented out ("TODO: fix this, since we are using
+  promises"). Removed — dead seed-template scaffolding for a feature
+  that was never built, not a regression.
+- `test/auth/user-service-mock.spec.js` tested `src/auth
+  /user-service-mock.js`, which itself `require`s that same missing
+  `./authorization-service` and calls `.loadRoles()` at module-load
+  time — so simply requiring this file throws. It isn't required
+  anywhere else in the app (not from any route, `server.js`, or
+  `src/api/index.js`), so it's dead, unreachable, and currently broken
+  if it were ever required. Removed the spec; left the source file in
+  place (production-code removal is a separate call from cleaning up
+  its test) — it'll show as 0% in the coverage report, which is an
+  accurate reflection of "unused."
+- `test/api/user-service.spec.js` required `src/api/user-service.js`
+  directly (the raw `.create(dependency)` factory, not a usable
+  instance) and called a `findByUsername` method that doesn't exist.
+  Fixed to go through `src/api/index.js`'s wired-up instance instead,
+  same as every route does, and to call `findBy('username', ...)`,
+  the current equivalent.
+
+After these fixes the suite is a clean 4 passing, 0 failing. Baseline:
+40.22% statements / 10% branches / 16.9% functions / 40.42% lines.
+
 ## Notes
 
 - Git branch: `dev`, remote: github.com/janux/janux-portal

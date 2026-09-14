@@ -18,3 +18,5 @@ server/vendor/janux-*
 /server/config/eos-02.js
 /server/config/eolus.js
 /server/vendor/glarus-services/
+/server/coverage/
+/server/.nyc_output/
