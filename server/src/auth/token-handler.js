@@ -44,9 +44,12 @@ function generateToken(user) {
 	tomorrow.setDate(tomorrow.getDate() + 1);
 	//Setting expiration date at 3 am of the next day.
 	const expirationDate = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate(), 3, 0, 0, 0);
-	// console.log("now : " + now + "tomo: " + tomorrow + " expirationDate: " + expirationDate);
-	const expirationSeconds = expirationDate.getTime() - now.getTime();
-	// console.log("Setting " + expirationSeconds + " seconds");
+	// jwt.sign's `expiresIn` takes seconds (or a duration string) -
+	// Date#getTime() returns milliseconds, so this has to be converted,
+	// not passed straight through (found while adding test coverage here:
+	// every token ended up valid for ~279 days instead of ~1).
+	const expirationMillis = expirationDate.getTime() - now.getTime();
+	const expirationSeconds = Math.round(expirationMillis / 1000);
 	return jwt.sign({ username: user.username }, config.server.secret, {
 		expiresIn: expirationSeconds
 	});
