@@ -1,6 +1,6 @@
 {
 	"all": true,
-	"include": ["src/**/*.js", "route/**/*.js", "app-context.js", "server.js"],
+	"include": ["src/**/*.js", "route/**/*.js", "app-context.js"],
 	"exclude": ["test/**", "test-api/**", "node_modules/**", "coverage/**", "vendor/**", "route/index.js", "route/rpc-api.js"],
 	"reporter": ["text-summary", "text", "html"],
 	"report-dir": "coverage"

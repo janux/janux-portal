@@ -56,20 +56,6 @@ passport.use(new LocalStrategy( { usernameField: 'username' },
 
 config.passport = passport;
 
-// Simple route middleware that ensures that the user is authenticated.
-// Apply to any resource that needs to be protected.
-// If the request is authenticated via a persistent login session, the request will proceed.
-config.authenticate = function authenticate(req, res, next) {
-	log.debug('checking authentication for request: %s', req.url);
-	if (req.isAuthenticated()) {
-		log.debug('session is authenticated, user is: %j', req.user);
-		return next();
-	}
-	log.debug('User is not authenticated, redirecting to login screen');
-	res.redirect('/login');
-};
-
-
 // //
 // // Very crude attempt at creating a Dependency Injection mechanism;
 // // for the time-being it enables us to 'inject' the impl of services via node-config

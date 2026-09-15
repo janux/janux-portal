@@ -19,7 +19,6 @@ var _              = require('lodash'),
 ;
 
 var
-	authenticate = require('./route/auth').authenticate,
 	appContext   = require('./app-context'),
 	passport     = appContext.passport
 ;

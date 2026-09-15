@@ -1,6 +1,17 @@
 'use strict';
 
 /**
+ * IMPORTANT - both functions below resolve `modulePath` relative to THIS
+ * file's own directory (test/util/), not relative to whichever spec file
+ * calls them - `require.resolve()` always resolves against the module
+ * doing the resolving, and that's this file, regardless of who's calling
+ * stub()/freshRequire(). Every caller under test/<subdir>/*.spec.js (one
+ * level below test/) has so far used a path as if it were relative to its
+ * own location, which happens to resolve correctly only because
+ * test/util/ sits at that same depth - a spec file at a different depth
+ * (e.g. directly under test/) needs a path relative to test/util/
+ * instead, or it'll resolve to the wrong file (or none at all).
+ *
  * Injects a fake module into node's require cache so whatever requires it
  * next - by any path spelling that resolves to the same file, relative or
  * otherwise - picks up the fake instead of the real module. Needed for
