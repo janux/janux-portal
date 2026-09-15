@@ -56,16 +56,17 @@ var createInstance = function (serviceReference) {
 				var filteredResult = _.map(result, function (o) {
 					return userServicePersistence.removeSensitiveData(o);
 				});
-				return bluebird.resolve(filteredResult).asCallback(callback);
-			});
+				return filteredResult;
+			})
+			.asCallback(callback);
 	};
 
 	UserService.prototype.findById = function (userId, callback) {
 		return userServicePersistence.findOneByUserId(userId)
 			.then(function (value) {
-				var result = userServicePersistence.removeSensitiveData(value);
-				return bluebird.resolve(result).asCallback(callback);
-			});
+				return userServicePersistence.removeSensitiveData(value);
+			})
+			.asCallback(callback);
 	};
 
 	// Override the method to save users
