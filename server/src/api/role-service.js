@@ -70,8 +70,9 @@ var createInstance = function(roleServiceReference) {
 
 				// log.info("Update role %j ",roleToUpdate);
 				// Save the role
-				return roleServicePersistence.update(roleToUpdate).asCallback(callback);
-			});
+				return roleServicePersistence.update(roleToUpdate);
+			})
+			.asCallback(callback);
 	};
 
 	//

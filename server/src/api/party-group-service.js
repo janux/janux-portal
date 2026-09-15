@@ -80,9 +80,7 @@ var createInstance = function (partyGroupServiceReference) {
 	PartyGroupService.prototype.addItemNewParty = function (code, party, attributes, callback) {
 		var partyObject = PartyServiceImplClass.fromJSON(party);
 		return partyGroupServiceReferenceInstance.addItemNewParty(code, partyObject, attributes)
-			.then(function (result) {
-				return Promise.resolve(result).asCallback(callback);
-			});
+			.asCallback(callback);
 	};
 
 	PartyGroupService.prototype.removeItem = function (code, partyId, callback) {

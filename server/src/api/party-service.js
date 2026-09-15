@@ -46,8 +46,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findByName with name: %j", name);
 		return partyServiceImpl.findByName(name)
 			.then(function (result) {
-				return Promise.resolve(toJSONMany(result)).asCallback(callback);
-			});
+				return toJSONMany(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -59,8 +60,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findByEmail with email: %j", email);
 		return partyServiceImpl.findByEmail(email)
 			.then(function (result) {
-				return Promise.resolve(toJSONMany(result)).asCallback(callback);
-			});
+				return toJSONMany(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -71,8 +73,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findPeople");
 		return partyServiceImpl.findPeople()
 			.then(function (result) {
-				return Promise.resolve(toJSONMany(result)).asCallback(callback);
-			});
+				return toJSONMany(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -83,8 +86,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findOrganizations");
 		return partyServiceImpl.findOrganizations()
 			.then(function (result) {
-				return Promise.resolve(toJSONMany(result)).asCallback(callback);
-			});
+				return toJSONMany(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -96,8 +100,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findOne with id: %j", id);
 		return partyServiceImpl.findOne(id)
 			.then(function (result) {
-				return Promise.resolve(PartyServiceImplClass.toJSON(result)).asCallback(callback);
-			});
+				return PartyServiceImplClass.toJSON(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -109,8 +114,9 @@ var createInstance = function (serviceReference) {
 		log.debug("Call to findByIds with ids: %j", ids);
 		return partyServiceImpl.findByIds(ids)
 			.then(function (result) {
-				return Promise.resolve(toJSONMany(result)).asCallback(callback);
-			});
+				return toJSONMany(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -124,8 +130,9 @@ var createInstance = function (serviceReference) {
 		object = PartyServiceImplClass.fromJSON(party);
 		return partyServiceImpl.insert(object)
 			.then(function (result) {
-				return Promise.resolve(PartyServiceImplClass.toJSON(result)).asCallback(callback);
-			});
+				return PartyServiceImplClass.toJSON(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**
@@ -138,8 +145,9 @@ var createInstance = function (serviceReference) {
 		object = PartyServiceImplClass.fromJSON(party);
 		return partyServiceImpl.update(object)
 			.then(function (result) {
-				return Promise.resolve(PartyServiceImplClass.toJSON(result)).asCallback(callback);
-			});
+				return PartyServiceImplClass.toJSON(result);
+			})
+			.asCallback(callback);
 	};
 
 	/**

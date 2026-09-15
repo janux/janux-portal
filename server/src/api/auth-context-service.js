@@ -74,8 +74,9 @@ var createInstance = function(authContextServiceReference,
 				// Add the authorization context reference to the corresponding group
 				return authContextGroupServicePersistence.addItem(
 					authContextGroupCode, insertedAuthContextContext
-				).asCallback(callback);
-			});
+				);
+			})
+			.asCallback(callback);
 	};
 
 	//
@@ -101,9 +102,10 @@ var createInstance = function(authContextServiceReference,
 				return authContextGroupServicePersistence.switchToNewGroup(authContextToUpdate, groupCode)
 					.then(function () {
 						// Save the authorization context
-						return authContextServicePersistence.update(authContextToUpdate).asCallback(callback);
+						return authContextServicePersistence.update(authContextToUpdate);
 					});
-			});
+			})
+			.asCallback(callback);
 	};
 
 	//
@@ -123,9 +125,10 @@ var createInstance = function(authContextServiceReference,
 			.then(function (authContext) {
 				return authContextGroupServicePersistence.removeItem(groupCode, authContext)
 					.then(function () {
-						return authContextServicePersistence.deleteByName(name).asCallback(callback);
+						return authContextServicePersistence.deleteByName(name);
 					});
-		});
+		})
+			.asCallback(callback);
 	};
 
 	//
@@ -155,8 +158,9 @@ var createInstance = function(authContextServiceReference,
 			group.description = groupObject.description;
 
 			// Update the AuthContextorization Context Group
-			return authContextGroupServicePersistence.update(group).asCallback(callback);
-		});
+			return authContextGroupServicePersistence.update(group);
+		})
+			.asCallback(callback);
 	};
 
 	//
