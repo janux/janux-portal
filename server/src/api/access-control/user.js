@@ -57,7 +57,9 @@ let createInstance = function (serviceReference) {
 
 	// Override the method to save users
 	UserService.prototype.saveOrUpdate = function (aUserObj, user) {
-		log.info('save or update method', JSON.stringify(aUserObj));
+		// Never log the raw object - it carries the plaintext password on
+		// registration and password-change requests.
+		log.debug('checking access for saveOrUpdate %j', _.omit(aUserObj, 'password'));
 		const method = stack.get()[0].getFunctionName() + ':';
 		let out = false;
 		if (_.isNil(aUserObj.id)) {
