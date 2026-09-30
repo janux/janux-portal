@@ -5,8 +5,17 @@ var
 	log          = require('log4js').getLogger('sandbox'),
 	tokenHandler = require('../src/auth/token-handler'),
 	authenticationHandler = require('../src/auth/authentication-handler'),
-	accessControl = require('../src/auth/access-control')
+	accessControl = require('../src/auth/access-control'),
+	requestContext = require('../src/util/request-context')
 ;
+
+// Establishes this request's ThreadLocal-equivalent context (see
+// request-context.js) once its identity is known, so every log statement
+// for the rest of this request - however deep in services/DAOs - can
+// include the username without being passed it explicitly.
+function withRequestContext(req, res, next) {
+	requestContext.run({ username: req.user && req.user.username }, next);
+}
 
 var transport = jsonrpc.transports.server.middleware;
 
@@ -75,6 +84,7 @@ module.exports = function (app) {
 			// role bypass: roles now come from a live database lookup by
 			// identity, never from the token's own claims.
 			authenticationHandler.resolveUser,
+			withRequestContext,
 			// Allow/forbid decision for this service+method, now evaluated
 			// against the real role graph resolveUser just attached to
 			// req.user. Calls next() to admit the request, or ends it with a
