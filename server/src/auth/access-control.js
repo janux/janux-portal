@@ -17,18 +17,22 @@ const middleware = (accessControlService) => {
 				params.push(user);
 				// Execute access control method
 				return accessControlService[method](...params).then((accessGranted) => {
-					console.log('accessGranted', accessGranted);
+					log.debug('access %s for service %s, method %s', accessGranted ? 'granted' : 'denied', baseUrl, method);
 				if (accessGranted) {
 					// Pass request to json rpc server
 					next();
 				} else {
-					// Resource is forbidden for this user
-					log.error(`Access forbidden for service ${baseUrl}, method ${method}`);
+					// Resource is forbidden for this user - expected, correctly-
+					// handled input (an unauthorized attempt), not a system fault.
+					log.warn(`Access forbidden for service ${baseUrl}, method ${method}`);
 					res.status(403).end();
 				}
 			});
 			} else {
-				log.info(`No access control handler found for service ${baseUrl}, method ${method}`);
+				// Most services have no per-method access control at all, so
+				// this is the common case on nearly every request, not
+				// noteworthy on its own - TRACE, not INFO.
+				log.trace(`No access control handler found for service ${baseUrl}, method ${method}`);
 				next();
 			}
 		} else {

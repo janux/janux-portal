@@ -99,6 +99,7 @@ var service = {
 				}
 
 				expandRoles(user).then(function (expandedUser) {
+					log.info('Authenticated "%s"', username);
 					return done(null, UserPersistenceService.removeSensitiveData(expandedUser));
 				});
 

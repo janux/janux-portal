@@ -29,26 +29,33 @@ var createInstance = function (serviceReference) {
 	// Specific methods of user service
 	//
 
+	function logFailure(message) {
+		return function (err) {
+			if (_.isArray(err)) {
+				log.warn(message + ': %s', _.map(err, function (e) { return e.message; }).join('; '));
+			} else {
+				log.error(message + ': %s', err && err.stack || err);
+			}
+			throw err;
+		};
+	}
+
 	// Find records depending on a particular field
 	UserService.prototype.findBy = function (field, search, callback) {
-		log.info("Call to findBy with field: %j ,search: %j ", field, search);
+		log.debug("finding users by field %j, search %j", field, search);
 		var promise;
 		switch (field) {
 			case 'username':
 				promise = userServicePersistence.findAllByUserNameMatch(search);
-				// return userServicePersistence.findAllByUserNameMatch(search).asCallback(callback);
 				break;
 			case 'name':
 				promise = userServicePersistence.findAllByContactNameMatch(search);
-				// return userServicePersistence.findAllByContactNameMatch(search).asCallback(callback);
 				break;
 			case 'email':
 				promise = userServicePersistence.findAllByEmail(search);
-				// return userServicePersistence.findAllByEmail(search).asCallback(callback);
 				break;
 			case 'phone':
 				promise = userServicePersistence.findAllByPhone(search);
-				// return userServicePersistence.findAllByPhone(search).asCallback(callback);
 				break;
 		}
 		return promise
@@ -58,35 +65,45 @@ var createInstance = function (serviceReference) {
 				});
 				return filteredResult;
 			})
+			.catch(logFailure('failed to find users by field ' + JSON.stringify(field) + ', search ' + JSON.stringify(search)))
 			.asCallback(callback);
 	};
 
 	UserService.prototype.findById = function (userId, callback) {
+		log.debug("finding user by id %j", userId);
 		return userServicePersistence.findOneByUserId(userId)
 			.then(function (value) {
 				return userServicePersistence.removeSensitiveData(value);
 			})
+			.catch(logFailure('failed to find user by id ' + JSON.stringify(userId)))
 			.asCallback(callback);
 	};
 
 	// Override the method to save users
 	UserService.prototype.saveOrUpdate = function (aUserObj, callback) {
+		// Never log the raw object - it carries the plaintext password on
+		// registration and password-change requests.
+		log.debug("saving or updating user %j", _.omit(aUserObj, 'password'));
 
-		//
-		// If the user's role has been loaded, we ensure that only the name is stored back
-		//
-		// aUserObj.roles = _.map(aUserObj.roles, function (role) {
-		//     return (typeof role.name !== 'undefined') ? role.name : role;
-		// });
-		//
-		// return userDAO.prototype.saveOrUpdate.call(this, aUserObj).asCallback(callback);
-
-		return userServicePersistence.saveOrUpdate(aUserObj).asCallback(callback);
+		return userServicePersistence.saveOrUpdate(aUserObj)
+			.then(function (result) {
+				log.info("saved user %j -> userId %j", aUserObj.username, result && result.userId);
+				return result;
+			})
+			.catch(logFailure('failed to save user ' + JSON.stringify(aUserObj.username)))
+			.asCallback(callback);
 
 	};
 
 	UserService.prototype.deleteUser = function (userId, callback) {
-		return userServicePersistence.deleteUserByUserId(userId).asCallback(callback);
+		log.debug("deleting user %j", userId);
+		return userServicePersistence.deleteUserByUserId(userId)
+			.then(function (result) {
+				log.info("deleted user -> userId %j", userId);
+				return result;
+			})
+			.catch(logFailure('failed to delete user ' + JSON.stringify(userId)))
+			.asCallback(callback);
 	};
 
 	return new UserService();

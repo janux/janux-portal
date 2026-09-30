@@ -60,9 +60,9 @@ var security = {
 		log.debug('calling login');
 
     function authenticationFailed(err, user, info){
-			log.debug('err:', err);
-			log.debug('user:', user);
-			log.debug('info:', info);
+			log.debug('err: %s', err && err.stack || err);
+			log.debug('user: %j', user);
+			log.debug('info: %j', info);
       if (err) { return next(err); }
       if (!user) { return res.json( {user: null} ); }
       req.logIn(user, function(err) {
