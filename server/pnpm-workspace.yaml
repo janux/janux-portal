@@ -1,0 +1,5 @@
+allowBuilds:
+  core-js: true
+  mongodb-memory-server: true
+minimumReleaseAgeExclude:
+  - janux-persist@0.0.6
