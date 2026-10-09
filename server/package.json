@@ -22,7 +22,7 @@
     "janux-people": "1.0.1",
     "janux-persist": "0.0.6",
     "jsonwebtoken": "^8.0.1",
-    "lodash": "4.17.15",
+    "lodash": "4.17.21",
     "log4js": "0.6.14",
     "md5": "2.2.1",
     "method-override": "2.3.5",
