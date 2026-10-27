@@ -172,5 +172,84 @@ describe('src/auth/user-service.js:', function() {
 				done();
 			});
 		});
+
+		// An unhandled promise rejection crashes the whole process on Node 15+
+		// (on Node 12 it was a warning and the login request just hung), so a
+		// failure while checking the credentials has to come back through
+		// passport's callback instead.
+		describe('a failure while checking the credentials:', function() {
+			var unhandled;
+
+			function onUnhandled(reason) { unhandled.push(reason); }
+
+			beforeEach(function() {
+				unhandled = [];
+				process.on('unhandledRejection', onUnhandled);
+			});
+
+			afterEach(function() {
+				process.removeListener('unhandledRejection', onUnhandled);
+			});
+
+			// Rejections are reported a tick after they happen, so look a moment later
+			function expectNoUnhandledRejection(done) {
+				setTimeout(function() {
+					expect(unhandled).to.eql([]);
+					done();
+				}, 20);
+			}
+
+			it('reports a role that cannot be resolved as an error', function(done) {
+				var userService = buildService({
+					userPersistenceService: {findOneByUserName: function() { return Promise.resolve(fakeAccount()); }},
+					passwordService: {isValidPassword: function() { return true; }, isLegacyHash: function() { return false; }},
+					// a native promise, as expandRoles' own Promise.all is: bluebird would report a
+					// rejection it considers unhandled a tick before Promise.all adopts it
+					roleService: {findOneByName: function() { return global.Promise.reject(new Error('No role with the rolename ADMIN')); }}
+				});
+				userService.authenticate('admin', 'correct', function(err, user) {
+					expect(err).to.be.instanceOf(Error);
+					expect(err.message).to.match(/No role with the rolename ADMIN/);
+					expect(user).to.equal(undefined);
+					expectNoUnhandledRejection(done);
+				});
+			});
+
+			it('reports an exception while checking the stored password as an error', function(done) {
+				// bcryptjs throws, rather than returning false, for a stored value
+				// that looks like a hash but is not a valid one
+				var userService = buildService({
+					userPersistenceService: {findOneByUserName: function() { return Promise.resolve(fakeAccount()); }},
+					passwordService: {isValidPassword: function() { throw new Error('Invalid salt version: aa'); }}
+				});
+				userService.authenticate('admin', 'whatever', function(err, user) {
+					expect(err).to.be.instanceOf(Error);
+					expect(err.message).to.match(/Invalid salt version/);
+					expect(user).to.equal(undefined);
+					expectNoUnhandledRejection(done);
+				});
+			});
+
+			it('answers only once when the callback itself throws after answering', function(done) {
+				var userService = buildService({
+					userPersistenceService: {
+						findOneByUserName: function() { return Promise.resolve(fakeAccount()); },
+						removeSensitiveData: function(u) { return {username: u.username}; }
+					},
+					passwordService: {isValidPassword: function() { return true; }, isLegacyHash: function() { return false; }},
+					roleService: {findOneByName: function(name) { return Promise.resolve({name: name}); }}
+				});
+				var answers = 0;
+				userService.authenticate('admin', 'correct', function() {
+					answers++;
+					throw new Error('passport blew up');
+				});
+				setTimeout(function() {
+					expect(answers).to.equal(1);
+					expect(unhandled).to.eql([]);
+					done();
+				}, 30);
+			});
+		});
 	});
 });
