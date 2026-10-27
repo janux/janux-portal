@@ -66,6 +66,31 @@ describe('app-context.js:', function() {
 		});
 	});
 
+	describe('the exported context:', function() {
+		it('exposes passport and still reads through to the configuration', function() {
+			// config 3.x makes the configuration immutable on the first config.get(): it then
+			// rejects properties assigned onto it, and log4js writing to the settings it is
+			// handed. An isolated config instance, and an app-context built against it, are
+			// both dropped afterwards, so neither leaks into the specs that set configuration
+			// at runtime.
+			var configPath = require.resolve('config');
+			var appContextPath = require.resolve('../app-context');
+			var savedConfig = require.cache[configPath];
+			try {
+				delete require.cache[configPath];
+				var isolatedConfig = require('config');
+				isolatedConfig.get('serverAppContext.server');
+
+				var appContext = buildAppContext();
+				expect(appContext.passport).to.equal(passport);
+				expect(appContext.server.port).to.equal(isolatedConfig.get('serverAppContext.server.port'));
+			} finally {
+				require.cache[configPath] = savedConfig;
+				delete require.cache[appContextPath];
+			}
+		});
+	});
+
 	describe('the local strategy:', function() {
 		it('delegates verification to user-service.authenticate', function(done) {
 			var calledWith;

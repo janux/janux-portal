@@ -25,6 +25,31 @@ action.
 - **Auth**: Passport + JWT (express-jwt, jsonwebtoken)
 - **Test**: Mocha + Chai
 - **API**: JSON-RPC
+- **Node**: `^24.22.1 || >=26.12.1` (`engines`: the first releases of each line that fix
+  CVE-2026-111497, the Brotli decoder RCE; `server/.nvmrc` pins `24.22.1`).
+  `.nvmrc` is matched by the global gitignore, so it is force-added, as in
+  easytitle24. `config` is 3.3.12 and `janux-persist` is pinned to its RC;
+  node-config 1.x crashes at load on Node 23+. The suite also passes on
+  Node 12, so pointing QA's PM2 `interpreter` back at 12.22.1 remains a
+  working rollback, even though `engines` no longer declares it.
+- **Two lockfiles, kept in step**: `pnpm-lock.yaml` for local installs, and
+  `package-lock.json` because QA's Jenkins job installs the server with
+  `npm install` (`jam-devops/qa-env.md`). Update both on any dependency change.
+
+### `app-context.js`: never assign runtime objects onto the config
+
+node-config 3.x makes the configuration immutable on the first
+`config.get()` anywhere in the process (plain property reads don't trigger
+it, but janux-persist's own `config.get()` calls do), and its nested objects
+are then proxies that throw on assignment (and deep-freeze anything attached
+beforehand). `app-context.js` therefore exports
+an object *derived* from the config (`Object.create(config, {...})`) that
+carries `passport`, and hands log4js a `cloneDeep` copy of its settings
+(log4js writes to the object it is given). Plain assignment onto a derived
+object doesn't work either, since the proxy's `set` trap also fires for
+inheriting objects, so define properties with a descriptor. The server's test
+suite never boots the app, so `test/app-context.spec.js` covers this with an
+isolated, immutable config instance.
 
 ## Vendor Dependencies (must create symlinks)
 

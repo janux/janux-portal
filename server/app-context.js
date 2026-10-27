@@ -1,6 +1,7 @@
 var 
 	config   = require('config').serverAppContext,
 	log4js   = require('log4js'),
+	_        = require('lodash'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy
 ;
@@ -11,8 +12,9 @@ var
 // in particular, we use it to run the log4js configuration commands below
 //
 
-// read the log4js config from node-config
-log4js.configure(config.log4js.config);
+// read the log4js config from node-config; log4js writes to the settings object it is given,
+// which config 3.x rejects once the configuration is immutable, so hand it a copy
+log4js.configure(_.cloneDeep(config.log4js.config));
 
 // It is not possible to set the global log level via the log4js config, so we are forced to do this
 // programatically; the downside is that it is not possible at this time to change this setting
@@ -54,7 +56,14 @@ passport.use(new LocalStrategy( { usernameField: 'username' },
 	}
 ));
 
-config.passport = passport;
+// config 3.x makes the configuration immutable on the first config.get() anywhere in the
+// process (janux-persist calls it too): it then rejects anything assigned onto it, and
+// deep-freezes anything attached beforehand (passport included). Runtime objects therefore hang on an object derived from the configuration, which
+// still reads through to every configured value. The property is defined with a descriptor
+// because config's proxies also trap plain assignment on objects that merely inherit from them.
+var appContext = Object.create(config, {
+	passport: { value: passport, enumerable: true }
+});
 
 // //
 // // Very crude attempt at creating a Dependency Injection mechanism;
@@ -79,8 +88,6 @@ config.passport = passport;
 // console.log('config is %j', config);
 
 
-log.trace('Application Context is %j: ', config);
-
-module.exports = config;
+module.exports = appContext;
 
 log.info('Application Context created');

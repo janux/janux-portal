@@ -15,8 +15,8 @@ importers:
         specifier: 1.15.0
         version: 1.15.0(supports-color@7.2.0)
       config:
-        specifier: 1.3.0
-        version: 1.3.0
+        specifier: 3.3.12
+        version: 3.3.12
       connect-livereload:
         specifier: 0.5.0
         version: 0.5.0
@@ -45,8 +45,8 @@ importers:
         specifier: 1.0.1
         version: 1.0.1
       janux-persist:
-        specifier: 0.0.6
-        version: 0.0.6(supports-color@7.2.0)
+        specifier: 0.0.7-rc1
+        version: 0.0.7-rc1(config@3.3.12)(supports-color@7.2.0)
       jsonwebtoken:
         specifier: ^8.0.1
         version: 8.5.1
@@ -526,13 +526,9 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  config@1.26.1:
-    resolution: {integrity: sha1-9kfOMsNF6AunOo6qeppLTlspDKE=}
-    engines: {node: '>0.4.x'}
-
-  config@1.3.0:
-    resolution: {integrity: sha1-gMbl9ALXa/avsOGnfZAUVQqpJ6o=}
-    engines: {node: '>0.4.x'}
+  config@3.3.12:
+    resolution: {integrity: sha512-Vmx389R/QVM3foxqBzXO8t2tUikYZP64Q6vQxGrsMpREeJc/aWRnPRERXWsYzOHAumx/AOoILWe6nU3ZJL+6Sw==}
+    engines: {node: '>= 10.0.0'}
 
   connect-livereload@0.5.0:
     resolution: {integrity: sha512-vlI7IRAoa++4Ga2HQEskZrEw9orC7/W2iztyv7jF/2Nq54z9zgI7/EX/A7XVhZhYhgNzAKPLxAIuPMLEyYimSw==}
@@ -1027,9 +1023,11 @@ packages:
     resolution: {integrity: sha512-5s0iFIdzYCDfIcTOOEixk2y0ZFNOk3Ccp+45L45hbqFrS+FygMG9glv3VdMEsvM+hJSD+cK8Atqe2clmPNZybw==}
     engines: {node: ~12.x, npm: ~6.x, pnpm: ~6.x}
 
-  janux-persist@0.0.6:
-    resolution: {integrity: sha512-Q1SPMUrAMJZK7H4pT+9qqRUoIoJ+TBSJtQAN5Askks+EcYyir4vRXbrnMu5Nliwol1JsLX+XRnX7LTtOhk6YTA==}
+  janux-persist@0.0.7-rc1:
+    resolution: {integrity: sha512-Pi8OKmNnj2Q8ZnHizqxYb2BrNQeQUo2+t5F/bR9OWl2JpW8uz+hU41a6YBiOCcKXCRhoe53jnfWOhw6J1eOWCg==}
     engines: {node: '>= 12.0.0', npm: '>= 6.0.0'}
+    peerDependencies:
+      config: '>=3.3.12'
 
   josk@1.1.0:
     resolution: {integrity: sha512-/PPqm5cRx/h4Dpn7XrynJmjaSRmArkPKZMXrhjWUTx/mymS2sryIwVgU32SbIigZH1Jbgr2JHW+evz502zj4hQ==}
@@ -1047,10 +1045,6 @@ packages:
   jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
     engines: {node: '>=6'}
-    hasBin: true
-
-  json5@0.4.0:
-    resolution: {integrity: sha512-5EEuuI7oad0d6c2PcrTRLoLH2JNuI/aJxHsVT2hVFK6fKHu+MXONdhzzzNAlb3JXMeuN1o+kDU78fV1YH6VmKQ==}
     hasBin: true
 
   json5@2.2.3:
@@ -1395,10 +1389,6 @@ packages:
   optional-require@1.1.10:
     resolution: {integrity: sha512-0r3OB9EIQsP+a5HVATHq2ExIy2q/Vaffoo4IAikW1spCYswhLxqWQS0i3GwS3AdY/OIP4SWZHLGz8CMU558PGw==}
     engines: {node: '>=4'}
-
-  os-homedir@1.0.2:
-    resolution: {integrity: sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==}
-    engines: {node: '>=0.10.0'}
 
   p-limit@2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -2359,12 +2349,9 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  config@1.26.1:
+  config@3.3.12:
     dependencies:
-      json5: 0.4.0
-      os-homedir: 1.0.2
-
-  config@1.3.0: {}
+      json5: 2.2.3
 
   connect-livereload@0.5.0: {}
 
@@ -2850,7 +2837,7 @@ snapshots:
 
   janux-people@1.0.1: {}
 
-  janux-persist@0.0.6(supports-color@7.2.0):
+  janux-persist@0.0.7-rc1(config@3.3.12)(supports-color@7.2.0):
     dependencies:
       '@types/big.js': 4.0.2
       '@types/bluebird': 3.5.5
@@ -2866,7 +2853,7 @@ snapshots:
       bcryptjs: 3.0.3
       big.js: 5.0.3
       bluebird: 3.5.0
-      config: 1.26.1
+      config: 3.3.12
       email-validator: 1.0.7
       janux-authorize: 1.0.0
       janux-people: 1.0.0
@@ -2898,8 +2885,6 @@ snapshots:
       esprima: 4.0.1
 
   jsesc@3.1.0: {}
-
-  json5@0.4.0: {}
 
   json5@2.2.3: {}
 
@@ -3319,8 +3304,6 @@ snapshots:
   optional-require@1.1.10:
     dependencies:
       require-at: 1.0.6
-
-  os-homedir@1.0.2: {}
 
   p-limit@2.3.0:
     dependencies:
