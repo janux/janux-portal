@@ -14,9 +14,9 @@
 			div.info-text
 				p {{ $t('login.credentials') }}
 				ul
-					li widget/test1
-					li manager/test2
-					li admin/1234567
+					li widget/widget-demo-1
+					li manager/manager-demo-2
+					li admin/admin-demo-3
 
 			.alert.alert-warning(v-if='authReason') {{authReason}}
 			.alert.alert-danger(v-if='authError') {{authError}}

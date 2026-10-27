@@ -35,9 +35,12 @@ var UsersGenerator = (function () {
 	UsersGenerator.prototype.generateUser = function (userObj) {
 		var aDate = faker.date.past();
 
+		// The suffix guarantees a letter, a digit and a symbol, which janux-persist's
+		// default password policy requires (JAM-25); faker's own output is only
+		// alphanumeric, so UserService would refuse to insert the account.
 		var randUsr = {
 			username: faker.internet.userName(),
-			password: faker.internet.password(),
+			password: faker.internet.password(12) + '-Aa1',
 			roles: ['DESIGNER']
 		};
 

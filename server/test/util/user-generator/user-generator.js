@@ -68,17 +68,17 @@ var UserGenerator = (function () {
         var users = [
             {
                 username: 'widget',
-                password: 'test1',
+                password: 'widget-demo-1',
                 roles: ["WIDGET_DESIGNER"]
             },
             {
                 username: 'manager',
-                password: 'test2',
+                password: 'manager-demo-2',
                 roles: ["MANAGER"]
             },
             {
                 username: 'admin',
-                password: '1234567',
+                password: 'admin-demo-3',
                 roles: ["ADMIN"]
             }
         ];
