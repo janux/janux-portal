@@ -1,8 +1,3 @@
-/**
-* Project janux-vuejs-seed
-* Created by hielo on 2018-04-24
-*/
-
 <template lang="pug">
 div
 	v-jnx-header(:sectionTitle="sectionTitle")

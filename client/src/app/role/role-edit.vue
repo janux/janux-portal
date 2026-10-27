@@ -1,8 +1,3 @@
-/**
-* Project janux-vuejs-seed
-* Created by hielo on 2018-05-17
-*/
-
 <template lang="pug" src="./role-edit.pug">
 </template>
 

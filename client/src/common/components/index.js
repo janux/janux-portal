@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-02
- */
-
 import jnxFooter from './footer.vue'
 import jnxNavBar from './nav-bar.vue'
 import jnxToolbar from './toolbar.vue'

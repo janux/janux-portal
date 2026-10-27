@@ -1,11 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-02
- *
- */
-
 import {jsonrpc} from './jsonrpc'
 import {ExampleDirective} from './directives'
 import _ from 'lodash'

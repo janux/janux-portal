@@ -1,8 +1,3 @@
-/**
-* Project janux-vuejs-seed
-* Created by hielo on 2018-05-08
-*/
-
 <template lang="pug">
 div
 	v-jnx-toolbar(:sectionTitle="sectionTitle")

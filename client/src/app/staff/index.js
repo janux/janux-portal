@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-04
- */
-
 import StaffList from './list.vue'
 import StaffEdit from './staff-edit.vue'
 import StaffCreate from './staff-create.vue'

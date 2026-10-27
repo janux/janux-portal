@@ -1,9 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-14
- */
 import {Person} from 'janux-people'
 import _ from 'lodash'
 

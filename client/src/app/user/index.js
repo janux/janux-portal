@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-04
- */
-
 import UserList from './list.vue'
 import UserEdit from './user-edit.vue'
 import UserCreate from './user-create.vue'

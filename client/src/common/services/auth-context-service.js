@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-17
- */
-
 import _ from 'lodash'
 
 export function authContextService (http) {

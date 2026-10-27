@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-08
- */
-
 import {Person} from 'janux-people'
 import {Role} from 'janux-authorize'
 import _ from 'lodash'

@@ -1,9 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-15
- */
 import _ from 'lodash'
 
 export function roleService (http) {

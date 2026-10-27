@@ -1,9 +1,6 @@
 'use strict'
 
 /**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-02
- *
  * This plugin exposes janux-demo services through a Vue.js plugin
  */
 

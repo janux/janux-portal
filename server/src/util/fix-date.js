@@ -1,8 +1,3 @@
-/**
- * Project janux-auth-angular-seed
- * Created by ernesto on 11/23/17.
- */
-
 var _ = require('lodash');
 var moment = require('moment');
 /**

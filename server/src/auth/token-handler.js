@@ -1,7 +1,3 @@
-/**
- * Project janux-auth-angular-seed
- * Created by ernesto on 9/22/17.
- */
 'use strict';
 var config = require('config').serverAppContext;
 

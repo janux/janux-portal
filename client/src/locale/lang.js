@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-10
- */
-
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 

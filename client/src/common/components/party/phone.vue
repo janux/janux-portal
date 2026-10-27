@@ -1,8 +1,3 @@
-/**
-* Project janux-vuejs-seed
-* Created by hielo on 2018-05-10
-*/
-
 <template lang="pug">
 	.section-form
 		p.form-section

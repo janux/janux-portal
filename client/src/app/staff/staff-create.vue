@@ -1,8 +1,3 @@
-/**
-* Project janux-vuejs-seed
-* Created by hielo on 2018-04-24
-*/
-
 <template lang="pug" src="./staff-create.pug">
 </template>
 

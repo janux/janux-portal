@@ -1,7 +1,3 @@
-/**
- * Project janux-auth-angular-seed
- * Created by ernesto on 11/23/17.
- */
 var log4js           = require('log4js'),
 	_                = require('lodash'),
 	Promise          = require('bluebird'),

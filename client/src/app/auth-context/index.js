@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-05-04
- */
-
 import AuthContextList from './list.vue'
 import AuthContextEdit from './auth-context-edit.vue'
 import AuthContextCreate from './auth-context-create.vue'

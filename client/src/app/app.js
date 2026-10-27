@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-04-18
- */
-
 import 'vue-material/dist/vue-material.css'
 import 'vue-material/dist/theme/default.css'
 import 'Css/main.less'

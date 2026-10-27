@@ -1,9 +1,6 @@
 'use strict'
 
 /**
- * Project janux-vuejs-seed
- * Created by hielo on 2018-04-18
- *
  * This can be imported in any service or used through a plugin
  */
 
