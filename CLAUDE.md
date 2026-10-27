@@ -8,7 +8,7 @@ action.
 
 ## Tech Stack
 
-### Client (janux-vuejs-demo)
+### Client (janux-portal-client)
 - **Framework**: Vue.js 2.7.16 + Vuex 3.6 + Vue Router 3.6
 - **UI**: Vue-Material 1.0.0-beta-16 + Bootstrap 3.4.1
 - **Build**: Vite 7.3.6 (`@vitejs/plugin-vue2`) — replaced gulp/webpack 3;
@@ -19,7 +19,7 @@ action.
 - **Lint**: ESLint 10, flat config (`eslint.config.js`)
 - **Node**: >= 22.0.0
 
-### Server (janux-auth-seed-server)
+### Server (janux-portal-server)
 - **Framework**: Express 4.13.4
 - **Database**: MongoDB (mongoose 4.4.14, mongodb 2.1.18)
 - **Auth**: Passport + JWT (express-jwt, jsonwebtoken)

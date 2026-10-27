@@ -15,7 +15,8 @@ var _              = require('lodash'),
 	livereload     = require('connect-livereload'),
 	// flash         = require('connect-flash'),
 	http           = require('http'),
-	log4js         = require('log4js')
+	log4js         = require('log4js'),
+	packageInfo    = require('./package.json')
 ;
 
 var
@@ -91,7 +92,7 @@ server.on('error', function () {
 });
 
 server.on('listening', function () {
-	console.log("janux-auth-seed listening on port '%d' in '%s' mode", this.address().port, app.settings.env);
+	console.log("%s listening on port '%d' in '%s' mode", packageInfo.name, this.address().port, app.settings.env);
 });
 
 server.listen(app.get('port'));

@@ -1,21 +1,7 @@
 {
   "author": "Philippe Paravicini",
-  "name": "janux-vuejs-demo",
-  "homepage": "https://github.com/janux/janux-auth-seed",
+  "name": "janux-portal-client",
   "version": "0.2.00",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:janux/janux-auth-seed.git"
-  },
-  "bugs": {
-    "url": "https://github.com/janux/janux-auth-seed/issues"
-  },
-  "licenses": [
-    {
-      "type": "Apache 2.0",
-      "url": "https://raw.github.com/janux/janux-auth-seed/master/LICENSE"
-    }
-  ],
   "engines": {
     "node": ">= 22.0.0"
   },

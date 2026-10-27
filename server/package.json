@@ -1,8 +1,7 @@
 {
-  "name": "janux-auth-seed-server",
+  "name": "janux-portal-server",
   "version": "0.1.02",
   "private": true,
-  "description": "Back-end to support janux auth seed angular front-end",
   "engines": {
     "node": "^24.22.1 || >=26.12.1",
     "npm": ">= 6.0.0"
