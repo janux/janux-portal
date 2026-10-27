@@ -7,7 +7,7 @@
 			.brand
 				span.janux janux
 			.brand
-				span.people people
+				span.portal portal
 			.brand
 				hr.line
 

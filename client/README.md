@@ -1,4 +1,4 @@
-Janux Vue.js Seed
+Janux Portal
 -----------------
 
 To run for development:

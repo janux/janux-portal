@@ -1,4 +1,4 @@
-# Janux Vue.js Seed - server-side
+# Janux Portal - server-side
 
 * Install by running:
 
