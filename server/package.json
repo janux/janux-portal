@@ -19,7 +19,7 @@
     "express-session": "1.13.0",
     "janux-authorize": "1.0.0",
     "janux-people": "1.0.1",
-    "janux-persist": "0.0.7-rc1",
+    "janux-persist": "0.0.7",
     "jsonwebtoken": "^8.0.1",
     "lodash": "4.17.21",
     "log4js": "0.6.14",
