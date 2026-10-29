@@ -45,8 +45,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2
       janux-persist:
-        specifier: 0.0.8-rc1
-        version: 0.0.8-rc1(config@3.3.12)(supports-color@7.2.0)
+        specifier: 0.0.8
+        version: 0.0.8(config@3.3.12)(supports-color@7.2.0)
       jsonwebtoken:
         specifier: ^8.0.1
         version: 8.5.1
@@ -1020,8 +1020,8 @@ packages:
     resolution: {integrity: sha512-JmP3dUXT/DpUDNTcaDW3oPrAUV3BEGdNOVnkYyjMgwHd3DrQ+b1CfU5MMom3Y+Qq+zHz/AOgYY6E1dAfa2ZNzQ==}
     engines: {node: '>=10'}
 
-  janux-persist@0.0.8-rc1:
-    resolution: {integrity: sha512-c+eSODJmdWHeocu6PcT7JQfP7e+ewM1kRkvQ2HZjtXF5CjU97JGdOUXQqEUGIVLyD1jmxaAJG0Oqowyrf1O6mQ==}
+  janux-persist@0.0.8:
+    resolution: {integrity: sha512-f300UP9hFw4wJF68ZyTAfT5nx0OYwCEWzoKUeJ7AlbM/3EcXzOKj1ayn4k/PLzlxTaftBgsEzdZ5A+KpmwBlGQ==}
     engines: {node: '>= 12.0.0', npm: '>= 6.0.0'}
     peerDependencies:
       config: '>=3.3.12'
@@ -2830,7 +2830,7 @@ snapshots:
 
   janux-people@1.0.2: {}
 
-  janux-persist@0.0.8-rc1(config@3.3.12)(supports-color@7.2.0):
+  janux-persist@0.0.8(config@3.3.12)(supports-color@7.2.0):
     dependencies:
       '@types/big.js': 4.0.2
       '@types/bluebird': 3.5.5
